@@ -223,7 +223,9 @@ CREATE TABLE COMPRA(
 	Importe REAL,
 	Pagada CHAR(1),
 	FechaPago DATE,
-	PRIMARY KEY(IdCompra)
+	IdProveedor INTEGER not null,
+	PRIMARY KEY(IdCompra),
+	FOREIGN KEY (IdProveedor) REFERENCES BODEGA(Id)
 );
 
 -- Entity
@@ -232,9 +234,11 @@ CREATE TABLE LINEACOMPRA(
 	Unidades SMALLINT,
 	Recibida CHAR(1),
 	FechaRecepcion DATE,
-	IdCompra INTEGER,
+	IdCompra INTEGER not null,
+	CodigoReferencia INTEGER not null,
 	PRIMARY KEY(Id),
-	FOREIGN KEY(IdCompra) REFERENCES COMPRA(IdCompra)
+	FOREIGN KEY(IdCompra) REFERENCES COMPRA(IdCompra),
+	FOREIGN KEY(CodigoReferencia) REFERENCES REFERENCIA(Codigo)
 );
 
 -- Enum
