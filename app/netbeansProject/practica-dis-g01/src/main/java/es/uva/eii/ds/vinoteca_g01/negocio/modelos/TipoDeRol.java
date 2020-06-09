@@ -5,16 +5,12 @@
  */
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
-import es.uva.eii.ds.vinoteca_g01.persistencia.daos.DAOEmpleado;
-
 /**
  *
  * @author richard
  */
-public class Empleado {
-
-    public static void getEmpleadoPorNifYPassword(String dni, String password) {
-        String datosJSON = DAOEmpleado.consultaEmpleadoPorNifYPassword(dni, password);
-    }
-    
+public enum TipoDeRol {
+    PERSONAL_ATENCION_CLIENTE,
+    PERSONAL_ALMACEN,
+    PERSONAL_CONTABILIDAD
 }
