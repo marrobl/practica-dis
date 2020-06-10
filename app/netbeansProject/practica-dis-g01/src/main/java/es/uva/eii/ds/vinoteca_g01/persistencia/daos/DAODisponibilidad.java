@@ -7,7 +7,6 @@ package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
 import java.io.StringWriter;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,8 +42,8 @@ public class DAODisponibilidad {
             while (result.next()) {
                 comienzo = result.getDate("Comienzo").toLocalDate();
                 finalPrevisto = result.getDate("FinalPrevisto").toLocalDate();
-                disponibilidad = result.getString("Disponibilidad");
-                disponibilidades.append(mapEntryAsJSON(comienzo, finalPrevisto, disponibilidad));
+                disponibilidad = result.getString("NombreTipo");
+                disponibilidades.append(obtenerDisponibilidadJsonString(comienzo.toString(), finalPrevisto.toString(), disponibilidad));
                 disponibilidades.append(",");
             }
             
@@ -64,23 +63,25 @@ public class DAODisponibilidad {
         return disponibilidades.toString();
     }
 
-    private static String mapEntryAsJSON(LocalDate comienzo, LocalDate finalPrevisto, String disponibilidad) {
-        String entryJSON = "";
-        JsonObject json = Json.createObjectBuilder()
-                .add("comienzo", comienzo.toString())
-                .add("finalPrevisto", Json.createObjectBuilder().add("finalPrevisto", finalPrevisto.toString()).build())
-                .add("disponibilidad", Json.createObjectBuilder().add("disponibilidad", disponibilidad))
-                .build();
+    private static String obtenerDisponibilidadJsonString(String comienzo, String finalPrevisto, String disponibilidad) {
+        String disponibilidadJsonString = "";
         
         try {
             StringWriter stringWriter = new StringWriter();
             JsonWriter writer = Json.createWriter(stringWriter);
-            writer.writeObject(json);
-            entryJSON = stringWriter.toString(); 
-        } catch (Exception ex) {
-            Logger.getLogger(DAODisponibilidad.class.getName()).log(Level.SEVERE, null, ex);
+            
+            JsonObject disponibilidadJson = Json.createObjectBuilder()
+                    .add("comienzo", comienzo)
+                    .add("finalPrevisto", finalPrevisto)
+                    .add("disponibilidad", disponibilidad)
+                    .build();
+            
+            writer.writeObject(disponibilidadJson);
+            disponibilidadJsonString = stringWriter.toString();
+        } catch(Exception ex) {
+            Logger.getLogger(DAORolesEnEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return entryJSON;
-    }  
+        return disponibilidadJsonString;
+    }
 }

@@ -35,9 +35,9 @@ public class DAOEmpleado {
             "SELECT * FROM Persona P, Empleado E WHERE E.nif=? AND E.password=? AND P.nif=E.nif";
 
     public static String consultaEmpleadoPorNifYPassword(String dni, String password) {
-        String empleadoJsonString = "";
+        String empleadoJsonString = null;
         String nif = "", nombre = "", apellidos = "", direccion = "",
-                telefono = "", email = "", cuentaBancaria = "", passw = "";
+                telefono = "", email = "", cuentaBancaria = "";
         LocalDate fechaInicio;
        
         DBConnection connection = DBConnection.getInstance();
@@ -52,14 +52,13 @@ public class DAOEmpleado {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) {
-                nif = rs.getString(1);
-                nombre = rs.getString(2);
-                apellidos = rs.getString(3);
-                direccion = rs.getString(4);
-                telefono = rs.getString(5);
-                cuentaBancaria = rs.getString(6);
-                passw = rs.getString(7);
-                fechaInicio = rs.getTimestamp(8).toLocalDateTime().toLocalDate();
+                nif = rs.getString("Nif");
+                nombre = rs.getString("Nombre");
+                apellidos = rs.getString("Apellidos");
+                direccion = rs.getString("Direccion");
+                telefono = rs.getString("Telefono");
+                cuentaBancaria = rs.getString("CuentaBancaria");
+                fechaInicio = rs.getTimestamp("FechaInicio").toLocalDateTime().toLocalDate();
             }
             
             connection.closeConnection();
@@ -69,7 +68,7 @@ public class DAOEmpleado {
             String disponibilidades = DAODisponibilidad.consultarTodasDisponibilidadesPorId(dni);
             
             empleadoJsonString = obtenerEmpleadoJsonString(nif, nombre, apellidos, direccion,
-                    telefono, email, cuentaBancaria, passw, roles, vinculaciones, disponibilidades);
+                    telefono, email, cuentaBancaria, roles, vinculaciones, disponibilidades);
             
             rs.close();
         } catch(SQLException ex) {
@@ -80,7 +79,7 @@ public class DAOEmpleado {
     }
 
     private static String obtenerEmpleadoJsonString(String nif, String nombre, String apellidos,
-            String direccion, String telefono, String email, String cuentaBancaria, String password,
+            String direccion, String telefono, String email, String cuentaBancaria,
             String roles, String vinculaciones, String disponibilidades) {
         String empleadoJsonString = "";
         JsonReaderFactory factory = Json.createReaderFactory(null);
@@ -104,8 +103,7 @@ public class DAOEmpleado {
                     .add("telefono", telefono)
                     .add("email", email)
                     .add("cuentaBancaria", cuentaBancaria)
-                    .add("password", password)
-                    .add("roles", rolesJsonArray)
+                    .add("rolesEnEmpresa", rolesJsonArray)
                     .add("vinculaciones", vinculacionesJsonArray)
                     .add("disponibilidades", disponibilidadesJsonArray)
                     .build();

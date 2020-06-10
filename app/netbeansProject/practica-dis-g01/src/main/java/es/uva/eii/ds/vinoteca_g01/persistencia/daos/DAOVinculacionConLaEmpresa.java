@@ -40,8 +40,8 @@ public class DAOVinculacionConLaEmpresa {
             
             while (result.next()) {
                 inicio = result.getDate("Inicio").toLocalDate();
-                vinculo = result.getString("Vinculo");
-                vinculaciones.append(mapEntryASJSON(inicio, vinculo));
+                vinculo = result.getString("NombreTipo");
+                vinculaciones.append(obtenerVinculoConLaEmpresaJsonString(inicio.toString(), vinculo));
                 vinculaciones.append(",");
             }
             
@@ -61,24 +61,24 @@ public class DAOVinculacionConLaEmpresa {
         return vinculaciones.toString();
     }
 
-    private static String mapEntryASJSON(LocalDate inicio, String vinculo) {
-        String entryJSON = "";
-        JsonObject json = Json.createObjectBuilder()
-                .add("inicio", inicio.toString())
-                .add("vinculo", Json.createObjectBuilder().add("vinculo", vinculo).build())
-                .build();
+    private static String obtenerVinculoConLaEmpresaJsonString(String inicio, String vinculo) {
+        String vinculoConLaEmpresaJsonString = "";
         
         try {
             StringWriter stringWriter = new StringWriter();
             JsonWriter writer = Json.createWriter(stringWriter);
-            writer.writeObject(json);
-            entryJSON = stringWriter.toString();
-        } catch (Exception ex) {
-            Logger.getLogger(DAORolesEnEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+            
+            JsonObject vinculoJson = Json.createObjectBuilder()
+                    .add("inicio", inicio)
+                    .add("vinculo", vinculo)
+                    .build();
+            
+            writer.writeObject(vinculoJson);
+            vinculoConLaEmpresaJsonString = stringWriter.toString();
+        } catch(Exception ex) {
+            Logger.getLogger(DAOVinculacionConLaEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return entryJSON;
+        return vinculoConLaEmpresaJsonString;
     }
-    
-   
 }

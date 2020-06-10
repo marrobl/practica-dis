@@ -7,7 +7,6 @@ package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
 import java.io.StringWriter;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,12 +36,12 @@ public class DAORolesEnEmpresa {
             ResultSet result = s.executeQuery();
             
             LocalDate comienzoEnEmpresa;
-            String rol = "";
+            String rol;
             
             while (result.next()) {
                 comienzoEnEmpresa = result.getDate("ComienzoEnEmpresa").toLocalDate();
                 rol = result.getString("NombreTipo");
-                roles.append(mapEntryAsJSON(comienzoEnEmpresa, rol));
+                roles.append(obtenerRolEnEmpresaJsonString(comienzoEnEmpresa.toString(), rol));
                 roles.append(",");
             }
             
@@ -62,22 +61,24 @@ public class DAORolesEnEmpresa {
         return roles.toString();
     }
 
-    private static String mapEntryAsJSON(LocalDate comienzoEnEmpresa, String rol) {
-        String entryJSON = "";
-        JsonObject json = Json.createObjectBuilder()
-                .add("comienzoEnEmpresa", comienzoEnEmpresa.toString())
-                .add("rol", Json.createObjectBuilder().add("rol", rol).build())
-                .build();
+    private static String obtenerRolEnEmpresaJsonString(String comienzoEnEmpresa, String rol) {
+        String rolEnEmpresaJsonString = "";
         
         try {
             StringWriter stringWriter = new StringWriter();
             JsonWriter writer = Json.createWriter(stringWriter);
-            writer.writeObject(json);
-            entryJSON = stringWriter.toString();
-        } catch (Exception ex) {
+            
+            JsonObject rolEnEmpresaJson = Json.createObjectBuilder()
+                    .add("comienzoEnEmpresa", comienzoEnEmpresa)
+                    .add("rol", rol)
+                    .build();
+            
+            writer.writeObject(rolEnEmpresaJson);
+            rolEnEmpresaJsonString = stringWriter.toString();
+        } catch(Exception ex) {
             Logger.getLogger(DAORolesEnEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return entryJSON;
+        return rolEnEmpresaJsonString;
     }
 }
