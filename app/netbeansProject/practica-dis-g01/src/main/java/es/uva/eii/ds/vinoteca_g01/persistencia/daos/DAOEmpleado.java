@@ -57,7 +57,6 @@ public class DAOEmpleado {
                 telefono = rs.getString("Telefono");
                 cuentaBancaria = rs.getString("CuentaBancaria");
                 fechaInicio = rs.getDate("FechaInicioEnEmpresa").toLocalDate();
-                System.out.println("Hola");
             }
             
             connection.closeConnection();

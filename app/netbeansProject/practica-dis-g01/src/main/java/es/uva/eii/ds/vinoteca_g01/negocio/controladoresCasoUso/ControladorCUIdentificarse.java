@@ -19,6 +19,9 @@ public class ControladorCUIdentificarse {
     public TipoDeRol identificarEmpleado(String dni, String password) throws DatosIncorrectosException, EmpleadoInactivoException {
         Empleado empleado = Empleado.getEmpleadoPorNifYPassword(dni, password);
         
+        System.out.println(empleado.getNombre());
+        System.out.println(empleado.getNif());
+        System.out.println(empleado.estaActivo());
         if (!empleado.estaActivo()) {
             throw new EmpleadoInactivoException();
         }

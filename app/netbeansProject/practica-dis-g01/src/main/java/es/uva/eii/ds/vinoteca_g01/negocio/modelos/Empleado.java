@@ -102,10 +102,11 @@ public class Empleado extends Persona {
     }
 
     public boolean estaActivo() {
+        RolesEnEmpresa rolActual = rolesEnEmpresa.get(rolesEnEmpresa.size()-1);
         return false;
     }
 
-    public TipoDeRol getRol() {
+    private RolesEnEmpresa getUltimoRol() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
