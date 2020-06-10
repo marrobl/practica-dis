@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
+import javax.json.JsonValue;
 
 /**
  *
@@ -32,10 +34,11 @@ public class Empleado extends Persona {
     }
 
     public Empleado(String nif, String nombre, String apellidos, String telefono, String email, String cuentaBancaria) {
-        super(nif, nombre, apellidos, telefono, email, cuentaBancaria);
+        super();
     }
     
     public Empleado(String json) {
+        super();
         rolesEnEmpresa = new ArrayList<>();
         vinculaciones = new ArrayList<>();
         disponibilidades = new ArrayList<>();
@@ -51,12 +54,43 @@ public class Empleado extends Persona {
             String telefono = empleadoJson.getString("telefono");
             String cuentaBancaria = empleadoJson.getString("cuentaBancaria");
             
-            super(nif, nombre, apellidos, telefono, nif, cuentaBancaria);
+            setNif(nif);
+            setNombre(nombre);
+            setApellidos(apellidos);
+            setTelefono(telefono);
+            setCuentaBancaria(cuentaBancaria);
+            
+            JsonArray rolesJson = empleadoJson.getJsonArray("rolesEnEmpresa");
+            
+            RolesEnEmpresa rolEnEmpresa;
+            
+            for (JsonValue j: rolesJson) {
+                rolEnEmpresa = new RolesEnEmpresa(j.asJsonObject().toString());
+                rolesEnEmpresa.add(rolEnEmpresa);
+            }
+            
+            JsonArray vinculacionesJson = empleadoJson.getJsonArray("vinculaciones");
+            
+            VinculacionConLaEmpresa vinculacion;
+            
+            for (JsonValue j: vinculacionesJson) {
+                vinculacion = new VinculacionConLaEmpresa(j.asJsonObject().toString());
+                vinculaciones.add(vinculacion);
+            }
+            
+            JsonArray disponibilidadesJson = empleadoJson.getJsonArray("disponibilidades");
+            
+            Disponibilidad disponibilidad;
+            
+            for (JsonValue j: disponibilidadesJson) {
+                disponibilidad = new Disponibilidad(j.asJsonObject().toString());
+                disponibilidades.add(disponibilidad);
+            }
+            
         } catch(Exception ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        fechaInicio = 
     }
     
 }

@@ -10,15 +10,6 @@ package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
  * @author richard
  */
 public class Persona {
-
-    public Persona(String nif, String nombre, String apellidos, String telefono, String email, String cuentaBancaria) {
-        this.nif = nif;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.telefono = telefono;
-        this.email = email;
-        this.cuentaBancaria = cuentaBancaria;
-    }
     
     private String nif;
     private String nombre;
@@ -26,7 +17,7 @@ public class Persona {
     private String telefono;
     private String email;
     private String cuentaBancaria;
-
+    
     public String getNif() {
         return nif;
     }

@@ -39,7 +39,7 @@ public class DAORolesEnEmpresa {
             String rol;
             
             while (result.next()) {
-                comienzoEnEmpresa = result.getDate("ComienzoEnEmpresa").toLocalDate();
+                comienzoEnEmpresa = result.getDate("ComienzoEnRol").toLocalDate();
                 rol = result.getString("NombreTipo");
                 roles.append(obtenerRolEnEmpresaJsonString(comienzoEnEmpresa.toString(), rol));
                 roles.append(",");
@@ -69,7 +69,7 @@ public class DAORolesEnEmpresa {
             JsonWriter writer = Json.createWriter(stringWriter);
             
             JsonObject rolEnEmpresaJson = Json.createObjectBuilder()
-                    .add("comienzoEnEmpresa", comienzoEnEmpresa)
+                    .add("comienzoEnRol", comienzoEnEmpresa)
                     .add("rol", rol)
                     .build();
             

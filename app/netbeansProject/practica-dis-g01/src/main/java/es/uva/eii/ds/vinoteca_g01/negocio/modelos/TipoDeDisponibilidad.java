@@ -9,8 +9,8 @@ package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
  *
  * @author richard
  */
-public enum TipoDeRol {
-    Almacen,
-    AtencionCliente,
-    Contabilidad
+public enum TipoDeDisponibilidad {
+    Vacaciones,
+    BajaTemporal,
+    Trabajando
 }
