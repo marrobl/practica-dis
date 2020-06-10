@@ -25,7 +25,7 @@ public class CtrlVistaIdentificarse {
         controladorCasoUso = new ControladorCUIdentificarse();
     }
 
-    public void procesaEventoIdentificarse() {
+    public void procesaEventoIdentificarse() throws DatosIncorrectosException, EmpleadoInactivoException {
         String dni = vista.getDni();
         String password = vista.getPassword();
         
