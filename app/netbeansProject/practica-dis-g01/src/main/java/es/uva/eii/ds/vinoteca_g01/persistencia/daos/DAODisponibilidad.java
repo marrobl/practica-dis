@@ -23,7 +23,7 @@ import javax.json.JsonWriter;
  */
 public class DAODisponibilidad {
     public static final String SELECT_TODAS_DISPONIBILIDADES_EMPLEADO =
-            "SELECT * FROM Disponibilidad D, TipoDeDisponibilidad TD WHERE D.empleado=? AND D.disponibilidad=TD.idTipo ORDER BY D.comienzo ASC";
+            "SELECT * FROM DisponibilidadEmpleado D, TipoDeDisponibilidad TD WHERE D.empleado=? AND D.disponibilidad=TD.idTipo ORDER BY D.comienzo ASC";
 
     static String consultarTodasDisponibilidadesPorId(String dni) {
         DBConnection connection = DBConnection.getInstance();

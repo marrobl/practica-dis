@@ -6,6 +6,7 @@
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.daos.DAOEmpleado;
+import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.DatosIncorrectosException;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,10 +29,6 @@ public class Empleado extends Persona {
     private ArrayList<RolesEnEmpresa> rolesEnEmpresa;
     private ArrayList<VinculacionConLaEmpresa> vinculaciones;
     private ArrayList<Disponibilidad> disponibilidades;
-
-    public static void getEmpleadoPorNifYPassword(String dni, String password) {
-        String datosJSON = DAOEmpleado.consultaEmpleadoPorNifYPassword(dni, password);
-    }
 
     public Empleado(String nif, String nombre, String apellidos, String telefono, String email, String cuentaBancaria) {
         super();
@@ -87,10 +84,28 @@ public class Empleado extends Persona {
                 disponibilidades.add(disponibilidad);
             }
             
+            
+            System.out.println(nif);
         } catch(Exception ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
+    public static Empleado getEmpleadoPorNifYPassword(String dni, String password) throws DatosIncorrectosException {
+        String datosJSON = DAOEmpleado.consultaEmpleadoPorNifYPassword(dni, password);      
+        
+        if (datosJSON == null) {
+            throw new DatosIncorrectosException();
+        }
+        
+        return new Empleado(datosJSON);
+    }
+
+    public boolean estaActivo() {
+        return false;
+    }
+
+    public TipoDeRol getRol() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

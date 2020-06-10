@@ -5,6 +5,7 @@
  */
 package es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,12 +31,14 @@ public class DBConnection {
             InputStream read;
             String url, user, password;
             try {
-                read = DBConnection.class.getResourceAsStream("config.db");
-                prop.load(read);
+                //read = DBConnection.class.getResourceAsStream("config.db");
+                FileInputStream fis = new FileInputStream("../../db/config.db");
+                prop.load(fis);
                 url = prop.getProperty("url");
                 user = prop.getProperty("user");
                 password = prop.getProperty("password");
-                read.close();
+                fis.close();
+                //read.close();
                 theDBConnection = new DBConnection(url, user, password);
             } catch (FileNotFoundException e) {
                 System.err.println("DB configuration file not found.");

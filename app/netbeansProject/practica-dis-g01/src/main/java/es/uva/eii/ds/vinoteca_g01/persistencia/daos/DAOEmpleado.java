@@ -8,7 +8,6 @@ package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +17,6 @@ import java.util.logging.Logger;
 
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
@@ -58,7 +56,8 @@ public class DAOEmpleado {
                 direccion = rs.getString("Direccion");
                 telefono = rs.getString("Telefono");
                 cuentaBancaria = rs.getString("CuentaBancaria");
-                fechaInicio = rs.getTimestamp("FechaInicio").toLocalDateTime().toLocalDate();
+                fechaInicio = rs.getDate("FechaInicioEnEmpresa").toLocalDate();
+                System.out.println("Hola");
             }
             
             connection.closeConnection();
@@ -75,7 +74,7 @@ public class DAOEmpleado {
             Logger.getLogger(DAOEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return null;
+        return empleadoJsonString;
     }
 
     private static String obtenerEmpleadoJsonString(String nif, String nombre, String apellidos,
