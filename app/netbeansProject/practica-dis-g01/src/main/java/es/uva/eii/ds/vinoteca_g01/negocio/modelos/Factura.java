@@ -55,11 +55,18 @@ public class Factura {
         this.numeroFactura = Integer.parseInt(facturaJSON.getJsonString("numeroFactura").getString());
         this.fechaEmision = LocalDate.parse(facturaJSON.getJsonString("fechaEmision").getString());
         this.importe = Double.parseDouble(facturaJSON.getJsonString("importe").getString());
-        this.estado = EstadoFactura.valueOf(facturaJSON.getJsonString("estado").getString());
-        this.fechaPago = LocalDate.parse(facturaJSON.getJsonString("fechaPago").getString());
+        this.estado = EstadoFactura.values()[Integer.parseInt(facturaJSON.getJsonString("estado").getString())];
+        if(estado.equals(EstadoFactura.Pagada)) {
+            this.fechaPago =  LocalDate.parse(facturaJSON.getJsonString("fechaPago").getString());
+        } else {
+            this.fechaPago = null;
+        }
         this.idExtractoBancario = facturaJSON.getJsonString("idExtractoBancario").getString();
     }
     
+    public int getNumeroFactura(){
+        return this.numeroFactura;
+    }
     private static boolean comprobarFecha(LocalDate fecha) {
         boolean ok = false;
         long daysBetween = DAYS.between(fecha, LocalDate.now());
@@ -94,6 +101,6 @@ public class Factura {
        }
        
     
-         return facturas;
+        return facturas;
     }
 }

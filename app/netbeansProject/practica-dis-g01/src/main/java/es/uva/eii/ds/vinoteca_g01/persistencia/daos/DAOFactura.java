@@ -29,15 +29,15 @@ import javax.json.JsonWriter;
 public class DAOFactura {
 
     private static final String SELECT_FACTURAS_FECHA
-            = "SELECT * FROM Factura F, EstadoFactura E WHERE F.FechaEmision <= ? AND F.Estado = E.Id AND E.Nombre = 'vencida' ";
+            = "SELECT * FROM Factura F, EstadoFactura E WHERE F.FechaEmision <= ? AND F.Estado = E.Id AND E.Nombre = 'Vencida' ";
 
     public static String consultaFacturasFecha(LocalDate fecha) {
-        String facturasJsonString = null;
+        String facturasJsonString;
 
         int numeroFactura, estado;
         double importe;
-        LocalDate fechaEmision, fechaPago = null;
-        String idExtractoBancario = "";
+        LocalDate fechaEmision, fechaPago;
+        String idExtractoBancario;
 
         DBConnection connection = DBConnection.getInstance();
         connection.openConnection();
@@ -58,6 +58,8 @@ public class DAOFactura {
                 estado = rs.getInt("Estado");
                 if (rs.getDate("FechaPago") != null) {
                     fechaPago = rs.getDate("FechaPago").toLocalDate();
+                } else {
+                    fechaPago = null;                
                 }
                 idExtractoBancario = rs.getString("IdExtractoBancario");
 
