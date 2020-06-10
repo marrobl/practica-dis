@@ -5,16 +5,98 @@
  */
 package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
+import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
+import java.io.StringWriter;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonWriter;
 
 /**
  *
  * @author maria
  */
 public class DAOFactura {
-
+    private static final String SELECT_FACTURAS_FECHA = 
+            "SELECT * FROM Factura F, EstadoFactura E WHERE F.FechaEmision <= ? AND F.Estado = E.Id AND E.Nombre = 'vencida' ";
+    
     public static String consultaFacturasFecha(LocalDate fecha) {
-        return "";
+        String facturaJsonString = "";
+        
+        int numeroFactura, estado;
+        double importe;
+        LocalDate fechaEmision, fechaPago;
+        String idExtractoBancario = "";
+        
+        DBConnection connection = DBConnection.getInstance();
+        connection.openConnection();
+        StringBuilder facturas = new StringBuilder("[");
+        
+        try {
+            PreparedStatement ps = connection.getStatement(SELECT_FACTURAS_FECHA);
+            ps.setDate(1, java.sql.Date.valueOf(fecha));
+           
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                numeroFactura = rs.getInt("NumeroFactura");
+                importe = rs.getDouble("Importe");
+                fechaEmision = rs.getTimestamp("FechaEmision").toLocalDateTime().toLocalDate();
+                estado = rs.getInt("Estado");
+                fechaPago = rs.getTimestamp("FechaPago").toLocalDateTime().toLocalDate();
+                idExtractoBancario = rs.getString("IdExtractoBancario");
+                
+                facturas.append(obtenerFacturaJsonString(Integer.toString(numeroFactura), Double.toString(importe),fechaEmision.toString(), Integer.toString(estado), fechaPago.toString(), idExtractoBancario));
+                facturas.append(",");
+             
+            }
+   
+            rs.close();
+        } catch(SQLException ex) {
+            Logger.getLogger(DAOFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        connection.closeConnection();
+        if (facturas.charAt(facturas.length()-1) == ',') {
+            facturas.deleteCharAt(facturas.length()-1);
+        }
+        
+        facturas.append("]");
+        
+        return facturas.toString();
     }
+
+    private static String obtenerFacturaJsonString(String numeroFactura, String importe, String fechaEmision, String estado, String fechaPago, String idExtractoBancario) {
+        String facturaJsonString = "";
+        
+        try {
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter);
+            
+            JsonObject facturaJson = Json.createObjectBuilder()
+                    .add("numeroFactura", numeroFactura)
+                    .add("importe", importe)
+                    .add("fechaEmision", fechaEmision)
+                    .add("estado", estado)
+                    .add("fechaPago", fechaPago)
+                    .add("idExtractoBancario", idExtractoBancario)
+                    .build();
+            
+            writer.writeObject(facturaJson);
+            facturaJsonString = stringWriter.toString();
+        } catch(Exception ex) {
+            Logger.getLogger(DAORolesEnEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return facturaJsonString;
+    }
+
+   
     
 }
