@@ -106,7 +106,11 @@ public class VistaIdentificarse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ConfirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmarButtonActionPerformed
+       try{
         controlador.procesaEventoIdentificarse();
+       } catch (Exception ex){
+  
+       }
     }//GEN-LAST:event_ConfirmarButtonActionPerformed
 
     /**
