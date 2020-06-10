@@ -26,7 +26,7 @@ public class ControladorCUIdentificarse {
             throw new EmpleadoInactivoException();
         }
         
-        return empleado.getRol();
+        return null;
     }
     
 }
