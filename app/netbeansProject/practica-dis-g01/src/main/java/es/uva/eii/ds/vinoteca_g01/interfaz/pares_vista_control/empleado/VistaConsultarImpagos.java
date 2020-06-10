@@ -173,4 +173,10 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     public void esconderMensajeError() {
         errorLabel.setVisible(false);
     }
+
+    void mostrarAvisoNoVencido(String mensaje) {
+               errorLabel.setText(mensaje);
+        errorLabel.setVisible(true);
+        errorLabel.setText(mensaje);
+    }
 }
