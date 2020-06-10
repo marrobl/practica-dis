@@ -8,6 +8,7 @@ package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCUConsultarImpagos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  *
@@ -18,7 +19,8 @@ public class CtrlVistaConsultarImpagos {
     private final VistaConsultarImpagos vista;
     private final ControladorCUConsultarImpagos controladorCasoUso;
     private final String ERROR_FECHA_VACIA = "La fecha no puede estar vacía";
-   
+    private final String ERROR_FECHA_FORMATO = "El formato de la fecha no es correcto";
+    
     public CtrlVistaConsultarImpagos(VistaConsultarImpagos vista) {
         this.vista = vista;
         controladorCasoUso = new ControladorCUConsultarImpagos();
@@ -30,8 +32,12 @@ public class CtrlVistaConsultarImpagos {
             vista.mostrarMensajeError(ERROR_FECHA_VACIA);
         }else {
             vista.esconderMensajeError();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate date = LocalDate.parse(fecha, formatter);
+            try{
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate date = LocalDate.parse(fecha, formatter);
+            } catch (DateTimeParseException ex){
+                vista.mostrarMensajeError(ERROR_FECHA_FORMATO);
+            }
         }
     }
 }

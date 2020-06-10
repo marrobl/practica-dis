@@ -165,6 +165,7 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     }
 
     public void mostrarMensajeError(String mensaje) {
+        errorLabel.setText(mensaje);
         errorLabel.setVisible(true);
         errorLabel.setText(mensaje);
     }
