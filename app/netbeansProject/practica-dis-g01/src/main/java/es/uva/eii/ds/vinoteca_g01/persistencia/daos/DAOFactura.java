@@ -7,6 +7,7 @@ package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class DAOFactura {
         
         int numeroFactura, estado;
         double importe;
-        LocalDate fechaEmision, fechaPago;
+        LocalDate fechaEmision, fechaPago = null;
         String idExtractoBancario = "";
         
         DBConnection connection = DBConnection.getInstance();
@@ -47,27 +48,32 @@ public class DAOFactura {
             while (rs.next()) {
                 numeroFactura = rs.getInt("NumeroFactura");
                 importe = rs.getDouble("Importe");
-                fechaEmision = rs.getTimestamp("FechaEmision").toLocalDateTime().toLocalDate();
+                fechaEmision = rs.getDate("FechaEmision").toLocalDate();
                 estado = rs.getInt("Estado");
-                fechaPago = rs.getTimestamp("FechaPago").toLocalDateTime().toLocalDate();
+                if(rs.getDate("FechaPago")!= null){
+                    fechaPago = rs.getDate("FechaPago").toLocalDate();
+                } 
                 idExtractoBancario = rs.getString("IdExtractoBancario");
                 
-                facturas.append(obtenerFacturaJsonString(Integer.toString(numeroFactura), Double.toString(importe),fechaEmision.toString(), Integer.toString(estado), fechaPago.toString(), idExtractoBancario));
+                
+                facturas.append(obtenerFacturaJsonString(Integer.toString(numeroFactura), Double.toString(importe),fechaEmision.toString(), Integer.toString(estado), fechaPago == null ? "" : fechaPago.toString(), idExtractoBancario));
                 facturas.append(",");
              
             }
-   
+            
+            if (facturas.charAt(facturas.length()-1) == ',') {
+                facturas.deleteCharAt(facturas.length()-1);
+            }
+
+            facturas.append("]");
+            JsonObject json = Json.createObjectBuilder().add("facturas", facturas.toString()).build();
             rs.close();
         } catch(SQLException ex) {
             Logger.getLogger(DAOFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         connection.closeConnection();
-        if (facturas.charAt(facturas.length()-1) == ',') {
-            facturas.deleteCharAt(facturas.length()-1);
-        }
-        
-        facturas.append("]");
+       
         
         return facturas.toString();
     }
