@@ -288,3 +288,14 @@ CREATE TABLE LINEAPEDIDO(
 );
 
 
+INSERT INTO PERSONA (Nif, Nombre, Apellidos, Direccion, Telefono, Email, CuentaBancaria) 
+    VALUES 
+    ('12345678A', 'Pepe', 'The Frog', 'Cloacas', '655555555', 'pepe@frog.com', '55-70');
+
+INSERT INTO EMPLEADO (Nif, Password, FechaInicioEnEmpresa)
+    VALUES 
+    ('12345678A', 'frog', '2019-06-20');
+
+INSERT INTO ROLESENEMPRESA (ComienzoEnRol, Empleado, Rol) 
+    VALUES 
+    ('2019-06-20', '12345678A', 1);
