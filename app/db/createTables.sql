@@ -288,14 +288,81 @@ CREATE TABLE LINEAPEDIDO(
 );
 
 
-INSERT INTO PERSONA (Nif, Nombre, Apellidos, Direccion, Telefono, Email, CuentaBancaria) 
-    VALUES 
-    ('12345678A', 'Pepe', 'The Frog', 'Cloacas', '655555555', 'pepe@frog.com', '55-70');
+INSERT INTO PERSONA VALUES (
+	'123123','Pepe','Gonzalez','Calle Pepe','6786785', 
+	'pepe@pepe.com','1234567890'
+);
 
-INSERT INTO EMPLEADO (Nif, Password, FechaInicioEnEmpresa)
-    VALUES 
-    ('12345678A', 'frog', '2019-06-20');
+INSERT INTO EMPLEADO VALUES (
+	'123123','password','2011-11-11'
+);
 
-INSERT INTO ROLESENEMPRESA (ComienzoEnRol, Empleado, Rol) 
-    VALUES 
-    ('2019-06-20', '12345678A', 1);
+INSERT INTO ROLESENEMPRESA VALUES (
+	'2011-11-12','123123',3
+);
+
+INSERT INTO VINCULACIONCONLAEMPRESA VALUES(
+	'2011-11-11','123123',1
+
+);
+
+INSERT INTO DISPONIBILIDADEMPLEADO VALUES (
+	'2011-11-11','2011-11-13','123123',3
+);
+
+INSERT INTO PERSONA VALUES (
+	'456456', 'Sara', 'Rodriguez', 'Calle Bla Bla', '1111111', 
+	'holasoysara@gmail.com', '123456789078876'
+);
+
+INSERT INTO EMPLEADO VALUES (
+	'456456', 'pass', '2003-11-11'
+);
+
+INSERT INTO ROLESENEMPRESA VALUES (
+	'2003-11-11', '456456', 2
+);
+
+INSERT INTO VINCULACIONCONLAEMPRESA VALUES(
+	'2003-11-11', '456456', 1
+
+);
+
+INSERT INTO DISPONIBILIDADEMPLEADO VALUES(
+	'2003-11-11', '2023-11-11', '456456', 3
+);
+
+INSERT INTO PERSONA VALUES (
+	'987987', 'Jose', 'Vinos', 'Calle Proveer', '1111111', 
+	'ok@gmail.com', '123489078876'
+);
+
+INSERT INTO EMPLEADO VALUES (
+	'987987', 'perro', '2009-09-02'
+);
+
+INSERT INTO ROLESENEMPRESA VALUES (
+	'2009-09-02', '987987', 1
+);
+
+INSERT INTO VINCULACIONCONLAEMPRESA VALUES(
+	'2009-09-02', '987987', 1
+
+);
+
+INSERT INTO DISPONIBILIDADEMPLEADO VALUES(
+	'2009-09-02', '2029-09-02', '987987', 3
+);
+
+
+INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES (
+	'2020-05-05', 13.0, 2, NULL, '879878'
+);
+
+INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES (
+	'2020-04-29', 130.0, 2, NULL, '879878'
+);
+
+INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES (
+	'2020-06-06', 13.0, 1, NULL, '879878'
+);
