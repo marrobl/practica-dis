@@ -10,6 +10,7 @@ import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 /**
  *
  * @author maria
@@ -221,7 +222,13 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     }
 
     void mostrarFacturasImpagos(HashMap<Integer, ArrayList<Pedido>> facturas) {
-        
+       
+        for (HashMap.Entry<Integer, ArrayList<Pedido>> entry : facturas.entrySet()) {
+            ArrayList<Pedido> pedidos = entry.getValue();
+                for(Pedido pedido : pedidos){
+                    // Pedido individual para imprimir lo que sea
+                }
+        }
     }
     
 }
