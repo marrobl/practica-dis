@@ -97,7 +97,7 @@ public class Factura {
            throw new FechaNoVencidaException();
        }
        String facturasJSON = DAOFactura.consultaFacturasFecha(fecha);
-       ArrayList<Factura> facturas = new ArrayList<Factura>();
+       ArrayList<Factura> facturas = new ArrayList<>();
        JsonReaderFactory factory = Json.createReaderFactory(null);
        try{
             JsonReader reader = factory.createReader(new StringReader(facturasJSON));

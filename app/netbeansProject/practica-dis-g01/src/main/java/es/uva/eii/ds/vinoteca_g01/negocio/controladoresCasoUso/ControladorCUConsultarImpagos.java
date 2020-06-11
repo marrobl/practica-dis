@@ -6,9 +6,11 @@
 package es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso;
 
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Factura;
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.FechaNoVencidaException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -16,9 +18,16 @@ import java.util.ArrayList;
  */
 public class ControladorCUConsultarImpagos {
 
-    public ArrayList<Factura> obtenerListaFacturas(LocalDate fecha) throws FechaNoVencidaException {
-        ArrayList<Factura> facturas = Factura.getFacturasFecha(fecha);
-       return facturas;
+    public HashMap<Integer,ArrayList<Pedido>> obtenerListaFacturas(LocalDate fecha) throws FechaNoVencidaException {
+       int numeroFactura;
+       ArrayList<Factura> facturas = Factura.getFacturasFecha(fecha);
+       HashMap<Integer, ArrayList<Pedido>> facturaPedidos = null;
+       
+       for(Factura f: facturas){
+           numeroFactura = f.getNumeroFactura();
+           ArrayList<Pedido> pedidos = Pedido.getPedidosNumFactura(numeroFactura);
+       }
+       return facturaPedidos;
     }
     
 }
