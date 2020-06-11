@@ -31,5 +31,9 @@ class Disponibilidad {
         finalPrevisto = LocalDate.parse(disponibilidadJSON.getJsonString("finalPrevisto").getString());
         disponibilidad = TipoDeDisponibilidad.valueOf(disponibilidadJSON.getJsonString("disponibilidad").getString());
     }
+
+    public TipoDeDisponibilidad getDisponibilidad() {
+        return disponibilidad;
+    }
     
 }

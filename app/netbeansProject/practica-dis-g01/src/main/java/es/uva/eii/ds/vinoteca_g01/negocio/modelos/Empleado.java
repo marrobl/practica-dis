@@ -34,6 +34,37 @@ public class Empleado extends Persona {
         super();
     }
     
+    
+    
+    public static Empleado getEmpleadoPorNifYPassword(String dni, String password) throws DatosIncorrectosException {
+        String datosJSON = DAOEmpleado.consultaEmpleadoPorNifYPassword(dni, password);      
+        
+        if (datosJSON == null) {
+            throw new DatosIncorrectosException();
+        }
+        
+        return new Empleado(datosJSON);
+    }
+
+    public boolean estaActivo() {
+        TipoDeVinculacion ultimoVinculo = getUltimoVinculo();
+        TipoDeDisponibilidad ultimaDisponibilidad = getUltimaDisponibilidad();
+        
+        return ultimoVinculo == TipoDeVinculacion.Contratado && ultimaDisponibilidad == TipoDeDisponibilidad.Trabajando;
+    }
+    
+    public TipoDeRol getUltimoRol() {
+        return rolesEnEmpresa.get(rolesEnEmpresa.size() - 1) .getRol();
+    }
+    
+    public TipoDeVinculacion getUltimoVinculo() {
+        return vinculaciones.get(vinculaciones.size() - 1).getVinculo();    
+    }
+
+    public TipoDeDisponibilidad getUltimaDisponibilidad() {
+        return disponibilidades.get(disponibilidades.size() - 1).getDisponibilidad();
+    }
+    
     public Empleado(String json) {
         super();
         rolesEnEmpresa = new ArrayList<>();
@@ -82,31 +113,10 @@ public class Empleado extends Persona {
             for (JsonValue j: disponibilidadesJson) {
                 disponibilidad = new Disponibilidad(j.asJsonObject().toString());
                 disponibilidades.add(disponibilidad);
-            }
+            }     
             
-            
-            System.out.println(nif);
         } catch(Exception ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public static Empleado getEmpleadoPorNifYPassword(String dni, String password) throws DatosIncorrectosException {
-        String datosJSON = DAOEmpleado.consultaEmpleadoPorNifYPassword(dni, password);      
-        
-        if (datosJSON == null) {
-            throw new DatosIncorrectosException();
-        }
-        
-        return new Empleado(datosJSON);
-    }
-
-    public boolean estaActivo() {
-        RolesEnEmpresa rolActual = rolesEnEmpresa.get(rolesEnEmpresa.size()-1);
-        return false;
-    }
-
-    private RolesEnEmpresa getUltimoRol() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

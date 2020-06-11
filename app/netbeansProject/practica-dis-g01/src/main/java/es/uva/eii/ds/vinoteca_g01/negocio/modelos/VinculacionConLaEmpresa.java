@@ -29,5 +29,8 @@ class VinculacionConLaEmpresa {
         inicio = LocalDate.parse((vinculoJSON.getJsonString("inicio").getString()));        
         vinculo = TipoDeVinculacion.valueOf(vinculoJSON.getJsonString("vinculo").getString());
     }
-    
+
+    public TipoDeVinculacion getVinculo() {
+        return vinculo;
+    }    
 }

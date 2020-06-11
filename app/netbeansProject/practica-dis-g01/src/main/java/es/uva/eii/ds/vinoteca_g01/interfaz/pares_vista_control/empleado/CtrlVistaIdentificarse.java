@@ -5,10 +5,13 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
+import es.uva.eii.ds.vinoteca_g01.interfaz.GestorDeInterfazDeUsuario;
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCUIdentificarse;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.TipoDeRol;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.DatosIncorrectosException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.EmpleadoInactivoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,13 +22,15 @@ public class CtrlVistaIdentificarse {
     private final VistaIdentificarse vista;
     private final ControladorCUIdentificarse controladorCasoUso;
     private final String ERROR_CADENA_VACIA = "Los campos de texto no pueden estar vacíos";
+    private final String ERROR_DATOS_INCORRECTOS = "El dni o la contraseña es incorrecta";
+    private final String ERROR_EMPLEADO_INACTIVO = "El empleado está inactivo";
     
     public CtrlVistaIdentificarse(VistaIdentificarse vista) {
         this.vista = vista;
         controladorCasoUso = new ControladorCUIdentificarse();
     }
 
-    public void procesaEventoIdentificarse() throws DatosIncorrectosException, EmpleadoInactivoException {
+    public void procesaEventoIdentificarse() {
         String dni = vista.getDni();
         String password = vista.getPassword();
         
@@ -38,7 +43,14 @@ public class CtrlVistaIdentificarse {
         else {
             vista.esconderMensajeError();
             
-            TipoDeRol rol = controladorCasoUso.identificarEmpleado(dni, password);
+            try {
+                TipoDeRol rol = controladorCasoUso.identificarEmpleado(dni, password);
+                GestorDeInterfazDeUsuario.getInstance().cambiarVistaSegunRol(rol);
+            } catch (DatosIncorrectosException ex) {
+                vista.mostrarMensajeError(ERROR_DATOS_INCORRECTOS);
+            } catch (EmpleadoInactivoException ex) {
+                vista.mostrarMensajeError(ERROR_EMPLEADO_INACTIVO);
+            }
         }
     }
     

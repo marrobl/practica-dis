@@ -29,5 +29,9 @@ class RolesEnEmpresa {
         comienzoEnRol = LocalDate.parse(rolEnEmpresaJSON.getJsonString("comienzoEnRol").getString());
         rol = TipoDeRol.valueOf(rolEnEmpresaJSON.getJsonString("rol").getString());
     }
+
+    public TipoDeRol getRol() {
+        return rol;
+    }
     
 }
