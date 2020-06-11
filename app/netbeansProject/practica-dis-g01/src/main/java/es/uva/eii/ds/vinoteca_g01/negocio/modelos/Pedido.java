@@ -99,7 +99,6 @@ public class Pedido {
     }
     
     public static ArrayList<Pedido> getPedidosNumFactura(int numeroFactura) {
-        System.out.println("NumFactura en getPedidosNumFactura : "+numeroFactura);
        String pedidosJSON = DAOPedido.consultaPedidosNumFactura(numeroFactura);
        ArrayList<Pedido> pedidos = new ArrayList<>();
        JsonReaderFactory factory = Json.createReaderFactory(null);
@@ -112,9 +111,6 @@ public class Pedido {
 
             for (JsonValue j: pedJson) {
                     pedido = new Pedido(j.asJsonObject().toString());
-                    System.out.println("El numFact del pedido es: "+pedido.numeroFactura);
-                    System.out.println("El numero del pedido es:" +pedido.getNumero());
-                    System.out.println(pedido.getNotaEntrega());
                     pedidos.add(pedido);
             }
        } catch(Exception ex) {

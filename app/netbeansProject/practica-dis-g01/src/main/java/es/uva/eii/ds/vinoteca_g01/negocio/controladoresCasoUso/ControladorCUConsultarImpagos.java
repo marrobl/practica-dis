@@ -25,7 +25,6 @@ public class ControladorCUConsultarImpagos {
        
        for(Factura f: facturas){
            numeroFactura = f.getNumeroFactura();
-           System.out.println(numeroFactura);
            ArrayList<Pedido> pedidos = Pedido.getPedidosNumFactura(numeroFactura);
            if(pedidos.size() > 0) facturaPedidos.put(numeroFactura, pedidos);
        }

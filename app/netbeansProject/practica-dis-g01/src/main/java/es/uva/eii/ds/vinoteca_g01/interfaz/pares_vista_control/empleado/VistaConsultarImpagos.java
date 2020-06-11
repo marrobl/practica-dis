@@ -221,7 +221,7 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     }
 
     void mostrarFacturasImpagos(HashMap<Integer, ArrayList<Pedido>> facturas) {
-   
+        
     }
     
 }
