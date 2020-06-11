@@ -55,7 +55,7 @@ public class DAOPedido {
                 numeroPedido = rs.getInt("Numero");
                 estado = rs.getInt("Estado");
                 fechaRealizacion = rs.getDate("FechaRealizacion").toLocalDate();
-                notaEntrega = rs.getString("NotaEtrega");
+                notaEntrega = rs.getString("NotaEntrega");
                 importe = rs.getDouble("Importe");
                 fechaRecepcion = rs.getDate("FechaRecepcion").toLocalDate();
                 fechaEntrega = rs.getDate("FechaEntrega").toLocalDate();

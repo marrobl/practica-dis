@@ -21,11 +21,13 @@ public class ControladorCUConsultarImpagos {
     public HashMap<Integer,ArrayList<Pedido>> obtenerListaFacturas(LocalDate fecha) throws FechaNoVencidaException {
        int numeroFactura;
        ArrayList<Factura> facturas = Factura.getFacturasFecha(fecha);
-       HashMap<Integer, ArrayList<Pedido>> facturaPedidos = null;
+       HashMap<Integer, ArrayList<Pedido>> facturaPedidos =  new HashMap<>();
        
        for(Factura f: facturas){
            numeroFactura = f.getNumeroFactura();
+           System.out.println(numeroFactura);
            ArrayList<Pedido> pedidos = Pedido.getPedidosNumFactura(numeroFactura);
+           if(pedidos.size() > 0) facturaPedidos.put(numeroFactura, pedidos);
        }
        return facturaPedidos;
     }

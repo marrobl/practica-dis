@@ -303,6 +303,7 @@ INSERT INTO ROLESENEMPRESA VALUES (
 
 INSERT INTO VINCULACIONCONLAEMPRESA VALUES(
 	'2011-11-11','123123',1
+
 );
 
 INSERT INTO DISPONIBILIDADEMPLEADO VALUES (
@@ -336,6 +337,11 @@ INSERT INTO PERSONA VALUES (
 	'ok@gmail.com', '123489078876'
 );
 
+INSERT INTO PERSONA VALUES (
+	'121212', 'Maite', 'Garcia', 'Calle Proveer', '1111111', 
+	'maite@gmail.com', '123489078876'
+);
+
 INSERT INTO EMPLEADO VALUES (
 	'987987', 'perro', '2009-09-02'
 );
@@ -365,3 +371,32 @@ INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario
 INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES (
 	'2020-06-06', 13.0, 1, NULL, '879878'
 );
+
+INSERT INTO ABONADO(OpenIDref, Nif) VALUES(
+        '2', '121212'
+); 
+
+INSERT INTO ABONADO(OpenIDref, Nif) VALUES(
+        '1', '123123'
+); 
+
+INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
+        5, '2020-04-05', 'Nota de entrega del pedido 1', 5.0, '2020-05-09', '2020-05-10', 1, 1
+);
+
+INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
+        5, '2020-04-05', 'Nota de entrega del pedido 2', 7.0, '2020-04-09', '2020-04-10', 1, 1
+);
+
+INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
+        5, '2020-04-05', 'Nota de entrega del pedido 3', 5.0, '2020-04-09', '2020-04-10', 1, 1
+);
+
+INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
+        5, '2020-03-29', 'Observacion del pedido 1', 105.0, '2020-04-02', '2020-04-10', 2, 2
+);
+
+INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
+        5, '2020-03-29', 'Observacion del pedido 2', 70.0, '2020-04-03', '2020-04-10', 2, 2
+);
+
