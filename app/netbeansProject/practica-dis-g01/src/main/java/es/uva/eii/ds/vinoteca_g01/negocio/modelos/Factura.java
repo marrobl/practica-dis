@@ -79,23 +79,20 @@ public class Factura {
        if( ok == false){
            throw new FechaNoVencidaException();
        }
-       
        String facturasJSON = DAOFactura.consultaFacturasFecha(fecha);
        ArrayList<Factura> facturas = new ArrayList<Factura>();
        JsonReaderFactory factory = Json.createReaderFactory(null);
        try{
-       JsonReader reader = factory.createReader(new StringReader(facturasJSON));
-       JsonObject facturasJson = reader.readObject();
-       JsonArray factJson = facturasJson.getJsonArray("facturas");
-        
-       Factura factura;
-       
-       for (JsonValue j: factJson) {
-               factura = new Factura(j.asJsonObject().toString());
-               facturas.add(factura);
-       }
-        
-      
+            JsonReader reader = factory.createReader(new StringReader(facturasJSON));
+            JsonObject facturasJson = reader.readObject();
+            JsonArray factJson = facturasJson.getJsonArray("facturas");
+
+            Factura factura;
+
+            for (JsonValue j: factJson) {
+                    factura = new Factura(j.asJsonObject().toString());
+                    facturas.add(factura);
+            }
        } catch(Exception ex) {
             Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
        }
