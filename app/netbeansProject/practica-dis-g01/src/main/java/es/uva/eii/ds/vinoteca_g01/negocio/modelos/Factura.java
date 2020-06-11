@@ -55,7 +55,7 @@ public class Factura {
         this.numeroFactura = Integer.parseInt(facturaJSON.getJsonString("numeroFactura").getString());
         this.fechaEmision = LocalDate.parse(facturaJSON.getJsonString("fechaEmision").getString());
         this.importe = Double.parseDouble(facturaJSON.getJsonString("importe").getString());
-        this.estado = EstadoFactura.values()[Integer.parseInt(facturaJSON.getJsonString("estado").getString())];
+        this.estado = EstadoFactura.values()[Integer.parseInt(facturaJSON.getJsonString("estado").getString())-1];  
         if(estado.equals(EstadoFactura.Pagada)) {
             this.fechaPago =  LocalDate.parse(facturaJSON.getJsonString("fechaPago").getString());
         } else {
@@ -67,6 +67,23 @@ public class Factura {
     public int getNumeroFactura(){
         return this.numeroFactura;
     }
+    
+    public LocalDate getFechaEmision(){
+        return this.fechaEmision;
+    }
+    
+    public double getImporte(){
+        return this.importe;
+    }
+    
+    public EstadoFactura getEstado(){
+        return this.estado;
+    }
+    
+    public LocalDate getFechaPago(){
+        return this.fechaPago;
+    }
+    
     private static boolean comprobarFecha(LocalDate fecha) {
         boolean ok = false;
         long daysBetween = DAYS.between(fecha, LocalDate.now());

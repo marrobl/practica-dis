@@ -29,8 +29,8 @@ import javax.json.JsonWriter;
 public class DAOFactura {
 
     private static final String SELECT_FACTURAS_FECHA
-            = "SELECT * FROM Factura F, EstadoFactura E WHERE F.FechaEmision <= ? AND F.Estado = E.Id AND E.Nombre = 'Vencida' ";
-
+            = "SELECT * FROM Factura F, EstadoFactura E WHERE F.FechaEmision <= ? AND F.Estado = E.Id AND E.Nombre = 'vencida' ";
+  
     public static String consultaFacturasFecha(LocalDate fecha) {
         String facturasJsonString;
 
@@ -50,20 +50,22 @@ public class DAOFactura {
             ps.setDate(1, java.sql.Date.valueOf(fecha));
 
             ResultSet rs = ps.executeQuery();
-
+ 
             while (rs.next()) {
                 numeroFactura = rs.getInt("NumeroFactura");
                 importe = rs.getDouble("Importe");
                 fechaEmision = rs.getDate("FechaEmision").toLocalDate();
+                System.out.println(fechaEmision);
                 estado = rs.getInt("Estado");
-                if (rs.getDate("FechaPago") != null) {
+                System.out.println(estado);
+                if (estado == 3) {
                     fechaPago = rs.getDate("FechaPago").toLocalDate();
                 } else {
                     fechaPago = null;                
                 }
                 idExtractoBancario = rs.getString("IdExtractoBancario");
 
-                facturas.append(obtenerFacturaJsonString(Integer.toString(numeroFactura), Double.toString(importe), fechaEmision.toString(), Integer.toString(estado), fechaPago == null ? "" : fechaPago.toString(), idExtractoBancario));
+                facturas.append(obtenerFacturaJsonString(Integer.toString(numeroFactura), Double.toString(importe), fechaEmision.toString(), Integer.toString(estado), null, idExtractoBancario));
                 facturas.append(",");
 
             }
@@ -98,7 +100,6 @@ public class DAOFactura {
                     .add("importe", importe)
                     .add("fechaEmision", fechaEmision)
                     .add("estado", estado)
-                    .add("fechaPago", fechaPago)
                     .add("idExtractoBancario", idExtractoBancario)
                     .build();
 
