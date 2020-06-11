@@ -37,6 +37,7 @@ public class DAOEmpleado {
         String nif = "", nombre = "", apellidos = "", direccion = "",
                 telefono = "", email = "", cuentaBancaria = "";
         LocalDate fechaInicio;
+        boolean hayDatos = false;
        
         DBConnection connection = DBConnection.getInstance();
         connection.openConnection();
@@ -50,6 +51,7 @@ public class DAOEmpleado {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) {
+                hayDatos = true;
                 nif = rs.getString("Nif");
                 nombre = rs.getString("Nombre");
                 apellidos = rs.getString("Apellidos");
@@ -61,16 +63,18 @@ public class DAOEmpleado {
             
             connection.closeConnection();
             
-            String roles = DAORolesEnEmpresa.consultarTodosLosRolesPorId(dni);
-            String vinculaciones = DAOVinculacionConLaEmpresa.consultarTodasVinculacionesPorId(dni);
-            String disponibilidades = DAODisponibilidad.consultarTodasDisponibilidadesPorId(dni);
-            
-            empleadoJsonString = obtenerEmpleadoJsonString(nif, nombre, apellidos, direccion,
-                    telefono, email, cuentaBancaria, roles, vinculaciones, disponibilidades);
-            
             rs.close();
         } catch(SQLException ex) {
             Logger.getLogger(DAOEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (hayDatos) {
+            String roles = DAORolesEnEmpresa.consultarTodosLosRolesPorId(dni);
+            String vinculaciones = DAOVinculacionConLaEmpresa.consultarTodasVinculacionesPorId(dni);
+            String disponibilidades = DAODisponibilidad.consultarTodasDisponibilidadesPorId(dni);
+
+            empleadoJsonString = obtenerEmpleadoJsonString(nif, nombre, apellidos, direccion,
+                        telefono, email, cuentaBancaria, roles, vinculaciones, disponibilidades);
         }
         
         return empleadoJsonString;
