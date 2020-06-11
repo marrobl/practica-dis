@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
+import java.util.Iterator;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -42,7 +45,8 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         errorLabel = new javax.swing.JLabel();
-        NombreBodega = new javax.swing.JLabel();
+        nombreBodega = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,7 +74,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -78,6 +82,8 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("OK");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,12 +93,14 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(138, 138, 138)
-                        .addComponent(NombreBodega))
+                        .addComponent(nombreBodega))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +114,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(41, 41, 41)
                                         .addComponent(BotonRegistrar)))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,10 +131,16 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreBodega))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(nombreBodega))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(179, 179, 179))))
         );
 
         pack();
@@ -134,7 +148,8 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
     private void BotonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistrarActionPerformed
         // TODO add your handling code here:
-        addRow(jTable1, "hola", "adios");
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        //model.getValueAt(0, 2); mirar si el checkbox esta activado parametros son fila y columna
         controlador.procesaEventoIntroduceId();
         
     }//GEN-LAST:event_BotonRegistrarActionPerformed
@@ -200,17 +215,37 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         model.addRow(new Object[]{col1, col2, ""});
     }
     
+    public void mostrarDatosCompra(Compra compra){
+        nombreBodega.setVisible(true);
+        nombreBodega.setText(compra.getBodega());
+        Iterator it = compra.getLineasCompra();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        while(it.hasNext()){
+            LineaCompra c = (LineaCompra)it.next();
+            String referencia = c.getCodigoReferencia();
+            String unidades = c.getUnidades();
+            model.addRow(new Object[]{referencia, unidades, false});
+            
+        }
+        
+        
+        
+
+    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonRegistrar;
-    private javax.swing.JLabel NombreBodega;
     private javax.swing.JLabel errorLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel nombreBodega;
     // End of variables declaration//GEN-END:variables
 }
