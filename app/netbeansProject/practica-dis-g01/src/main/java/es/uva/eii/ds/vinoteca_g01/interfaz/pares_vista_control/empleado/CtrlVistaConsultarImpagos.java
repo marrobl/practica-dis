@@ -40,7 +40,7 @@ public class CtrlVistaConsultarImpagos {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate date = LocalDate.parse(fecha, formatter);
                 ArrayList<Factura> facturas = controladorCasoUso.obtenerListaFacturas(date);
-                
+                vista.mostrarFacturasImpagos(facturas);
             } catch (DateTimeParseException ex){
                 vista.mostrarMensajeError(ERROR_FECHA_FORMATO);
             } catch (FechaNoVencidaException ex){

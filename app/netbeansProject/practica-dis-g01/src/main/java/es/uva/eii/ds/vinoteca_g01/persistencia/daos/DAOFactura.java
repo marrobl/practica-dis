@@ -55,9 +55,7 @@ public class DAOFactura {
                 numeroFactura = rs.getInt("NumeroFactura");
                 importe = rs.getDouble("Importe");
                 fechaEmision = rs.getDate("FechaEmision").toLocalDate();
-                System.out.println(fechaEmision);
                 estado = rs.getInt("Estado");
-                System.out.println(estado);
                 if (estado == 3) {
                     fechaPago = rs.getDate("FechaPago").toLocalDate();
                 } else {

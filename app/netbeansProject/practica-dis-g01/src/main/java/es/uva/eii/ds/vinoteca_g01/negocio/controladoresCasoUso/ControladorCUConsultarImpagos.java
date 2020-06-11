@@ -17,7 +17,8 @@ import java.util.ArrayList;
 public class ControladorCUConsultarImpagos {
 
     public ArrayList<Factura> obtenerListaFacturas(LocalDate fecha) throws FechaNoVencidaException {
-       return Factura.getFacturasFecha(fecha);
+        ArrayList<Factura> facturas = Factura.getFacturasFecha(fecha);
+       return facturas;
     }
     
 }
