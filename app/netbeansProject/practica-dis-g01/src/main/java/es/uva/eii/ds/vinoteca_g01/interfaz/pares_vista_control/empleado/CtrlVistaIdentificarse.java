@@ -10,8 +10,6 @@ import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCUIden
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.TipoDeRol;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.DatosIncorrectosException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.EmpleadoInactivoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

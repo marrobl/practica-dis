@@ -41,7 +41,6 @@ public class DAOEmpleado {
        
         DBConnection connection = DBConnection.getInstance();
         connection.openConnection();
-        JsonObjectBuilder jb = Json.createObjectBuilder();
         
         try {
             PreparedStatement ps = connection.getStatement(SELECT_EMPLEADO_POR_DNI_Y_PASSWORD);
