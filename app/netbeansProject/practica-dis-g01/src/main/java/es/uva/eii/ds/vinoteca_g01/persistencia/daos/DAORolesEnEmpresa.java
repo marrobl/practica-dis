@@ -35,13 +35,13 @@ public class DAORolesEnEmpresa {
             s.setString(1, dni);
             ResultSet result = s.executeQuery();
             
-            LocalDate comienzoEnEmpresa;
+            LocalDate comienzoEnRol;
             String rol;
             
             while (result.next()) {
-                comienzoEnEmpresa = result.getDate("ComienzoEnRol").toLocalDate();
+                comienzoEnRol = result.getDate("ComienzoEnRol").toLocalDate();
                 rol = result.getString("NombreTipo");
-                roles.append(obtenerRolEnEmpresaJsonString(comienzoEnEmpresa.toString(), rol));
+                roles.append(obtenerRolEnEmpresaJsonString(comienzoEnRol.toString(), rol));
                 roles.append(",");
             }
             

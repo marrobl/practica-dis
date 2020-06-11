@@ -36,7 +36,7 @@ public class DAOEmpleado {
         String empleadoJsonString = null;
         String nif = "", nombre = "", apellidos = "", direccion = "",
                 telefono = "", email = "", cuentaBancaria = "";
-        LocalDate fechaInicio;
+        LocalDate fechaInicio = null;
         boolean hayDatos = false;
        
         DBConnection connection = DBConnection.getInstance();
@@ -73,14 +73,14 @@ public class DAOEmpleado {
             String disponibilidades = DAODisponibilidad.consultarTodasDisponibilidadesPorId(dni);
 
             empleadoJsonString = obtenerEmpleadoJsonString(nif, nombre, apellidos, direccion,
-                        telefono, email, cuentaBancaria, roles, vinculaciones, disponibilidades);
+                        telefono, email, cuentaBancaria, fechaInicio.toString(), roles, vinculaciones, disponibilidades);
         }
         
         return empleadoJsonString;
     }
 
     private static String obtenerEmpleadoJsonString(String nif, String nombre, String apellidos,
-            String direccion, String telefono, String email, String cuentaBancaria,
+            String direccion, String telefono, String email, String cuentaBancaria, String fechaInicio,
             String roles, String vinculaciones, String disponibilidades) {
         String empleadoJsonString = "";
         JsonReaderFactory factory = Json.createReaderFactory(null);
@@ -101,9 +101,11 @@ public class DAOEmpleado {
                     .add("nif", nif)
                     .add("nombre", nombre)
                     .add("apellidos", apellidos)
+                    .add("direccion", direccion)
                     .add("telefono", telefono)
                     .add("email", email)
                     .add("cuentaBancaria", cuentaBancaria)
+                    .add("fechaInicioEnEmpresa", fechaInicio)
                     .add("rolesEnEmpresa", rolesJsonArray)
                     .add("vinculaciones", vinculacionesJsonArray)
                     .add("disponibilidades", disponibilidadesJsonArray)

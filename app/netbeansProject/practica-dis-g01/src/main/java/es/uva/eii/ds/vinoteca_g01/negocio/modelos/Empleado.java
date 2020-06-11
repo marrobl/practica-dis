@@ -25,7 +25,7 @@ import javax.json.JsonValue;
  */
 public class Empleado extends Persona {
     
-    private LocalDate fechaInicio;
+    private LocalDate fechaInicioEnEmpresa;
     private ArrayList<RolesEnEmpresa> rolesEnEmpresa;
     private ArrayList<VinculacionConLaEmpresa> vinculaciones;
     private ArrayList<Disponibilidad> disponibilidades;
@@ -44,6 +44,10 @@ public class Empleado extends Persona {
         }
         
         return new Empleado(datosJSON);
+    }
+    
+    public void setFechaInicioEnEmpresa(LocalDate fechaInicioEnEmpresa) {
+        this.fechaInicioEnEmpresa = fechaInicioEnEmpresa;
     }
 
     public boolean estaActivo() {
@@ -79,15 +83,20 @@ public class Empleado extends Persona {
             String nif = empleadoJson.getString("nif");
             String nombre = empleadoJson.getString("nombre");
             String apellidos = empleadoJson.getString("apellidos");
+            String direccion = empleadoJson.getString("direccion");
             String telefono = empleadoJson.getString("telefono");
+            String email = empleadoJson.getString("email");
             String cuentaBancaria = empleadoJson.getString("cuentaBancaria");
+            LocalDate fechaInicio = LocalDate.parse(empleadoJson.getString("fechaInicioEnEmpresa"));
             
             setNif(nif);
             setNombre(nombre);
             setApellidos(apellidos);
+            setDireccion(direccion);
             setTelefono(telefono);
+            setEmail(email);
             setCuentaBancaria(cuentaBancaria);
-            
+            setFechaInicioEnEmpresa(fechaInicio);
             JsonArray rolesJson = empleadoJson.getJsonArray("rolesEnEmpresa");
             
             RolesEnEmpresa rolEnEmpresa;
