@@ -32,12 +32,12 @@ public class VistaIdentificarse extends javax.swing.JFrame {
     private void initComponents() {
 
         dniTextField = new javax.swing.JTextField();
-        passwordTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         ConfirmarButton = new javax.swing.JButton();
         errorLabel = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +58,7 @@ public class VistaIdentificarse extends javax.swing.JFrame {
         errorLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         errorLabel.setForeground(java.awt.Color.red);
         errorLabel.setText("jLabel4");
+        errorLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,13 +76,16 @@ public class VistaIdentificarse extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ConfirmarButton)
-                    .addComponent(passwordTextField)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(errorLabel))
-                    .addComponent(dniTextField))
-                .addContainerGap(268, Short.MAX_VALUE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dniTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dniTextField, passwordField});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -93,14 +97,16 @@ public class VistaIdentificarse extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(errorLabel)
                 .addGap(27, 27, 27)
                 .addComponent(ConfirmarButton)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dniTextField, passwordField});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -116,7 +122,7 @@ public class VistaIdentificarse extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField passwordTextField;
+    private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 
     public String getDni() {
@@ -124,7 +130,7 @@ public class VistaIdentificarse extends javax.swing.JFrame {
     }
 
     public String getPassword() {
-        return passwordTextField.getText();
+        return String.valueOf(passwordField.getPassword());
     }
 
     public void mostrarMensajeError(String mensaje) {

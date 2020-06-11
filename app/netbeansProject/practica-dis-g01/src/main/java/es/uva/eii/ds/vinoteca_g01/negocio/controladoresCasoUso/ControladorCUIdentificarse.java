@@ -6,6 +6,7 @@
 package es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso;
 
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Empleado;
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Sesion;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.TipoDeRol;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.DatosIncorrectosException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.EmpleadoInactivoException;
@@ -22,6 +23,8 @@ public class ControladorCUIdentificarse {
         if (!empleado.estaActivo()) {
             throw new EmpleadoInactivoException();
         }
+        
+        Sesion.getInstance().setEmpleado(empleado);
         
         return empleado.getUltimoRol();
     }

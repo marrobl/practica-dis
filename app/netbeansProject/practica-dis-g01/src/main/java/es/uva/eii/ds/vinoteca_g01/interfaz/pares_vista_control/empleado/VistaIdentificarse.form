@@ -37,14 +37,14 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="ConfirmarButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="passwordTextField" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Component id="errorLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="dniTextField" alignment="0" max="32767" attributes="0"/>
+                  <Component id="passwordField" linkSize="1" min="-2" pref="124" max="-2" attributes="0"/>
+                  <Component id="dniTextField" linkSize="1" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="268" max="32767" attributes="0"/>
+              <EmptySpace pref="228" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,13 +55,13 @@
               <Component id="jLabel3" min="-2" pref="64" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="dniTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dniTextField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="passwordTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="passwordField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="errorLabel" min="-2" max="-2" attributes="0"/>
@@ -74,8 +74,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="dniTextField">
-    </Component>
-    <Component class="javax.swing.JTextField" name="passwordTextField">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -112,7 +110,10 @@
           <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel4"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="passwordField">
     </Component>
   </SubComponents>
 </Form>
