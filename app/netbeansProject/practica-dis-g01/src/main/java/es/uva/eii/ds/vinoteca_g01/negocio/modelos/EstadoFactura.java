@@ -6,8 +6,12 @@
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
 /**
- *
- * @author maria
+ * Enumerado que representa el estado de una factura
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
+ * 
  */
 public enum EstadoFactura {
     Emitida,

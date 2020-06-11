@@ -5,7 +5,7 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
-import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Factura;
+
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +13,11 @@ import javax.swing.table.DefaultTableModel;
 
 
 /**
- *
- * @author maria
+ * Clase que implementa la vista del caso de uso de consultar impagos
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class VistaConsultarImpagos extends javax.swing.JFrame {
 
@@ -211,26 +214,50 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     private javax.swing.JTable tablaFacturas;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Consulta la fecha introducida por el usuario
+     * @return fecha 
+     */
     public String getFecha() {
         return fechaTextField.getText();
     }
 
+    /**
+     * Muestra un mensaje de error al usuario
+     * 
+     * @param mensaje de error que se muestra 
+     */
     public void mostrarMensajeError(String mensaje) {
         errorLabel.setText(mensaje);
         errorLabel.setVisible(true);
         errorLabel.setText(mensaje);
     }
     
+    /**
+     * Esconde el mensaje de error
+     */
     public void esconderMensajeError() {
         errorLabel.setVisible(false);
     }
 
+    /**
+     * Muestra el mensaje al usuario de que no han pasado 30 dias
+     * 
+     * @param mensaje a mostrar
+     */
     void mostrarAvisoNoVencido(String mensaje) {
         errorLabel.setText(mensaje);
         errorLabel.setVisible(true);
         errorLabel.setText(mensaje);
     }
 
+    /**
+     * Muestra el identificador de las facturas vencidas al usuario,
+     * asi como el identificador de los pedidos y del abonado asociado a cada 
+     * factura
+     * 
+     * @param facturas de las que se muestran los datos
+     */
     void mostrarFacturasImpagos(HashMap<Integer, ArrayList<Pedido>> facturas) {
        DefaultTableModel model = (DefaultTableModel) tablaFacturas.getModel();
         

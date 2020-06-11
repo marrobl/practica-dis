@@ -13,11 +13,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
- * @author maria
+ * Clase que implementa el controlador del caso de uso de consultar impagos
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
+ * 
  */
 public class ControladorCUConsultarImpagos {
 
+    /**
+     * Obtiene lista de facturas vencidas anteriores a la fecha introducida
+     * 
+     * @param fecha limite superior para obtener facturas
+     * @return facturas y sus pedidos
+     * @throws FechaNoVencidaException cuando no han pasado 30 dias desde {@code fecha}
+     */
     public HashMap<Integer,ArrayList<Pedido>> obtenerListaFacturas(LocalDate fecha) throws FechaNoVencidaException {
        int numeroFactura;
        ArrayList<Factura> facturas = Factura.getFacturasFecha(fecha);
