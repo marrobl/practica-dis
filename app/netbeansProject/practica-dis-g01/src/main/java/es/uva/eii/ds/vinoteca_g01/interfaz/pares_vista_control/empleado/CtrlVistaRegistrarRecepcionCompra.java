@@ -5,6 +5,7 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCURegistrarRecepcionCompra;
+import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 
 /**
  *
@@ -31,8 +32,8 @@ public class CtrlVistaRegistrarRecepcionCompra {
         try{
             controladorCU.getCompraNoCompletada(id);
             
-        }catch(IllegalArgumentException e){
-            
+        }catch(CompraNotFoundException e){
+            vista.mostrarErrorCompraNotFound();
         }
     }
     
