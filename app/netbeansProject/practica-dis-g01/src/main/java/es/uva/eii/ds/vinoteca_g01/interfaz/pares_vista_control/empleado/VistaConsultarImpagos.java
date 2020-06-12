@@ -261,12 +261,12 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
      */
     void mostrarFacturasImpagos(ArrayList<Factura> facturas) {
        DefaultTableModel model = (DefaultTableModel) tablaFacturas.getModel();
-       tablaFacturas.setAutoCreateRowSorter(true);
+        tablaFacturas.setAutoCreateRowSorter(true);
        ArrayList<Pedido> pedidos = new ArrayList<>();
        for(Factura f: facturas){
           pedidos = f.getPedidos();
           for(Pedido pedido : pedidos){
-                    String numeroFactura = Integer.toString(pedido.getNumeroFactura());
+                     String numeroFactura = Integer.toString(pedido.getNumeroFactura());
                     String numeroPedido = Integer.toString(pedido.getNumero());
                     String numeroAbonado = Integer.toString(pedido.getNumeroAbonado());
                     String fechaFactura = f.getFechaEmision().toString();

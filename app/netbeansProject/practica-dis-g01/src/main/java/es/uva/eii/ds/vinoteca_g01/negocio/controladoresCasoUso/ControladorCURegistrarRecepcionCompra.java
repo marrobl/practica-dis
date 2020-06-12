@@ -5,14 +5,17 @@
  */
 package es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso;
 
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
+import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
+
 /**
  *
  * @author silmont
  */
 public class ControladorCURegistrarRecepcionCompra {
 
-    public void getCompraNoCompletada(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void getCompraNoCompletada(String id) throws CompraNotFoundException {
+        Compra c = Compra.getCompraPorId(id);
     }
     
 }
