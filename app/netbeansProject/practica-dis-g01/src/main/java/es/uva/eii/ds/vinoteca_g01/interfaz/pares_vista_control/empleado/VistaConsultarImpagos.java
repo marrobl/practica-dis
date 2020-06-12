@@ -6,6 +6,7 @@
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
 
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Factura;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,11 +73,11 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Factura", "Pedido", "Abonado"
+                "Factura", "Fecha Emision", "Pedido", "Abonado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -252,24 +253,26 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     }
 
     /**
-     * Muestra el identificador de las facturas vencidas al usuario,
+     * Muestra el identificador y la fecha de emision de las facturas vencidas al usuario,
      * asi como el identificador de los pedidos y del abonado asociado a cada 
      * factura
      * 
      * @param facturas de las que se muestran los datos
      */
-    void mostrarFacturasImpagos(HashMap<Integer, ArrayList<Pedido>> facturas) {
+    void mostrarFacturasImpagos(ArrayList<Factura> facturas) {
        DefaultTableModel model = (DefaultTableModel) tablaFacturas.getModel();
-        
-        for (HashMap.Entry<Integer, ArrayList<Pedido>> entry : facturas.entrySet()) {
-            ArrayList<Pedido> pedidos = entry.getValue();
-                for(Pedido pedido : pedidos){
+       tablaFacturas.setAutoCreateRowSorter(true);
+       ArrayList<Pedido> pedidos = new ArrayList<>();
+       for(Factura f: facturas){
+          pedidos = f.getPedidos();
+          for(Pedido pedido : pedidos){
                     String numeroFactura = Integer.toString(pedido.getNumeroFactura());
                     String numeroPedido = Integer.toString(pedido.getNumero());
                     String numeroAbonado = Integer.toString(pedido.getNumeroAbonado());
-                    model.addRow(new Object[]{numeroFactura, numeroPedido, numeroAbonado});
+                    String fechaFactura = f.getFechaEmision().toString();
+                    model.addRow(new Object[]{numeroFactura, fechaFactura, numeroPedido, numeroAbonado});
                 }
-        }
+       }
     }
     
 }

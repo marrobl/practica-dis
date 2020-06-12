@@ -163,4 +163,13 @@ public class Factura {
     
         return facturas;
     }
+
+    /**
+     * Consulta todos los pedidos asociados a una factura
+     * 
+     * @return lista de pedidos asociados al identificador de la factura
+     */
+    public ArrayList<Pedido> getPedidos() {
+        return Pedido.getPedidosNumFactura(this.getNumeroFactura());
+    }
 }

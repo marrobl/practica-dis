@@ -6,7 +6,7 @@
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCUConsultarImpagos;
-import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Factura;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.FechaNoVencidaException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -54,7 +54,7 @@ public class CtrlVistaConsultarImpagos {
             try{
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate date = LocalDate.parse(fecha, formatter);
-                HashMap<Integer, ArrayList<Pedido>> facturas = controladorCasoUso.obtenerListaFacturas(date);
+                ArrayList<Factura> facturas = controladorCasoUso.obtenerListaFacturas(date);
                 vista.mostrarFacturasImpagos(facturas);
             } catch (DateTimeParseException ex){
                 vista.mostrarMensajeError(ERROR_FECHA_FORMATO);
