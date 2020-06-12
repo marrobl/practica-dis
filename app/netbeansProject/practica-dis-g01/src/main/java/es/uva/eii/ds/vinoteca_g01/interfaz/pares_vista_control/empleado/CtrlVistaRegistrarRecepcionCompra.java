@@ -8,6 +8,7 @@ import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCURegi
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraYaCompletadaException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,6 +49,14 @@ public class CtrlVistaRegistrarRecepcionCompra {
     void procesaEventoSeleccionaLinea(Object item) {
         LineaCompra linea = (LineaCompra)item;
         controladorCU.setLinea(linea);
+    }
+
+    void procesaEventoFinalizarRegistroLineas() {
+        String id = vista.getId();
+        ArrayList<LineaCompra> l = controladorCU.finRegistroLineas(id);
+        if(!l.isEmpty()) vista.mostrarLineasNoCompletadas(l);
+        controladorCU.revisarPedidos();
+
     }
 
 

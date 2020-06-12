@@ -6,6 +6,7 @@
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.JList;
@@ -47,7 +48,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         errorLabel = new javax.swing.JLabel();
         nombreBodega = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        botonOK = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
 
@@ -68,7 +69,12 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
         jLabel3.setText("Datos de la Compra");
 
-        jButton1.setText("OK");
+        botonOK.setText("OK");
+        botonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonOKActionPerformed(evt);
+            }
+        });
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -107,7 +113,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
+                                .addComponent(botonOK))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(138, 138, 138)
@@ -133,7 +139,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(139, 139, 139)
-                        .addComponent(jButton1)
+                        .addComponent(botonOK)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -164,6 +170,11 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                }
             }
     }//GEN-LAST:event_jList1MouseClicked
+
+    private void botonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOKActionPerformed
+        // TODO add your handling code here:
+        controlador.procesaEventoFinalizarRegistroLineas();
+    }//GEN-LAST:event_botonOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,8 +265,8 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonRegistrar;
+    private javax.swing.JButton botonOK;
     private javax.swing.JLabel errorLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -265,12 +276,13 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     private javax.swing.JLabel nombreBodega;
     // End of variables declaration//GEN-END:variables
 
-    void mostrarErrorCompraNotFound() {
-      // TODO 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    void mostrarErrorCompraYaCompleta() {
-        
+
+    void mostrarLineasNoCompletadas(ArrayList<LineaCompra> l) {
+        String stringMostrar = "";
+        for (LineaCompra linea : l){
+            stringMostrar = stringMostrar + Integer.toString(linea.getCodigoReferencia())+" --- " + Integer.toString(linea.getUnidades()) + "\n";
+        }
+        JOptionPane.showMessageDialog(null, stringMostrar);
     }
 }

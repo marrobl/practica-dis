@@ -32,5 +32,21 @@ public class ControladorCURegistrarRecepcionCompra {
             
         }
     }
+
+    public ArrayList<LineaCompra> finRegistroLineas(String id) {
+        Compra c = Compra.getCompraPorId(id);
+        ArrayList<LineaCompra> listaNoFinalizadas = c.getLineasNoRecibidas();
+        if (listaNoFinalizadas.isEmpty()){
+            c.setRecibidaCompleta();
+            c.setFechaCompraCompletada();
+            
+        }
+        String json = c.getJSON();
+        c.actualizar(json);
+    }
+
+    public void revisarPedidos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
