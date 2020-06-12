@@ -6,6 +6,8 @@
 package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +15,12 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.json.JsonReaderFactory;
+import javax.json.JsonWriter;
 
 /**
  *
@@ -26,16 +33,15 @@ public class DAOCompra {
     public static String consultaCompraPorId(String id) {
         String compraJSON = null;
         
-        int idCompra, idProveedor;
-        LocalDate fechaInicioCompra, fechaCompraCompletada, fechaPago;
-        String recibidaCompleta, pagada;
-        double importe;
+        int idCompra=0; int idProveedor=0;
+        LocalDate fechaInicioCompra=null, fechaCompraCompletada=null, fechaPago = null;
+        String recibidaCompleta="", pagada="";
+        double importe=0;
         
         DBConnection connection = DBConnection.getInstance();
         connection.openConnection();
         JsonObjectBuilder jb = Json.createObjectBuilder();
 
-        StringBuilder compra = new StringBuilder("[");
         
         try {
             PreparedStatement ps = connection.getStatement(SELECT_COMPRA_ID_COMPRA);
@@ -43,7 +49,7 @@ public class DAOCompra {
 
             ResultSet rs = ps.executeQuery();
  
-            while (rs.next()) {
+            if (rs.next()) {
                 idCompra = rs.getInt("IdCompra");
                 fechaInicioCompra = rs.getDate("FechaInicioCompra").toLocalDate();
                 recibidaCompleta = rs.getString("RecibidaCompleta");
@@ -55,10 +61,10 @@ public class DAOCompra {
                 
                 
               
-                compra.append(obtenerCompraJsonString(Integer.toString(idCompra), fechaInicioCompra.toString(), recibidaCompleta, fechaCompraCompletada.toString(), Double.toString(importe), pagada, fechaPago.toString(), Integer.toString(idProveedor)));
-                compra.append(",");
-
             }
+            
+            compraJSON = obtenerCompraJsonString(idCompra, fechaInicioCompra, recibidaCompleta, fechaCompraCompletada,
+                    importe, pagada, fechaPago, idProveedor);
 
             rs.close();
         } catch (SQLException ex) {
@@ -71,8 +77,34 @@ public class DAOCompra {
         return compraJSON;
     }
 
-    private static String obtenerCompraJsonString(String toString, String toString0, String recibidaCompleta, String toString1, String toString2, String pagada, String toString3, String toString4) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+ 
+    private static String obtenerCompraJsonString(int idCompra, LocalDate fechaInicioCompra, String recibidaCompleta, LocalDate fechaCompraCompletada, double importe, String pagada, LocalDate fechaPago, int idProveedor) {
+        String empleadoJsonString = "";
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+        
+        try {
+        
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter);
+            
+            
+            JsonObject compraJson = Json.createObjectBuilder()
+                    .add("idCompra", idCompra)
+                    .add("fechaInicioCompra", fechaInicioCompra.toString())
+                    .add("recibidaCompleta", recibidaCompleta)
+                    .add("fechaCompraCompletada", fechaCompraCompletada.toString())
+                    .add("importe", Double.toString(importe))
+                    .add("fechaPago", fechaPago.toString())
+                    .add("idProveedor", Integer.toString(idProveedor))
+                    .build();
+            
+            writer.writeObject(compraJson);
+            empleadoJsonString = stringWriter.toString();
+        } catch(Exception ex) {
+            Logger.getLogger(DAOEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return empleadoJsonString;
     }
     
 }

@@ -233,6 +233,7 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
 
     void mostrarFacturasImpagos(HashMap<Integer, ArrayList<Pedido>> facturas) {
        DefaultTableModel model = (DefaultTableModel) tablaFacturas.getModel();
+       
         
         for (HashMap.Entry<Integer, ArrayList<Pedido>> entry : facturas.entrySet()) {
             ArrayList<Pedido> pedidos = entry.getValue();
