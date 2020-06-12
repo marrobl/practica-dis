@@ -13,14 +13,22 @@ import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 
 /**
- *
- * @author richard
+ * Clase que representa el Rol en una empresa.
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 class RolesEnEmpresa {
     
     private LocalDate comienzoEnRol;
     private TipoDeRol rol;
 
+    /**
+     * Constructor de RolesEnEmpresa a partir de string JSON.
+     * @param json cadena de texto con formato JSON cuya contenido representa un rol en una empresa, así
+     * como el comienzo en ese rol
+     */
     public RolesEnEmpresa(String json) {
         JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(json));
@@ -30,6 +38,10 @@ class RolesEnEmpresa {
         rol = TipoDeRol.valueOf(rolEnEmpresaJSON.getJsonString("rol").getString());
     }
 
+    /**
+     * Consulta el tipo de rol en la empresa.
+     * @return el tipo de rol entre los posibles
+     */
     public TipoDeRol getRol() {
         return rol;
     }

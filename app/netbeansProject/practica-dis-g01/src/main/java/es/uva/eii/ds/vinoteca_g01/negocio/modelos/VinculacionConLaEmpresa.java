@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
 import java.io.StringReader;
@@ -13,14 +8,21 @@ import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 
 /**
- *
- * @author richard
+ * Clase que representa la vinculación con la empresa.
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 class VinculacionConLaEmpresa {
 
     private LocalDate inicio;
     private TipoDeVinculacion vinculo;
             
+    /**
+     * Constructor de VinculacionConLaEmpresa a partir de string JSON.
+     * @param json cadena de texto con formato JSON cuya contenido representa una VinculacionConLaEmpresa.
+     */
     public VinculacionConLaEmpresa(String json) {
         JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(json));
@@ -30,6 +32,10 @@ class VinculacionConLaEmpresa {
         vinculo = TipoDeVinculacion.valueOf(vinculoJSON.getJsonString("vinculo").getString());
     }
 
+    /**
+     * Consulta el tipo de vínculo.
+     * @return el tipo de vínculo entre los posibles
+     */
     public TipoDeVinculacion getVinculo() {
         return vinculo;
     }    

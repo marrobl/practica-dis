@@ -20,8 +20,11 @@ import javax.json.JsonReaderFactory;
 import javax.json.JsonValue;
 
 /**
+ * Clase que representa un Empleado de una empresa.
  *
- * @author richard
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class Empleado extends Persona {
     
@@ -29,11 +32,14 @@ public class Empleado extends Persona {
     private ArrayList<RolesEnEmpresa> rolesEnEmpresa;
     private ArrayList<VinculacionConLaEmpresa> vinculaciones;
     private ArrayList<Disponibilidad> disponibilidades;
-
-    public Empleado(String nif, String nombre, String apellidos, String telefono, String email, String cuentaBancaria) {
-        super();
-    }
     
+    /**
+     * Devuelve un Empleado, en caso de existir, a partir de su nif y contraseña.
+     * @param dni el nif del Empleado
+     * @param password la contraseña del Empleado
+     * @return el Empleado cuyas credenciales coinciden con el dni y password
+     * @throws DatosIncorrectosException si no se encuentra ningún empleado a partir de las credenciales
+     */
     public static Empleado getEmpleadoPorNifYPassword(String dni, String password) throws DatosIncorrectosException {
         String datosJSON = DAOEmpleado.consultaEmpleadoPorNifYPassword(dni, password);      
         
@@ -44,10 +50,19 @@ public class Empleado extends Persona {
         return new Empleado(datosJSON);
     }
     
+    /**
+     * Establece la fecha de inicio del Empleado en la empresa.
+     * @param fechaInicioEnEmpresa la fecha de inicio del empleado en la empresa
+     */
     public void setFechaInicioEnEmpresa(LocalDate fechaInicioEnEmpresa) {
         this.fechaInicioEnEmpresa = fechaInicioEnEmpresa;
     }
 
+    /**
+     * Comprueba si un empleado está activo en la empresa. Para ello su último vínculo debe ser
+     * {@code TipoDeVinculacion.Contratado} y su última disponibilidad debe ser {@code TipoDeDisponibilidad.Trabajando}
+     * @return {@code true} si el empleado está activo y {@code false} en caso contrario
+     */
     public boolean estaActivo() {
         TipoDeVinculacion ultimoVinculo = getUltimoVinculo();
         TipoDeDisponibilidad ultimaDisponibilidad = getUltimaDisponibilidad();
@@ -55,18 +70,34 @@ public class Empleado extends Persona {
         return ultimoVinculo == TipoDeVinculacion.Contratado && ultimaDisponibilidad == TipoDeDisponibilidad.Trabajando;
     }
     
+    /**
+     * Consulta el último ro del Empleado en la empresa.
+     * @return el último rol del empleado en cuestión
+     */
     public TipoDeRol getUltimoRol() {
         return rolesEnEmpresa.get(rolesEnEmpresa.size() - 1) .getRol();
     }
     
+    /**
+     * Consulta el último vínculo del Empleado con la empresa.
+     * @return el último vínculo del empleado en cuestión
+     */
     public TipoDeVinculacion getUltimoVinculo() {
         return vinculaciones.get(vinculaciones.size() - 1).getVinculo();    
     }
-
+    
+    /**
+     * Consulta la última disponibilidad del Empleado en la empresa.
+     * @return la última disponibilidad del empleado en cuestión
+     */
     public TipoDeDisponibilidad getUltimaDisponibilidad() {
         return disponibilidades.get(disponibilidades.size() - 1).getDisponibilidad();
     }
     
+    /**
+     * Constructor de Empleado a partir de JSON.
+     * @param json cadena de texto con formato JSON cuya contenido representa un Empleado
+     */
     public Empleado(String json) {
         super();
         rolesEnEmpresa = new ArrayList<>();

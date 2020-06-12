@@ -13,8 +13,11 @@ import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 
 /**
- *
- * @author richard
+ * Clase que representa la disponibilidad en una empresa.
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 class Disponibilidad {
     
@@ -22,6 +25,10 @@ class Disponibilidad {
     private LocalDate finalPrevisto;
     private TipoDeDisponibilidad disponibilidad;
 
+    /**
+     * Constructor de Disponibilidad a partir de string JSON.
+     * @param json cadena de texto con formato JSON cuya contenido representa una Disponibilidad
+     */
     public Disponibilidad(String json) {
         JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(json));
@@ -32,6 +39,10 @@ class Disponibilidad {
         disponibilidad = TipoDeDisponibilidad.valueOf(disponibilidadJSON.getJsonString("disponibilidad").getString());
     }
 
+    /**
+     * Consulta el tipo de disponibilidad.
+     * @return el tipo de disponibilidad entre los posibles
+     */
     public TipoDeDisponibilidad getDisponibilidad() {
         return disponibilidad;
     }
