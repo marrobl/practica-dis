@@ -6,7 +6,6 @@
 package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,10 +14,8 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 import javax.json.JsonWriter;
 
@@ -37,6 +34,7 @@ public class DAOCompra {
         LocalDate fechaInicioCompra=null, fechaCompraCompletada=null, fechaPago = null;
         String recibidaCompleta="", pagada="";
         double importe=0;
+        boolean hayDatos = false;
         
         DBConnection connection = DBConnection.getInstance();
         connection.openConnection();
@@ -50,6 +48,7 @@ public class DAOCompra {
             ResultSet rs = ps.executeQuery();
  
             if (rs.next()) {
+                hayDatos = true;
                 idCompra = rs.getInt("IdCompra");
                 fechaInicioCompra = rs.getDate("FechaInicioCompra").toLocalDate();
                 recibidaCompleta = rs.getString("RecibidaCompleta");
@@ -58,28 +57,27 @@ public class DAOCompra {
                 pagada = rs.getString("FechaRecepcion");
                 fechaPago = rs.getDate("FechaPago").toLocalDate();
                 idProveedor = rs.getInt("IdProveedor");
-                
-                
-              
             }
             
-            compraJSON = obtenerCompraJsonString(idCompra, fechaInicioCompra, recibidaCompleta, fechaCompraCompletada,
-                    importe, pagada, fechaPago, idProveedor);
-
+            connection.closeConnection();      
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOFactura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (hayDatos) {
+            String lineasCompra = DAOLineaCompra.consultarLineasCompraPorIdCompra(id);
+            String bodega = DAOBodega.consultarBodegaPorId(idProveedor);
+            
+            compraJSON = obtenerCompraJsonString(Integer.toString(idCompra), fechaInicioCompra.toString(), recibidaCompleta, fechaCompraCompletada.toString(),
+                    Double.toString(importe), pagada, fechaPago.toString(), Integer.toString(idProveedor), lineasCompra, bodega);
+           }
 
-        connection.closeConnection();
-        
-        
         return compraJSON;
     }
 
  
-    private static String obtenerCompraJsonString(int idCompra, LocalDate fechaInicioCompra, String recibidaCompleta, LocalDate fechaCompraCompletada, double importe, String pagada, LocalDate fechaPago, int idProveedor) {
-        String empleadoJsonString = "";
+    private static String obtenerCompraJsonString(String idCompra, String fechaInicioCompra, String recibidaCompleta, String fechaCompraCompletada, String importe, String pagada, String fechaPago, String idProveedor, String lineasCompra, String bodega) {
+        String compraLineasCompraJsonString = "";
         JsonReaderFactory factory = Json.createReaderFactory(null);
         
         try {
@@ -90,21 +88,23 @@ public class DAOCompra {
             
             JsonObject compraJson = Json.createObjectBuilder()
                     .add("idCompra", idCompra)
-                    .add("fechaInicioCompra", fechaInicioCompra.toString())
+                    .add("fechaInicioCompra", fechaInicioCompra)
                     .add("recibidaCompleta", recibidaCompleta)
-                    .add("fechaCompraCompletada", fechaCompraCompletada.toString())
-                    .add("importe", Double.toString(importe))
-                    .add("fechaPago", fechaPago.toString())
-                    .add("idProveedor", Integer.toString(idProveedor))
+                    .add("fechaCompraCompletada", fechaCompraCompletada)
+                    .add("importe", importe)
+                    .add("fechaPago", fechaPago)
+                    .add("idProveedor", idProveedor)
+                    .add("lineasCompra", lineasCompra)
+                    .add("bodega", bodega)
                     .build();
             
             writer.writeObject(compraJson);
-            empleadoJsonString = stringWriter.toString();
+            compraLineasCompraJsonString = stringWriter.toString();
         } catch(Exception ex) {
-            Logger.getLogger(DAOEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return empleadoJsonString;
+        return compraLineasCompraJsonString;
     }
     
 }
