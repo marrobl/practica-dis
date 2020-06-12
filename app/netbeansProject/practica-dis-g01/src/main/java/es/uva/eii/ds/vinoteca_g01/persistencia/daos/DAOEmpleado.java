@@ -55,12 +55,12 @@ public class DAOEmpleado {
                 apellidos = rs.getString("Apellidos");
                 direccion = rs.getString("Direccion");
                 telefono = rs.getString("Telefono");
+                email = rs.getString("Email");
                 cuentaBancaria = rs.getString("CuentaBancaria");
                 fechaInicio = rs.getDate("FechaInicioEnEmpresa").toLocalDate();
             }
             
             connection.closeConnection();
-            
             rs.close();
         } catch(SQLException ex) {
             Logger.getLogger(DAOEmpleado.class.getName()).log(Level.SEVERE, null, ex);
