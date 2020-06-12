@@ -5,9 +5,20 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
+
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Factura;
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
- *
- * @author maria
+ * Clase que implementa la vista del caso de uso de consultar impagos
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class VistaConsultarImpagos extends javax.swing.JFrame {
 
@@ -31,30 +42,58 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaFacturas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        fechaTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        BuscarButton = new javax.swing.JButton();
+        fechaTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         errorLabel = new javax.swing.JLabel();
+        BuscarButton = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tablaFacturas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Factura", "Fecha Emision", "Pedido", "Abonado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablaFacturas);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("CONSULTAR IMPAGOS");
 
+        jLabel2.setText("Introduce una fecha para consultar facturas ");
+
         fechaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fechaTextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Introduce una fecha para consultar facturas ");
-
-        BuscarButton.setText("Buscar");
-        BuscarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarButtonActionPerformed(evt);
             }
         });
 
@@ -64,6 +103,13 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
         errorLabel.setForeground(new java.awt.Color(255, 0, 0));
         errorLabel.setText("La fecha no puede estar vacía");
 
+        BuscarButton.setText("Buscar");
+        BuscarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,38 +117,43 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fechaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(153, 153, 153)
+                                .addComponent(jLabel1)))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BuscarButton)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(33, 33, 33)
-                        .addComponent(fechaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(errorLabel)
-                .addGap(120, 120, 120))
+                        .addGap(287, 287, 287)
+                        .addComponent(errorLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(328, 328, 328)
+                        .addComponent(BuscarButton))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(81, 81, 81)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(fechaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(errorLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BuscarButton)
-                .addGap(62, 62, 62))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -158,25 +209,70 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaFacturas;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Consulta la fecha introducida por el usuario
+     * @return fecha 
+     */
     public String getFecha() {
         return fechaTextField.getText();
     }
 
+    /**
+     * Muestra un mensaje de error al usuario
+     * 
+     * @param mensaje de error que se muestra 
+     */
     public void mostrarMensajeError(String mensaje) {
         errorLabel.setText(mensaje);
         errorLabel.setVisible(true);
         errorLabel.setText(mensaje);
     }
     
+    /**
+     * Esconde el mensaje de error
+     */
     public void esconderMensajeError() {
         errorLabel.setVisible(false);
     }
 
+    /**
+     * Muestra el mensaje al usuario de que no han pasado 30 dias
+     * 
+     * @param mensaje a mostrar
+     */
     void mostrarAvisoNoVencido(String mensaje) {
         errorLabel.setText(mensaje);
         errorLabel.setVisible(true);
         errorLabel.setText(mensaje);
     }
+
+    /**
+     * Muestra el identificador y la fecha de emision de las facturas vencidas al usuario,
+     * asi como el identificador de los pedidos y del abonado asociado a cada 
+     * factura
+     * 
+     * @param facturas de las que se muestran los datos
+     */
+    void mostrarFacturasImpagos(ArrayList<Factura> facturas) {
+       DefaultTableModel model = (DefaultTableModel) tablaFacturas.getModel();
+        tablaFacturas.setAutoCreateRowSorter(true);
+       ArrayList<Pedido> pedidos = new ArrayList<>();
+       for(Factura f: facturas){
+          pedidos = f.getPedidos();
+          for(Pedido pedido : pedidos){
+                     String numeroFactura = Integer.toString(pedido.getNumeroFactura());
+                    String numeroPedido = Integer.toString(pedido.getNumero());
+                    String numeroAbonado = Integer.toString(pedido.getNumeroAbonado());
+                    String fechaFactura = f.getFechaEmision().toString();
+                    model.addRow(new Object[]{numeroFactura, fechaFactura, numeroPedido, numeroAbonado});
+                }
+       }
+    }
+    
 }

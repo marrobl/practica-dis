@@ -23,14 +23,22 @@ import javax.json.JsonReaderFactory;
 import javax.json.JsonWriter;
 
 /**
- *
- * @author maria
+ * Clase que accede a la base de datos para consultar una factura
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class DAOFactura {
 
     private static final String SELECT_FACTURAS_FECHA
-            = "SELECT * FROM Factura F, EstadoFactura E WHERE F.FechaEmision <= ? AND F.Estado = E.Id AND E.Nombre = 'Vencida' ";
-
+            = "SELECT * FROM Factura F, EstadoFactura E WHERE F.FechaEmision <= ? AND F.Estado = E.Id AND E.Nombre = 'vencida' ";
+  
+    /**
+     * Consulta en la base de datos las facturas anteriores a una fecha dada
+     * @param fecha limite
+     * @return String con las facturas anteriores a fecha limite
+     */
     public static String consultaFacturasFecha(LocalDate fecha) {
         String facturasJsonString;
 
@@ -50,20 +58,20 @@ public class DAOFactura {
             ps.setDate(1, java.sql.Date.valueOf(fecha));
 
             ResultSet rs = ps.executeQuery();
-
+ 
             while (rs.next()) {
                 numeroFactura = rs.getInt("NumeroFactura");
                 importe = rs.getDouble("Importe");
                 fechaEmision = rs.getDate("FechaEmision").toLocalDate();
                 estado = rs.getInt("Estado");
-                if (rs.getDate("FechaPago") != null) {
+                if (estado == 3) {
                     fechaPago = rs.getDate("FechaPago").toLocalDate();
                 } else {
                     fechaPago = null;                
                 }
                 idExtractoBancario = rs.getString("IdExtractoBancario");
 
-                facturas.append(obtenerFacturaJsonString(Integer.toString(numeroFactura), Double.toString(importe), fechaEmision.toString(), Integer.toString(estado), fechaPago == null ? "" : fechaPago.toString(), idExtractoBancario));
+                facturas.append(obtenerFacturaJsonString(Integer.toString(numeroFactura), Double.toString(importe), fechaEmision.toString(), Integer.toString(estado), null, idExtractoBancario));
                 facturas.append(",");
 
             }
@@ -86,6 +94,17 @@ public class DAOFactura {
         return facturasJsonString;
     }
 
+    /**
+     * Consulta el String en formato Json a partir de los datos de una factura
+     * 
+     * @param numeroFactura numero que identifica la factura 
+     * @param importe importe de una factura
+     * @param fechaEmision fecha emision
+     * @param estado estado
+     * @param fechaPago fecha pago
+     * @param idExtractoBancario identificador del extracto bancario
+     * @return String con formato Json que contiene la factura
+     */
     private static String obtenerFacturaJsonString(String numeroFactura, String importe, String fechaEmision, String estado, String fechaPago, String idExtractoBancario) {
         String facturaJsonString = "";
 
@@ -98,7 +117,6 @@ public class DAOFactura {
                     .add("importe", importe)
                     .add("fechaEmision", fechaEmision)
                     .add("estado", estado)
-                    .add("fechaPago", fechaPago)
                     .add("idExtractoBancario", idExtractoBancario)
                     .build();
 
@@ -111,6 +129,11 @@ public class DAOFactura {
         return facturaJsonString;
     }
 
+    /**
+     * Consulta el String de un array en formato Json de unas facturas
+     * @param facturas lista de facturas
+     * @return String en formato Json que representa el array de facturas
+     */
     private static String obtenerFacturasJsonString(String facturas) {
         String facturasJsonString = "";
         JsonReaderFactory factory = Json.createReaderFactory(null);
