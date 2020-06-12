@@ -34,8 +34,6 @@ public class Empleado extends Persona {
         super();
     }
     
-    
-    
     public static Empleado getEmpleadoPorNifYPassword(String dni, String password) throws DatosIncorrectosException {
         String datosJSON = DAOEmpleado.consultaEmpleadoPorNifYPassword(dni, password);      
         
