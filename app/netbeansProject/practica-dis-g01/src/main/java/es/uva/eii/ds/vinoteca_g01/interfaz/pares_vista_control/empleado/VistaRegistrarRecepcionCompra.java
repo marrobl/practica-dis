@@ -7,6 +7,9 @@ package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
 import java.util.Iterator;
+import java.util.Vector;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -42,11 +45,11 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         BotonRegistrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         errorLabel = new javax.swing.JLabel();
         nombreBodega = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,25 +68,19 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
         jLabel3.setText("Datos de la Compra");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jButton1.setText("OK");
 
-            },
-            new String [] {
-                "Referencia", "Unidades", "Recibido"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("OK");
+        jScrollPane2.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,16 +88,6 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138)
-                        .addComponent(nombreBodega))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +100,19 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(41, 41, 41)
-                                        .addComponent(BotonRegistrar)))))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                                        .addComponent(BotonRegistrar))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(138, 138, 138)
+                                .addComponent(nombreBodega)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,13 +132,13 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                     .addComponent(nombreBodega))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(139, 139, 139)
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(179, 179, 179))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
         );
 
         pack();
@@ -148,11 +146,24 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
     private void BotonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistrarActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         //model.getValueAt(0, 2); mirar si el checkbox esta activado parametros son fila y columna
         controlador.procesaEventoIntroduceId();
         
     }//GEN-LAST:event_BotonRegistrarActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1) {
+               JList target = (JList)evt.getSource();
+               int index = target.locationToIndex(evt.getPoint());
+               if (index >= 0) {
+                  Object item = target.getModel().getElementAt(index);
+                  //JOptionPane.showMessageDialog(null, item.toString());
+                  controlador.procesaEventoSeleccionaLinea(item);
+               }
+            }
+    }//GEN-LAST:event_jList1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -219,15 +230,20 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         nombreBodega.setVisible(true);
         nombreBodega.setText(compra.getBodega());
         Iterator it = compra.getLineasCompra();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Vector data = new Vector();
         
         while(it.hasNext()){
             LineaCompra c = (LineaCompra)it.next();
-            String referencia = c.getCodigoReferencia();
-            String unidades = c.getUnidades();
-            model.addRow(new Object[]{referencia, unidades, false});
+            String referencia = Integer.toString(c.getCodigoReferencia());
+            String unidades = Integer.toString(c.getUnidades());
+            //model.addRow(new Object[]{referencia, unidades, false});
+            String tabla = referencia + " --- " + unidades;
+            data.add(tabla);
             
         }
+        
+        jList1.setListData(data);
         
         
         
@@ -243,8 +259,8 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel nombreBodega;
     // End of variables declaration//GEN-END:variables
@@ -252,5 +268,9 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     void mostrarErrorCompraNotFound() {
       // TODO 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void mostrarErrorCompraYaCompleta() {
+        
     }
 }

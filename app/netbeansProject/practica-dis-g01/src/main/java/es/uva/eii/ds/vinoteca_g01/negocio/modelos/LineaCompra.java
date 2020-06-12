@@ -5,17 +5,39 @@
  */
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 /**
  *
  * @author silmont
  */
 public class LineaCompra {
+    
+    private int id;
+    private int unidades;
+    private boolean recibida;
+    private LocalDate fechaRecepcion;
+    private int idCompra;
+    private int codigoReferencia;
 
-    public String getCodigoReferencia() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getCodigoReferencia() {
+        return codigoReferencia;
     }
 
-    public String getUnidades() {
+    public int getUnidades() {
+        return unidades;
+    }
+
+    public void setRecibida() {
+        recibida=true;
+    }
+
+    public void setFecha() {
+        fechaRecepcion = LocalDate.now();
+    }
+
+    public ArrayList<LineaPedido> getLineasPedido() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

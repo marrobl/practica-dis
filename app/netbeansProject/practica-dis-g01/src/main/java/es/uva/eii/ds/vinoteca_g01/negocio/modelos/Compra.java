@@ -128,5 +128,9 @@ public class Compra {
     private void setIdProveedor(int parseInt) {
         this.idProveedor=parseInt;
     }
+
+    public boolean getRecibidaCompleta() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
