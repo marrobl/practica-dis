@@ -42,7 +42,8 @@ public class CtrlVistaConsultarImpagos {
     /**
      * Procesa la fecha introducida por el usuario en la vista
      * y obtiene la lista de facturas vencidas de los dias
-     * anteriores a esa fecha
+     * anteriores a esa fecha y comprueba que la fecha introducida no sea
+     * una cadena vacia
      * 
      */
     public void procesaEventoIntroducirFecha() {
