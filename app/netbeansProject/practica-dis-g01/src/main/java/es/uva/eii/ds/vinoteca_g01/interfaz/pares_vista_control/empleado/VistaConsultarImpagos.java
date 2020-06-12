@@ -5,6 +5,7 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
+
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Factura;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
 import java.util.ArrayList;
@@ -13,8 +14,11 @@ import javax.swing.table.DefaultTableModel;
 
 
 /**
- *
- * @author maria
+ * Clase que implementa la vista del caso de uso de consultar impagos
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class VistaConsultarImpagos extends javax.swing.JFrame {
 
@@ -69,11 +73,11 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Factura", "Pedido", "Abonado"
+                "Factura", "Fecha Emision", "Pedido", "Abonado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -211,39 +215,64 @@ public class VistaConsultarImpagos extends javax.swing.JFrame {
     private javax.swing.JTable tablaFacturas;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Consulta la fecha introducida por el usuario
+     * @return fecha 
+     */
     public String getFecha() {
         return fechaTextField.getText();
     }
 
+    /**
+     * Muestra un mensaje de error al usuario
+     * 
+     * @param mensaje de error que se muestra 
+     */
     public void mostrarMensajeError(String mensaje) {
         errorLabel.setText(mensaje);
         errorLabel.setVisible(true);
         errorLabel.setText(mensaje);
     }
     
+    /**
+     * Esconde el mensaje de error
+     */
     public void esconderMensajeError() {
         errorLabel.setVisible(false);
     }
 
+    /**
+     * Muestra el mensaje al usuario de que no han pasado 30 dias
+     * 
+     * @param mensaje a mostrar
+     */
     void mostrarAvisoNoVencido(String mensaje) {
         errorLabel.setText(mensaje);
         errorLabel.setVisible(true);
         errorLabel.setText(mensaje);
     }
 
-    void mostrarFacturasImpagos(HashMap<Integer, ArrayList<Pedido>> facturas) {
+    /**
+     * Muestra el identificador y la fecha de emision de las facturas vencidas al usuario,
+     * asi como el identificador de los pedidos y del abonado asociado a cada 
+     * factura
+     * 
+     * @param facturas de las que se muestran los datos
+     */
+    void mostrarFacturasImpagos(ArrayList<Factura> facturas) {
        DefaultTableModel model = (DefaultTableModel) tablaFacturas.getModel();
-       
-        
-        for (HashMap.Entry<Integer, ArrayList<Pedido>> entry : facturas.entrySet()) {
-            ArrayList<Pedido> pedidos = entry.getValue();
-                for(Pedido pedido : pedidos){
-                    String numeroFactura = Integer.toString(pedido.getNumeroFactura());
+        tablaFacturas.setAutoCreateRowSorter(true);
+       ArrayList<Pedido> pedidos = new ArrayList<>();
+       for(Factura f: facturas){
+          pedidos = f.getPedidos();
+          for(Pedido pedido : pedidos){
+                     String numeroFactura = Integer.toString(pedido.getNumeroFactura());
                     String numeroPedido = Integer.toString(pedido.getNumero());
                     String numeroAbonado = Integer.toString(pedido.getNumeroAbonado());
-                    model.addRow(new Object[]{numeroFactura, numeroPedido, numeroAbonado});
+                    String fechaFactura = f.getFechaEmision().toString();
+                    model.addRow(new Object[]{numeroFactura, fechaFactura, numeroPedido, numeroAbonado});
                 }
-        }
+       }
     }
     
 }

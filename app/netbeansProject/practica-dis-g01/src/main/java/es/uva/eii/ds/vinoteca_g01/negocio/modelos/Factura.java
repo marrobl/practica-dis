@@ -22,13 +22,13 @@ import javax.json.JsonValue;
 
 
 /**
- *
- * @author maria
+ * Clase que implementa a una factura, identificada por un numero
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
+ * 
  */
-
-
-
-
 public class Factura {
     
     private int numeroFactura;
@@ -38,6 +38,16 @@ public class Factura {
     private LocalDate fechaPago;
     private String idExtractoBancario;
     
+    /**
+     * Crea una instancia de factura
+     * @param numeroFactura numero de identificacion 
+     * @param fechaEmision fecha en la que ha sido emitida
+     * @param importe de la factura
+     * @param estado en el que se encuentra la factura
+     * @param fechaPago fecha en la que ha sido pagada
+     * @param idExtractoBancario identificador del extracto bancario
+     * 
+     */
     public Factura(int numeroFactura, LocalDate fechaEmision, double importe, EstadoFactura estado, LocalDate fechaPago, String idExtractoBancario){
         this.numeroFactura = numeroFactura;
         this.fechaEmision = fechaEmision;
@@ -47,6 +57,10 @@ public class Factura {
         this.idExtractoBancario = idExtractoBancario;
     }
     
+    /**
+     * Crea una instancia de factura a partir de un String Json
+     * @param datosJSON datos de la factura
+     */
     public Factura(String datosJSON){
         JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(datosJSON));
@@ -64,26 +78,51 @@ public class Factura {
         this.idExtractoBancario = facturaJSON.getJsonString("idExtractoBancario").getString();
     }
     
+    /**
+     * Consulta el numero de identifacion de la factura
+     * @return numeroFactura
+     */
     public int getNumeroFactura(){
         return this.numeroFactura;
     }
     
+    /**
+     * Consulta la fecha de emision
+     * @return fechaEmision
+     */
     public LocalDate getFechaEmision(){
         return this.fechaEmision;
     }
     
+    /**
+     * Consulta el importe de la factura
+     * @return importe 
+     */
     public double getImporte(){
         return this.importe;
     }
     
+    /**
+     * Consulta el estado de la factura, pudiendo ser: emitida, vencida o pagada
+     * @return estado factura
+     */
     public EstadoFactura getEstado(){
         return this.estado;
     }
     
+    /**
+     * Consulta la fecha de pago
+     * @return fechaPago
+     */
     public LocalDate getFechaPago(){
         return this.fechaPago;
     }
     
+    /**
+     * Comprueba si han pasado menos de 30 desde la fecha introducida hasta la fecha actual
+     * @param fecha fecha a comprobar
+     * @return true si han pasado 30 dias o mas, false en cualquier otro caso
+     */
     private static boolean comprobarFecha(LocalDate fecha) {
         boolean ok = false;
         long daysBetween = DAYS.between(fecha, LocalDate.now());
@@ -91,6 +130,13 @@ public class Factura {
         return ok;
     }
     
+    /**
+     * Obtiene todas las facturas anteriores a una fecha que estan vencidas
+     * 
+     * @param fecha limite 
+     * @return lista de facturas no vencidas anteriores a la fecha introducida
+     * @throws FechaNoVencidaException cuando han pasado menos de 30 dias desde la fecha introducida 
+     */
     public static ArrayList<Factura> getFacturasFecha(LocalDate fecha) throws FechaNoVencidaException{
        boolean ok = comprobarFecha(fecha);
        if( ok == false){
@@ -116,5 +162,14 @@ public class Factura {
        
     
         return facturas;
+    }
+
+    /**
+     * Consulta todos los pedidos asociados a una factura
+     * 
+     * @return lista de pedidos asociados al identificador de la factura
+     */
+    public ArrayList<Pedido> getPedidos() {
+        return Pedido.getPedidosNumFactura(this.getNumeroFactura());
     }
 }

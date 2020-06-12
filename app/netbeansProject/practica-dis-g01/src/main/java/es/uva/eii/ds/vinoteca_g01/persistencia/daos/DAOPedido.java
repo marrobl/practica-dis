@@ -23,14 +23,22 @@ import javax.json.JsonReaderFactory;
 import javax.json.JsonWriter;
 
 /**
- *
- * @author maria
+ * Clase que accede a la base de datos para consultar pedidos
+ * 
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class DAOPedido {
 
     private static final String SELECT_PEDIDOS_NUM_FACTURA
             = "SELECT * FROM Pedido P WHERE P.NumeroFactura = ? ";
     
+    /**
+     * Consulta pedidos asociados a un numero de factura
+     * @param numFactura identificador de la factura
+     * @return String en formato Json de los pedidos asociados
+     */
     public static String consultaPedidosNumFactura(int numFactura) {
         String pedidosJsonString;
 
@@ -86,6 +94,19 @@ public class DAOPedido {
         return pedidosJsonString;
     }
 
+    /**
+     * Consulta el String en formato Json que se obtiene a partir de los datos de un pedido
+     * @param numeroPedido identificador del pedido
+     * @param estado estado
+     * @param fechaRealizacion fecha de realizacion
+     * @param notaEntrega nota de entrega
+     * @param importe importe
+     * @param fechaRecepcion fecha de recepcion
+     * @param fechaEntrega fecha de entrega
+     * @param numeroFactura numero de la factura a la que esta asociado
+     * @param numeroAbonado numero del abonado al que esta asociado
+     * @return String en formato Json que representa el pedido
+     */
     private static String obtenerPedidoJsonString(String numeroPedido, String estado, String fechaRealizacion, String notaEntrega, String importe, String fechaRecepcion, String fechaEntrega, String numeroFactura, String numeroAbonado) {
         String pedidoJsonString = "";
 
@@ -114,6 +135,11 @@ public class DAOPedido {
         return pedidoJsonString;
     }
 
+    /**
+     * Obtiene un array en formato String Json a partir de un Json de pedidos
+     * @param pedidos lista en formato Json de pedidos
+     * @return array en formato Json
+     */
     private static String obtenerPedidosJsonString(String pedidos) {
        String pedidosJsonString = "";
         JsonReaderFactory factory = Json.createReaderFactory(null);
