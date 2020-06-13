@@ -33,5 +33,5 @@ public class Bodega {
         this.direccion = bodegaJSON.getString("direccion");
   
     }
-    
+
 }
