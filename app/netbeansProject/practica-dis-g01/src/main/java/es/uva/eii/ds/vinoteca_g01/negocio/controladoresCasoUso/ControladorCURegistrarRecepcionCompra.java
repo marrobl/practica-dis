@@ -51,7 +51,7 @@ public class ControladorCURegistrarRecepcionCompra {
             c.setFechaCompraCompletada();
             
         }
-        String json = c.getJSON();
+        String json = c.toJSON();
         c.actualizar(json);
         return listaNoFinalizadas;
     }

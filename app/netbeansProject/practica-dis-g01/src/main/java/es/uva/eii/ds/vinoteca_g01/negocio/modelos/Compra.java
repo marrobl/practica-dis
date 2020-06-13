@@ -159,7 +159,7 @@ public class Compra {
 
     public ArrayList<LineaCompra> getLineasNoRecibidas() {
         Iterator it = getLineasCompra();
-        ArrayList<LineaCompra> lcNoComp = null;
+        ArrayList<LineaCompra> lcNoComp = new ArrayList<>();
         while(it.hasNext()){
             LineaCompra c = (LineaCompra)it.next();
             if(!c.getRecibida()) lcNoComp.add(c);
@@ -175,7 +175,7 @@ public class Compra {
         fechaCompraCompletada = LocalDate.now();
     }
 
-    public String getJSON() {
+    public String toJSON() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
