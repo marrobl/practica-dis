@@ -6,6 +6,7 @@
 package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,8 +15,10 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 import javax.json.JsonWriter;
 
@@ -32,7 +35,7 @@ public class DAOCompra {
         
         int idCompra=0; int idProveedor=0;
         LocalDate fechaInicioCompra=null, fechaCompraCompletada=null, fechaPago = null;
-        String recibidaCompleta="", pagada="";
+        String recibidaCompleta="", pagada="", fechaCompletada = null, fechaDePago= null;
         double importe=0;
         boolean hayDatos = false;
         
@@ -49,13 +52,24 @@ public class DAOCompra {
  
             if (rs.next()) {
                 hayDatos = true;
+               
                 idCompra = rs.getInt("IdCompra");
                 fechaInicioCompra = rs.getDate("FechaInicioCompra").toLocalDate();
                 recibidaCompleta = rs.getString("RecibidaCompleta");
-                fechaCompraCompletada = rs.getDate("FechaCompraCompletada").toLocalDate();
+                if(recibidaCompleta.equals("T")){
+                    fechaCompraCompletada = rs.getDate("FechaCompraCompletada").toLocalDate();
+                    fechaCompletada = fechaCompraCompletada.toString();
+                } else {
+                    fechaCompraCompletada = null;
+                }
                 importe = rs.getDouble("Importe");
-                pagada = rs.getString("FechaRecepcion");
-                fechaPago = rs.getDate("FechaPago").toLocalDate();
+                pagada = rs.getString("Pagada");
+                if(pagada.equals("T")){
+                    fechaPago = rs.getDate("FechaPago").toLocalDate();
+                    fechaDePago = fechaPago.toString();
+                } else {
+                    fechaPago = null;
+                }
                 idProveedor = rs.getInt("IdProveedor");
             }
             
@@ -68,33 +82,36 @@ public class DAOCompra {
             String lineasCompra = DAOLineaCompra.consultarLineasCompraPorIdCompra(id);
             String bodega = DAOBodega.consultarBodegaPorId(idProveedor);
             
-            compraJSON = obtenerCompraJsonString(Integer.toString(idCompra), fechaInicioCompra.toString(), recibidaCompleta, fechaCompraCompletada.toString(),
-                    Double.toString(importe), pagada, fechaPago.toString(), Integer.toString(idProveedor), lineasCompra, bodega);
+            compraJSON = obtenerCompraJsonString(Integer.toString(idCompra), fechaInicioCompra.toString(), recibidaCompleta, fechaCompletada,
+                    Double.toString(importe), pagada, fechaDePago, Integer.toString(idProveedor), lineasCompra, bodega);
            }
 
         return compraJSON;
     }
 
  
-    private static String obtenerCompraJsonString(String idCompra, String fechaInicioCompra, String recibidaCompleta, String fechaCompraCompletada, String importe, String pagada, String fechaPago, String idProveedor, String lineasCompra, String bodega) {
+    private static String obtenerCompraJsonString(String idCompra, String fechaInicioCompra, String recibidaCompleta, 
+            String fechaCompraCompletada, String importe, String pagada, String fechaPago, String idProveedor, 
+            String lineasCompra, String bodega) {
         String compraLineasCompraJsonString = "";
         JsonReaderFactory factory = Json.createReaderFactory(null);
         
         try {
-        
+            JsonReader readerLineasCompra = factory.createReader(new StringReader(lineasCompra));
+                     
             StringWriter stringWriter = new StringWriter();
             JsonWriter writer = Json.createWriter(stringWriter);
             
-            
+            JsonArray lineasCompraArray = readerLineasCompra.readArray();
+          
             JsonObject compraJson = Json.createObjectBuilder()
                     .add("idCompra", idCompra)
                     .add("fechaInicioCompra", fechaInicioCompra)
                     .add("recibidaCompleta", recibidaCompleta)
-                    .add("fechaCompraCompletada", fechaCompraCompletada)
                     .add("importe", importe)
-                    .add("fechaPago", fechaPago)
+                    .add("pagada", pagada)
                     .add("idProveedor", idProveedor)
-                    .add("lineasCompra", lineasCompra)
+                    .add("lineasCompra", lineasCompraArray)
                     .add("bodega", bodega)
                     .build();
             

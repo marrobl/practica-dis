@@ -400,3 +400,83 @@ INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcio
         5, '2020-03-29', 'Observacion del pedido 2', 70.0, '2020-04-03', '2020-04-10', 2, 2
 );
 
+INSERT INTO BODEGA(Nombre, CIF, Direccion) VALUES (
+'SuperBodega', 'AB123', 'Direccion de la SuperBodega');
+
+INSERT INTO BODEGA(Nombre, CIF, Direccion) VALUES (
+'PequeBodega', 'CD456', 'Direccion de la PequeBodega');
+
+INSERT INTO BODEGA(Nombre, CIF, Direccion) VALUES (
+'GranBodega', 'EF789', 'Direccion de la GranBodega');
+
+INSERT INTO COMPRA(FechaInicioCompra, RecibidaCompleta, FechaCompraCompletada, Importe, Pagada, FechaPago, IdProveedor) VALUES (
+'2020-04-10', 'F', NULL, 100.00, 'F', NULL, 1
+);
+
+INSERT INTO COMPRA(FechaInicioCompra, RecibidaCompleta, FechaCompraCompletada, Importe, Pagada, FechaPago, IdProveedor) VALUES (
+'2020-06-10', 'F', NULL, 1000.00, 'F', NULL, 2
+);
+
+INSERT INTO DENOMINACIONORIGEN(Nombre) VALUES(
+'Denominacion01'
+);
+
+INSERT INTO DENOMINACIONORIGEN(Nombre) VALUES(
+'Denominacion02'
+);
+
+INSERT INTO DENOMINACIONORIGEN(Nombre) VALUES(
+'Denominacion03'
+);
+
+INSERT INTO VINO(NombreComercial, Ano, Comentario, IdDenominacion, Categoria, IdBodega) VALUES (
+'Vino01', 1999, 'Comentario del Vino 1', 1, 2, 3
+);
+
+INSERT INTO VINO(NombreComercial, Ano, Comentario, IdDenominacion, Categoria, IdBodega) VALUES (
+'Vino02', 1997, 'Comentario del Vino 2', 2, 1, 1
+);
+
+INSERT INTO VINO(NombreComercial, Ano, Comentario, IdDenominacion, Categoria, IdBodega) VALUES (
+'Vino03', 1994, 'Comentario del Vino 3', 3, 2, 2
+);
+
+
+INSERT INTO REFERENCIA(EsPorCajas, ContenidoEnCL, Precio, Disponible, VinoId) VALUES (
+'T', 10, 5.0, 'T', 1
+);
+
+INSERT INTO REFERENCIA(EsPorCajas, ContenidoEnCL, Precio, Disponible, VinoId) VALUES (
+'T', 10, 8.0, 'T', 2
+);
+
+INSERT INTO REFERENCIA(EsPorCajas, ContenidoEnCL, Precio, Disponible, VinoId) VALUES (
+'T', 10, 15.0, 'T', 3
+);
+
+INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES (
+5, 'F', NULL, 1, 1);
+
+INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES (
+15, 'F', NULL, 1, 2);
+
+INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES (
+6, 'F', NULL, 2, 2);
+
+INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES (
+40, 'F', NULL, 2, 3);
+
+INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
+50,'F', 1, 1, 1);
+
+INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
+5,'F', 2, 2, 2);
+
+INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
+45,'F', 3, 3, 2);
+
+INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
+5,'F', 1, 4, 3);
+
+INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
+5,'F', 2, 5, 3);

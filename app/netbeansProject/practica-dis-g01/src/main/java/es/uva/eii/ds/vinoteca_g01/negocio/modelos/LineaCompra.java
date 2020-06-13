@@ -26,6 +26,7 @@ public class LineaCompra {
     private int idCompra;
     private int codigoReferencia;
     private ArrayList<LineaPedido> lineasPedido;
+    
     public LineaCompra(String json) {
         JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(json));
@@ -33,16 +34,17 @@ public class LineaCompra {
         
         this.id = Integer.parseInt(lineaCompraJSON.getJsonString("id").getString());
         this.unidades = Integer.parseInt(lineaCompraJSON.getJsonString("unidades").getString());
-        String recibida = lineaCompraJSON.getString("recibida");
-        if(recibida.equals("T")){
+        String recibidaLC = lineaCompraJSON.getString("recibida");
+        if(recibidaLC.equals("T")){
            this.recibida = true;
+           this.fechaRecepcion = LocalDate.parse(lineaCompraJSON.getJsonString("fechaRecepcion").getString());
         } else {
             this.recibida = false;
+            this.fechaRecepcion = null;
         }
-        this.fechaRecepcion = LocalDate.parse(lineaCompraJSON.getJsonString("fechaRecepcion").getString());
         this.idCompra = Integer.parseInt(lineaCompraJSON.getJsonString("idCompra").getString());
         this.codigoReferencia = Integer.parseInt(lineaCompraJSON.getJsonString("codigoReferencia").getString());
-
+  
     }
 
     public int getCodigoReferencia() {
