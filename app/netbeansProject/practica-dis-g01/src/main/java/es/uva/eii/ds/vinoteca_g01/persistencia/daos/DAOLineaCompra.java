@@ -38,16 +38,22 @@ public class DAOLineaCompra {
             int id, unidades, idCompra, codigoReferencia;
             String recibida;
             LocalDate fechaRecepcion;
-   
+            String fechaRecep = null;
+            
             while (result.next()) {
                 id = result.getInt("Id");
                 unidades = result.getInt("Unidades");
                 recibida = result.getString("Recibida");
-                fechaRecepcion = result.getDate("FechaRecepcion").toLocalDate();
+                if(recibida.equals("T")){    
+                    fechaRecepcion = result.getDate("FechaRecepcion").toLocalDate();
+                    fechaRecep = fechaRecepcion.toString();
+                } else {
+                    fechaRecepcion = null;
+                }
                 idCompra = result.getInt("IdCompra");
                 codigoReferencia = result.getInt("CodigoReferencia");
              
-                lineasCompra.append(obtenerLineaCompraJsonString(Integer.toString(id), Integer.toString(unidades), recibida, fechaRecepcion.toString(), Integer.toString(idCompra),Integer.toString(codigoReferencia)));
+                lineasCompra.append(obtenerLineaCompraJsonString(Integer.toString(id), Integer.toString(unidades), recibida, fechaRecep, Integer.toString(idCompra),Integer.toString(codigoReferencia)));
                 lineasCompra.append(",");
             }
             
@@ -78,7 +84,6 @@ public class DAOLineaCompra {
                     .add("id", id)
                     .add("unidades", unidades)
                     .add("recibida", recibida)
-                    .add("fechaRecepcion", fechaRecepcion)
                     .add("idCompra", idCompra)
                     .add("codigoReferencia", codigoReferencia)
                     .build();

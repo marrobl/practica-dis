@@ -41,40 +41,48 @@ public class Compra {
     
     private Compra(String datosJSON) {
         JsonReaderFactory factory = Json.createReaderFactory(null);
+        lineasCompra = new ArrayList<>();
         
         try {
             JsonReader reader = factory.createReader(new StringReader(datosJSON));
             JsonObject compraJson = reader.readObject();
             
             String idCompra = compraJson.getString("idCompra");
-            String fechaInicioCompra = compraJson.getString("fechaInincioCompra");
-            String recibidaCompra = compraJson.getString("recibidaCompra");
-            String fechaCompraCompletada = compraJson.getString("fechaCompraCompletada");
+            String fechaInicioCompra = compraJson.getString("fechaInicioCompra");
+            String recibidaCompra = compraJson.getString("recibidaCompleta");
+            String fechaCompraCompletada = null;
+            if(recibidaCompra.equals("T")){
+                fechaCompraCompletada = compraJson.getString("fechaCompraCompletada");
+            } 
             String importe = compraJson.getString("importe");
             String pagada = compraJson.getString("pagada");
-            String fechaPago = compraJson.getString("fechaPago");
+            String fechaPago = null;
+            if(pagada.equals("T")){
+                fechaPago = compraJson.getString("fechaPago");
+            } 
             String idProveedor = compraJson.getString("idProveedor");
             
             
             setIdCompra(Integer.parseInt(idCompra));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-            LocalDate fechaIC = LocalDate.parse(fechaInicioCompra, formatter);
+      
+            LocalDate fechaIC = LocalDate.parse(fechaInicioCompra);
             setFechaInicioCompra(fechaIC);
             if(recibidaCompra.equals("T")) {
                 this.setRecibidaCompra(true);
+                LocalDate fechaCC = LocalDate.parse(fechaCompraCompletada);
+                setFechaCompraCompletada(fechaCC);
             } else {
                 this.setRecibidaCompra(false);
             }
-            LocalDate fechaCC = LocalDate.parse(fechaCompraCompletada, formatter);
-            setFechaCompraCompletada(fechaCC);
             setImporte(Double.parseDouble(importe));
-            LocalDate fechaP = LocalDate.parse(fechaPago, formatter);
             if(pagada.equals("T")) {
                 this.setPagada(true);
+                LocalDate fechaP = LocalDate.parse(fechaPago);
+                setFechaPago(fechaP);
             } else {
                 this.setPagada(false);
             }
-            setFechaPago(fechaP);
+     
             setIdProveedor(Integer.parseInt(idProveedor));
             JsonArray lineasCompraJson = compraJson.getJsonArray("lineasCompra");
             
