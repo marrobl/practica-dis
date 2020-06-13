@@ -6,7 +6,6 @@
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
 import java.io.StringReader;
-import java.time.LocalDate;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -32,6 +31,10 @@ public class Bodega {
         this.cif = bodegaJSON.getString("cif");
         this.direccion = bodegaJSON.getString("direccion");
   
+    }
+    
+    public String getNombre(){
+        return this.nombre;
     }
 
 }

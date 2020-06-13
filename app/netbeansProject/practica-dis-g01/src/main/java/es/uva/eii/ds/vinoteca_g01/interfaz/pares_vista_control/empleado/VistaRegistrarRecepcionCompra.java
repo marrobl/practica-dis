@@ -228,7 +228,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     
     public void mostrarDatosCompra(Compra compra){
         nombreBodega.setVisible(true);
-        nombreBodega.setText(compra.getBodega());
+        nombreBodega.setText(compra.getNombreBodega());
         Iterator it = compra.getLineasCompra();
         //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Vector data = new Vector();

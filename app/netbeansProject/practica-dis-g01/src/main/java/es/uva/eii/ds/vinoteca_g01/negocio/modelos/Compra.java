@@ -112,8 +112,8 @@ public class Compra {
         return c;
     }
 
-    public String getBodega() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getNombreBodega() {
+        return this.bodega.getNombre();
     }
 
     public Iterator getLineasCompra() {
