@@ -56,8 +56,6 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
         jLabel1.setText("REGISTRAR RECEPCIÓN COMPRA");
 
-        jTextField1.setText("introduce id");
-
         jLabel2.setText("Id de Compra");
 
         BotonRegistrar.setText("Registrar");
@@ -239,6 +237,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
             String unidades = Integer.toString(c.getUnidades());
             //model.addRow(new Object[]{referencia, unidades, false});
             String tabla = referencia + " --- " + unidades;
+            System.out.println(tabla);
             data.add(tabla);
             
         }

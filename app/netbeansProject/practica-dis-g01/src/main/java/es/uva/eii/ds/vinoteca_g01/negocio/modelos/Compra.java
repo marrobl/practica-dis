@@ -117,7 +117,8 @@ public class Compra {
     }
 
     public Iterator getLineasCompra() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Iterator it = lineasCompra.iterator();
+        return it;
     }
 
     private void setIdCompra(int parseInt) {
@@ -181,5 +182,7 @@ public class Compra {
     public void actualizar(String json) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+ 
     
 }
