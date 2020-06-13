@@ -123,7 +123,7 @@ public class DAOFactura {
             writer.writeObject(facturaJson);
             facturaJsonString = stringWriter.toString();
         } catch (Exception ex) {
-            Logger.getLogger(DAORolesEnEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return facturaJsonString;

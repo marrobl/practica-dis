@@ -25,7 +25,7 @@ public class LineaCompra {
     private LocalDate fechaRecepcion;
     private int idCompra;
     private int codigoReferencia;
-
+    private ArrayList<LineaPedido> lineasPedido;
     public LineaCompra(String json) {
         JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(json));
@@ -62,7 +62,9 @@ public class LineaCompra {
     }
 
     public ArrayList<LineaPedido> getLineasPedido() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<LineaPedido> lp = LineaPedido.getLineasPedidoPorIdLineaCompra(this.id);
+           // Falta guardar el array de lineaPedido en el atributo que he hecho para ello
+        return lp;
     }
     
 }
