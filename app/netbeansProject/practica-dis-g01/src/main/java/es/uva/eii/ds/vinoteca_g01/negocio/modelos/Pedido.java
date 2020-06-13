@@ -26,6 +26,10 @@ import javax.json.JsonWriter;
  */
 public class Pedido {
 
+    public static ArrayList<Pedido> getPedidosTramitados() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private int numero;
     private EstadoPedido estado;
     private LocalDate fechaRealizacion;
@@ -283,5 +287,9 @@ public class Pedido {
     
     public static void registrarPedido(String json) {
         DAOPedido.insertarPedidoAPartirDeJSON(json);
+    }
+
+    public void setEstadoPedidoCompletado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

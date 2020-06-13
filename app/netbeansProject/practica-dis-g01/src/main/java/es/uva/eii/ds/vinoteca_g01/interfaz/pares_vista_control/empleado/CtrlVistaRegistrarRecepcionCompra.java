@@ -5,12 +5,12 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCURegistrarRecepcionCompra;
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraYaCompletadaException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -37,7 +37,8 @@ public class CtrlVistaRegistrarRecepcionCompra {
             vista.esconderMensajeError();
         }
         try{
-            controladorCU.getCompraNoCompletada(id);
+            Compra c = controladorCU.getCompraNoCompletada(id);
+            vista.mostrarDatosCompra(c);
             
         }catch(CompraNotFoundException e){
             vista.mostrarMensajeError(ERROR_COMPRA_NOT_FOUND);

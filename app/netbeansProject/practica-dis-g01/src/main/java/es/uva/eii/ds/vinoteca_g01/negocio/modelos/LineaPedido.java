@@ -106,4 +106,8 @@ public class LineaPedido {
 
         return lineaPedidoJSON;
     }
+
+    public boolean getCompletada() {
+        return completada;
+    }
 }

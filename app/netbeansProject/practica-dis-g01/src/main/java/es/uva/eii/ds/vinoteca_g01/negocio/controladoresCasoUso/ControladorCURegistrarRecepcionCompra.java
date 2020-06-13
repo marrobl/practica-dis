@@ -8,6 +8,7 @@ package es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaPedido;
+import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraYaCompletadaException;
 import java.util.ArrayList;
@@ -20,9 +21,10 @@ import java.util.logging.Logger;
  */
 public class ControladorCURegistrarRecepcionCompra {
 
-    public void getCompraNoCompletada(String id) throws CompraNotFoundException, CompraYaCompletadaException {
+    public Compra getCompraNoCompletada(String id) throws CompraNotFoundException, CompraYaCompletadaException {
         Compra c = Compra.getCompraPorId(id);
         if(c.getRecibidaCompleta()) throw new CompraYaCompletadaException();
+        return c;
     }
 
     public void setLinea(LineaCompra linea) {
@@ -53,7 +55,16 @@ public class ControladorCURegistrarRecepcionCompra {
     }
 
     public void revisarPedidos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       ArrayList<Pedido> listaTramitados = Pedido.getPedidosTramitados();
+       for(Pedido p : listaTramitados){
+           ArrayList<LineaPedido> lineas = p.getLineasPedido();
+           boolean pedidoCompleto = true;
+           for(LineaPedido l : lineas){
+               if(!l.getCompletada()) pedidoCompleto=false;
+           }
+           if(pedidoCompleto) p.setEstadoPedidoCompletado();
+           //Aqui actualizamos a la BBDD
+       }
     }
     
 }

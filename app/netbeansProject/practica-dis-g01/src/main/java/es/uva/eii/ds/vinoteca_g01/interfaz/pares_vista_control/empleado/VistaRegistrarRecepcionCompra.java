@@ -22,7 +22,7 @@ import javax.swing.table.TableColumn;
  */
 public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
-    private CtrlVistaRegistrarRecepcionCompra controlador;
+    private final CtrlVistaRegistrarRecepcionCompra controlador;
     /**
      * Creates new form VistaRegistrarRecepcionCompra
      */
@@ -152,8 +152,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
     private void BotonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistrarActionPerformed
         // TODO add your handling code here:
-        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        //model.getValueAt(0, 2); mirar si el checkbox esta activado parametros son fila y columna
+
         controlador.procesaEventoIntroduceId();
         
     }//GEN-LAST:event_BotonRegistrarActionPerformed
@@ -225,17 +224,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         errorLabel.setVisible(false);
     }
     
-    public void addCheckbox(int column, JTable table){
-        TableColumn td = table.getColumnModel().getColumn(column);
-        td.setCellEditor(table.getDefaultEditor(Boolean.class));
-        td.setCellRenderer(table.getDefaultRenderer(Boolean.class));
-        
-    }
-    
-    public void addRow(JTable table, String col1, String col2){
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.addRow(new Object[]{col1, col2, ""});
-    }
+
     
     public void mostrarDatosCompra(Compra compra){
         nombreBodega.setVisible(true);
