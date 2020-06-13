@@ -37,6 +37,7 @@ public class DAOLineaPedido {
     private static final String INSERT_LINEA_PEDIDO
             = "INSERT INTO LineaPedido (Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) "
             + "VALUES (?, ?, ?, ?, NULL)";
+    private static final String UPDATE_LINEA_PEDIDO = "UPDATE LINEAPEDIDO P SET C.Completada=? WHERE C.Id=?";
     
     public static String consultaLineasPedidoPorIdLineaCompra(int idLC) {
         String lineasPedidoJsonString;
@@ -217,5 +218,38 @@ public class DAOLineaPedido {
         lineasPedido.append("]");
         
         return lineasPedido.toString();
+    }
+
+    static void actualizarLineasPedidoAPartirDeJson(String lineasPedidoJson) {
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+        DBConnection connection = DBConnection.getInstance();
+        connection.openConnection();
+        
+        try (
+            JsonReader reader = factory.createReader(new StringReader(lineasPedidoJson));) {
+            JsonArray lineasPedidoJsonArray = reader.readArray();
+            
+            for (JsonValue j : lineasPedidoJsonArray) {
+                int id = j.asJsonObject().getInt("id");
+                int unidades = j.asJsonObject().getInt("unidades");
+                String completada = j.asJsonObject().getBoolean("completada") ? "T" : "F";
+                int codigoReferencia = j.asJsonObject().getInt("codigoReferencia");
+                
+                try (
+                        PreparedStatement s = connection.getStatement(INSERT_LINEA_PEDIDO);) {
+                    
+                    
+                    s.setString(1, completada);
+                    s.setInt(2, id);
+                    s.executeUpdate();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOLineaPedido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DAOLineaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        connection.closeConnection();
     }
 }
