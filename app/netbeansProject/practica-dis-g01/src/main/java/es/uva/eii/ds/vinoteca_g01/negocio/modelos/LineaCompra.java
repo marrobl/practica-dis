@@ -40,5 +40,9 @@ public class LineaCompra {
     public ArrayList<LineaPedido> getLineasPedido() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    boolean getRecibida() {
+        return recibida;
+    }
     
 }

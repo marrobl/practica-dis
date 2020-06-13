@@ -11,6 +11,8 @@ import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaPedido;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraYaCompletadaException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,7 +36,11 @@ public class ControladorCURegistrarRecepcionCompra {
     }
 
     public ArrayList<LineaCompra> finRegistroLineas(String id) {
-        Compra c = Compra.getCompraPorId(id);
+        Compra c = null;
+        try {
+            c = Compra.getCompraPorId(id);
+        } catch (CompraNotFoundException ex) {
+        }
         ArrayList<LineaCompra> listaNoFinalizadas = c.getLineasNoRecibidas();
         if (listaNoFinalizadas.isEmpty()){
             c.setRecibidaCompleta();
@@ -43,6 +49,7 @@ public class ControladorCURegistrarRecepcionCompra {
         }
         String json = c.getJSON();
         c.actualizar(json);
+        return listaNoFinalizadas;
     }
 
     public void revisarPedidos() {

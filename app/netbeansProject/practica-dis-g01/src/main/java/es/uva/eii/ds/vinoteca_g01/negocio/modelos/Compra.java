@@ -10,6 +10,7 @@ import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundExc
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -130,6 +131,32 @@ public class Compra {
     }
 
     public boolean getRecibidaCompleta() {
+        return recibidaCompleta;
+    }
+
+    public ArrayList<LineaCompra> getLineasNoRecibidas() {
+        Iterator it = getLineasCompra();
+        ArrayList<LineaCompra> lcNoComp = null;
+        while(it.hasNext()){
+            LineaCompra c = (LineaCompra)it.next();
+            if(!c.getRecibida()) lcNoComp.add(c);
+    }
+        return lcNoComp;
+    }
+
+    public void setRecibidaCompleta() {
+        recibidaCompleta = true;
+    }
+
+    public void setFechaCompraCompletada() {
+        fechaCompraCompletada = LocalDate.now();
+    }
+
+    public String getJSON() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void actualizar(String json) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
