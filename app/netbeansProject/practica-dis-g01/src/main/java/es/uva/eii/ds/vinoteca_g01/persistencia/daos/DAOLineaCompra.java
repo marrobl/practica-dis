@@ -6,7 +6,9 @@
 package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
+import java.io.StringReader;
 import java.io.StringWriter;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +16,10 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonReaderFactory;
 import javax.json.JsonWriter;
 
 /**
@@ -23,8 +28,13 @@ import javax.json.JsonWriter;
  */
 public class DAOLineaCompra {
     private static final String SELECT_LINEAS_COMPRA_POR_ID_COMPRA = 
-            "SELECT * FROM LineaCompra Lp WHERE Lp.IdCompra = ?";
+            "SELECT * FROM LineaCompra Lc WHERE Lc.IdCompra = ?";
 
+    
+    private static final String UPDATE_LINEACOMPRA_LINEASPEDIDO
+            = "UPDATE * FROM LineaCompra Lc WHERE Lc.id = ? AND Lc.Recibida = ? AND Lc.FechaRecibida = ? ";
+    
+    
     static String consultarLineasCompraPorIdCompra(String id_compra) {
         DBConnection connection = DBConnection.getInstance();
         connection.openConnection();
@@ -95,6 +105,51 @@ public class DAOLineaCompra {
         }
         
         return lineaCompraJsonString;
+    }
+
+    static void actualizaLineasCompraAPartirDeJson(String lineasCompraJson) {
+        int id = 0, unidades = 0, idCompra = 0, codigoReferencia =0;
+        String recibida = "", fechaRecepcion = "";
+        String lineasPedidoJson = "[]";
+
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+
+        try {
+            JsonReader reader = factory.createReader(new StringReader(lineasCompraJson));
+            JsonObject lineaCompraJSON = reader.readObject();
+            id = lineaCompraJSON.getInt("id");
+            unidades = lineaCompraJSON.getInt("unidades");
+            fechaRecepcion = lineaCompraJSON.getString("fechaRecepcion");
+            recibida = lineaCompraJSON.getString("recibida");
+            idCompra = lineaCompraJSON.getInt("idCompra");
+            codigoReferencia = lineaCompraJSON.getInt("codigoReferencia");
+           
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter);
+            JsonArray lineasCompraJsonArray = lineaCompraJSON.getJsonArray("lineasPedido");
+            writer.writeArray(lineasCompraJsonArray);
+            lineasPedidoJson = stringWriter.toString();
+
+            DBConnection connection = DBConnection.getInstance();
+            connection.openConnection();
+
+            try {
+                PreparedStatement ps = connection.getStatement(UPDATE_LINEACOMPRA_LINEASPEDIDO);
+                ps.setInt(1, id);
+                ps.setString(2, recibida);
+                ps.setDate(2, Date.valueOf(LocalDate.parse(fechaRecepcion)));
+              
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOLineaCompra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            connection.closeConnection();
+        } catch (Exception ex) {
+            Logger.getLogger(DAOLineaCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        DAOLineaPedido.actualizaLineasPedidoAPartirDeJson(lineasPedidoJson);
     }
     
 }

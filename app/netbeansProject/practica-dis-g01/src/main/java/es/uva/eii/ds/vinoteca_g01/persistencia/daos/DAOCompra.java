@@ -8,6 +8,7 @@ package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,6 +31,9 @@ public class DAOCompra {
     private static final String SELECT_COMPRA_ID_COMPRA
             = "SELECT * FROM Compra C WHERE C.IdCompra = ? ";
 
+    private static final String UPDATE_COMPRA_LINEASCOMPRA
+            = "UPDATE * FROM Compra C WHERE C.idCompra = ? AND C.RecibidaCompleta = ? AND C.FechaCompraCompletada = ? ";
+    
     public static String consultaCompraPorId(String id) {
         String compraJSON = null;
         
@@ -122,6 +126,56 @@ public class DAOCompra {
         }
         
         return compraLineasCompraJsonString;
+    }
+
+    public static void actualizarCompraLineasCompra(String json) {
+        int idCompra = 0;
+        String fechaInicioCompra = "", recibidaCompleta = "", fechaCompraCompletada = "";
+        double importe = 0;
+        String pagada = "", fechaPago = "";
+        int idProveedor = 0;
+        String lineasCompraJson = "[]";
+
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+
+        try {
+            JsonReader reader = factory.createReader(new StringReader(json));
+            JsonObject compraJSON = reader.readObject();
+            idCompra = compraJSON.getInt("idCompra");
+            fechaInicioCompra = compraJSON.getString("fechaInicioCompra");
+            recibidaCompleta = compraJSON.getString("recibidaCompleta");
+            fechaCompraCompletada = compraJSON.getString("fechaCompraCompletada");
+            importe = compraJSON.getJsonNumber("importe").bigDecimalValue().doubleValue();
+            pagada = compraJSON.getString("pagada");
+            fechaPago = compraJSON.getString("fechaPago");
+            idProveedor = compraJSON.getJsonNumber("idProveedor").intValue();
+
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter);
+            JsonArray lineasCompraJsonArray = compraJSON.getJsonArray("lineasCompra");
+            writer.writeArray(lineasCompraJsonArray);
+            lineasCompraJson = stringWriter.toString();
+
+            DBConnection connection = DBConnection.getInstance();
+            connection.openConnection();
+
+            try {
+                PreparedStatement ps = connection.getStatement(UPDATE_COMPRA_LINEASCOMPRA);
+                ps.setInt(1, idCompra);
+                ps.setString(2, recibidaCompleta);
+                ps.setDate(2, Date.valueOf(LocalDate.parse(fechaCompraCompletada)));
+              
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOCompra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            connection.closeConnection();
+        } catch (Exception ex) {
+            Logger.getLogger(DAOCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        DAOLineaCompra.actualizaLineasCompraAPartirDeJson(lineasCompraJson);
     }
     
 }
