@@ -8,6 +8,7 @@ package es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Abonado;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Referencia;
+import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.AbonadoNoExisteException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ImpagosAbonadoException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ReferenciaNoDisponibleException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ReferenciaNoExisteException;
@@ -22,7 +23,7 @@ public class ControladorCUCrearPedidoAbonado {
     private Abonado abonado;
     private Pedido pedido;
 
-    public Abonado getAbonadoPorId(int numAbonado) {
+    public Abonado getAbonadoPorId(int numAbonado) throws AbonadoNoExisteException {
         abonado = Abonado.getAbonado(numAbonado);
         
         return abonado;

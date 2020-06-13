@@ -6,6 +6,7 @@
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.daos.DAOAbonado;
+import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.AbonadoNoExisteException;
 import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,10 +23,12 @@ public class Abonado extends Persona {
     private int numeroAbonado;
     private String openIDref;
 
-    public static Abonado getAbonado(int numAbonado) {
+    public static Abonado getAbonado(int numAbonado) throws AbonadoNoExisteException {
         String datosJSON = DAOAbonado.consultarAbonadoPorId(numAbonado);
-        System.out.println(datosJSON);
         
+        if (datosJSON == null) {
+            throw new AbonadoNoExisteException();
+        }
         return new Abonado(datosJSON);
     }    
 

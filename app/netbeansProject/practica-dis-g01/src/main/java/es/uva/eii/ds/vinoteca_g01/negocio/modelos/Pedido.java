@@ -248,7 +248,6 @@ public class Pedido {
         
         for(LineaPedido lp: lineasPedido) {
             lineasPedidoJson.append(lp.toJSON());
-            System.out.println(lp.toJSON());
             lineasPedidoJson.append(",");
         }
         
@@ -271,8 +270,6 @@ public class Pedido {
         } catch(Exception ex) {
              Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-                System.out.println(pedidoJson);
-
         
         return pedidoJson;
     }
