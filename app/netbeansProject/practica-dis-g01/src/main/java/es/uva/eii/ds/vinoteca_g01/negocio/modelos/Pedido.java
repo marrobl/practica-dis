@@ -26,10 +26,6 @@ import javax.json.JsonWriter;
  */
 public class Pedido {
 
-    public static ArrayList<Pedido> getPedidosTramitados() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     private int numero;
     private EstadoPedido estado;
     private LocalDate fechaRealizacion;
@@ -183,6 +179,28 @@ public class Pedido {
         this.numeroAbonado = numeroAbonado;
     }
     
+    public static ArrayList<Pedido> getPedidosTramitados() {
+        String pedidosTramitadosJSON = DAOPedido.consultaPedidosLineasPedidoTramitados();
+        ArrayList<Pedido> pedidosTramitados = new ArrayList<>();
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+        try {
+            JsonReader reader = factory.createReader(new StringReader(pedidosTramitadosJSON));
+            JsonObject pedidosJson = reader.readObject();
+            JsonArray pedJson = pedidosJson.getJsonArray("pedidosLineasPedido");
+
+            Pedido pedido;
+
+            for (JsonValue j : pedJson) {
+                pedido = new Pedido(j.asJsonObject().toString());
+                pedidosTramitados.add(pedido);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return pedidos;
+    }
+        
     public void crearLineaPedido(Referencia referencia, int cantidad) {
         LineaPedido lp = new LineaPedido(referencia, cantidad);
         lineasPedido.add(lp);

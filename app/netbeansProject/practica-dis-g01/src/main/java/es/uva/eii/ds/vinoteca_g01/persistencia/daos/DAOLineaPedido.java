@@ -11,7 +11,6 @@ import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
@@ -31,6 +30,8 @@ public class DAOLineaPedido {
     
     private static final String SELECT_LINEASPEDIDO_ID_LINEA_COMPRA
             = "SELECT * FROM LineaPedido Lp WHERE Lp.IdLineaCompra = ? ";
+    private static final String SELECT_LINEASPEDIDO_NUMERO_PEDIDO
+            = "SELECT * FROM LineaPedido Lp WHERE Lp.NumeroPedido = ? ";
     private static final String MAX_ID_NUMERO_PEDIDO
             = "SELECT MAX(LP.numeroPedido) as lastId FROM LineaPedido LP";
     private static final String INSERT_LINEA_PEDIDO
@@ -175,5 +176,46 @@ public class DAOLineaPedido {
         }
         
         connection.closeConnection();
+    }
+
+    public static String consultarLineasPedidoNumPedido(int numPedido) {
+        DBConnection connection = DBConnection.getInstance();
+        connection.openConnection();
+        StringBuilder lineasPedido = new StringBuilder("[");
+        
+        try {
+            PreparedStatement s = connection.getStatement(SELECT_LINEASPEDIDO_NUMERO_PEDIDO);
+            s.setInt(1, numPedido);
+            ResultSet rs = s.executeQuery();
+            
+            int id, unidades, codigoReferencia, numeroPedido, idLineaCompra;
+            String completada;
+            
+            while (rs.next()) {
+                id = rs.getInt("Id");
+                unidades = rs.getInt("Unidades");
+                completada = rs.getString("Completada");
+                codigoReferencia = rs.getInt("CodigoReferencia");
+                numeroPedido = rs.getInt("NumeroPedido");
+                idLineaCompra = rs.getInt("IdLineaCompra");
+                
+                lineasPedido.append(obtenerLineaPedidoJsonString(Integer.toString(id), Integer.toString(unidades), completada, Integer.toString(codigoReferencia), Integer.toString(numeroPedido), Integer.toString(idLineaCompra)));
+                lineasPedido.append(",");
+            }
+            
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOLineaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        connection.closeConnection();
+        
+        if (lineasPedido.charAt(lineasPedido.length()-1) == ',') {
+            lineasPedido.deleteCharAt(lineasPedido.length()-1);
+        }
+        
+        lineasPedido.append("]");
+        
+        return lineasPedido.toString();
     }
 }
