@@ -245,7 +245,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         Iterator it = compra.getLineasCompra();
         //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Vector data = new Vector();
-        
+        // TODO meter un if con linea no recibida
         while(it.hasNext()){
             LineaCompra c = (LineaCompra)it.next();
             String referencia = Integer.toString(c.getCodigoReferencia());
