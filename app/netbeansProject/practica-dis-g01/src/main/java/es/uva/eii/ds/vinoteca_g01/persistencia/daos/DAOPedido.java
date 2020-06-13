@@ -141,15 +141,13 @@ public class DAOPedido {
             Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (hayDatos) {
-            if (pedidosVencidos.charAt(pedidosVencidos.length() - 1) == ',') {
-                pedidosVencidos.deleteCharAt(pedidosVencidos.length() - 1);
-            }
-
-            pedidosVencidos.append("]");
-
-            pedidosVencidosJsonString = obtenerPedidosJsonString(pedidosVencidos.toString());
+        if (pedidosVencidos.charAt(pedidosVencidos.length() - 1) == ',') {
+            pedidosVencidos.deleteCharAt(pedidosVencidos.length() - 1);
         }
+
+        pedidosVencidos.append("]");
+
+        pedidosVencidosJsonString = obtenerPedidosJsonString(pedidosVencidos.toString());
 
         return pedidosVencidosJsonString;
     }
@@ -228,7 +226,7 @@ public class DAOPedido {
     }
 
     public static void insertarPedidoAPartirDeJSON(String json) {
-        String estado = "";
+        int estado = 0;
         String fechaRealizacion = "";
         double importe = 0;
         int numeroAbonado = 0;
@@ -239,23 +237,23 @@ public class DAOPedido {
         try {
             JsonReader reader = factory.createReader(new StringReader(json));
             JsonObject pedidoJSON = reader.readObject();
-            estado = pedidoJSON.getString("estado");
+            estado = pedidoJSON.getInt("estado");
             fechaRealizacion = pedidoJSON.getString("fechaRealizacion");
             importe = pedidoJSON.getJsonNumber("importe").bigDecimalValue().doubleValue();
-            numeroAbonado = pedidoJSON.getInt("numeroAbonado");
-            
+            numeroAbonado = pedidoJSON.getJsonNumber("numeroAbonado").intValue();
+
             StringWriter stringWriter = new StringWriter();
-            JsonWriter writer = Json.createWriter(stringWriter); 
+            JsonWriter writer = Json.createWriter(stringWriter);
             JsonArray lineasPedidoJsonArray = pedidoJSON.getJsonArray("lineasPedido");
             writer.writeArray(lineasPedidoJsonArray);
             lineasPedidoJson = stringWriter.toString();
 
             DBConnection connection = DBConnection.getInstance();
             connection.openConnection();
-            
+
             try {
                 PreparedStatement ps = connection.getStatement(INSERT_NUEVO_PEDIDO);
-                ps.setString(1, estado);
+                ps.setInt(1, estado);
                 ps.setDate(2, Date.valueOf(LocalDate.parse(fechaRealizacion)));
                 ps.setDouble(3, importe);
                 ps.setInt(4, numeroAbonado);
@@ -268,7 +266,7 @@ public class DAOPedido {
         } catch (Exception ex) {
             Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         DAOLineaPedido.insertarLineasPedidoAPartirDeJson(lineasPedidoJson);
     }
 
@@ -288,9 +286,9 @@ public class DAOPedido {
 
         try {
             PreparedStatement ps = connection.getStatement(SELECT_PEDIDOS_TRAMITADOS);
-          
+
             ResultSet rs = ps.executeQuery();
- 
+
             while (rs.next()) {
                 numero = rs.getInt("Numero");
                 estado = rs.getInt("Estado");
@@ -301,16 +299,14 @@ public class DAOPedido {
                 fechaEntrega = rs.getDate("FechaEntrega").toLocalDate();
                 numeroFactura = rs.getInt("NumeroFactura");
                 numeroAbonado = rs.getInt("NumeroAbonado");
-              
-       
+
                 String lineasPedido = DAOLineaPedido.consultarLineasPedidoNumPedido(numero);
 
-           
-               pedidos.append(obtenerPedidoLineasPedidoJsonString(Integer.toString(numero), Integer.toString(estado),
-                        fechaRealizacion.toString(), notaEntrega, Double.toString(importe), fechaRecepcion.toString(), 
-                        fechaEntrega.toString(), Integer.toString(numeroFactura), Integer.toString(numeroAbonado), 
+                pedidos.append(obtenerPedidoLineasPedidoJsonString(Integer.toString(numero), Integer.toString(estado),
+                        fechaRealizacion.toString(), notaEntrega, Double.toString(importe), fechaRecepcion.toString(),
+                        fechaEntrega.toString(), Integer.toString(numeroFactura), Integer.toString(numeroAbonado),
                         lineasPedido));
-               pedidos.append(",");
+                pedidos.append(",");
 
             }
 
@@ -326,7 +322,7 @@ public class DAOPedido {
         }
 
         pedidos.append("]");
-        
+
         pedidosJsonString = obtenerPedidosLineaPedidoJsonString(pedidos.toString());
 
         return pedidosJsonString;
@@ -336,15 +332,15 @@ public class DAOPedido {
     private static String obtenerPedidoLineasPedidoJsonString(String numero, String estado, String fechaRealizacion, String notaEntrega, String importe, String fechaRecepcion, String fechaEntrega, String numeroFactura, String numeroAbonado, String lineasPedido) {
         String pedidoLineasPedidoJsonString = "";
         JsonReaderFactory factory = Json.createReaderFactory(null);
-        
+
         try {
             JsonReader readerLineasPedido = factory.createReader(new StringReader(lineasPedido));
-           
+
             StringWriter stringWriter = new StringWriter();
             JsonWriter writer = Json.createWriter(stringWriter);
-            
+
             JsonArray lineasPedidoJsonArray = readerLineasPedido.readArray();
-            
+
             JsonObject pedidoLineasPedidoJson = Json.createObjectBuilder()
                     .add("numero", numero)
                     .add("estado", estado)
@@ -355,40 +351,40 @@ public class DAOPedido {
                     .add("fechaEntrega", fechaEntrega)
                     .add("numeroFactura", numeroFactura)
                     .add("numeroAbonado", numeroAbonado)
-                    .add("lineasPedido",lineasPedidoJsonArray)
+                    .add("lineasPedido", lineasPedidoJsonArray)
                     .build();
-            
+
             writer.writeObject(pedidoLineasPedidoJson);
             pedidoLineasPedidoJsonString = stringWriter.toString();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return pedidoLineasPedidoJsonString;
     }
 
     private static String obtenerPedidosLineaPedidoJsonString(String pedidos) {
         String pedidosLineasPedidoJsonString = "";
         JsonReaderFactory factory = Json.createReaderFactory(null);
-        
+
         try {
             JsonReader readerPedidosLineasPedido = factory.createReader(new StringReader(pedidos));
             StringWriter stringWriter = new StringWriter();
             JsonWriter writer = Json.createWriter(stringWriter);
-            
+
             JsonArray pedidosLineasPedidoJsonArray = readerPedidosLineasPedido.readArray();
-            
+
             JsonObject pedidosLineasPedidoJson = Json.createObjectBuilder()
                     .add("pedidosLineasPedido", pedidosLineasPedidoJsonArray)
                     .build();
-            
+
             writer.writeObject(pedidosLineasPedidoJson);
             pedidosLineasPedidoJsonString = stringWriter.toString();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return pedidosLineasPedidoJsonString;
     }
-    
+
 }

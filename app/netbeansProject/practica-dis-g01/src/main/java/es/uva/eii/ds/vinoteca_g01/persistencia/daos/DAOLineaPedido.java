@@ -33,7 +33,7 @@ public class DAOLineaPedido {
     private static final String SELECT_LINEASPEDIDO_NUMERO_PEDIDO
             = "SELECT * FROM LineaPedido Lp WHERE Lp.NumeroPedido = ? ";
     private static final String MAX_ID_NUMERO_PEDIDO
-            = "SELECT MAX(LP.numeroPedido) as lastId FROM LineaPedido LP";
+            = "SELECT MAX(P.numero) as lastId FROM Pedido P";
     private static final String INSERT_LINEA_PEDIDO
             = "INSERT INTO LineaPedido (Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) "
             + "VALUES (?, ?, ?, ?, NULL)";

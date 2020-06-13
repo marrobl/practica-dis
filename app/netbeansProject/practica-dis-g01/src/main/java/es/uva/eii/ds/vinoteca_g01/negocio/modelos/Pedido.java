@@ -238,30 +238,41 @@ public class Pedido {
         String pedidoJson = "";
         
         JsonObjectBuilder builder = Json.createObjectBuilder()
-                .add("estado", estado.toString())
+                .add("estado", estado.ordinal() + 1)
                 .add("fechaRealizacion", fechaRealizacion.toString())
                 .add("importe", importe)
                 .add("numeroAbonado", numeroAbonado);
         
         JsonReaderFactory factory = Json.createReaderFactory(null);
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        StringBuilder lineasPedidoJson = new StringBuilder("[");
         
         for(LineaPedido lp: lineasPedido) {
-            arrayBuilder.add(lp.toJSON());
+            lineasPedidoJson.append(lp.toJSON());
+            System.out.println(lp.toJSON());
+            lineasPedidoJson.append(",");
         }
         
-        JsonArray lineasPedidoJsonArray = arrayBuilder.build();
-        builder.add("lineasPedido", lineasPedidoJsonArray);
+        if (lineasPedidoJson.charAt(lineasPedidoJson.length() - 1) == ',') {
+            lineasPedidoJson.deleteCharAt(lineasPedidoJson.length() - 1);
+        }
+        
+        lineasPedidoJson.append("]");
+        JsonReader readerLineasPedido = factory.createReader(new StringReader(lineasPedidoJson.toString()));
+        JsonArray lpJsonArray = readerLineasPedido.readArray();
+        builder.add("lineasPedido", lpJsonArray);
         
         JsonObject json = builder.build();
         
         try {
             StringWriter stringWriter = new StringWriter();
-            JsonWriter writer = Json.createWriter(stringWriter);writer.writeObject(json);
+            JsonWriter writer = Json.createWriter(stringWriter);
+            writer.writeObject(json);
             pedidoJson = stringWriter.toString();
         } catch(Exception ex) {
              Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
+                System.out.println(pedidoJson);
+
         
         return pedidoJson;
     }
