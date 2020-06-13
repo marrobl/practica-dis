@@ -5,8 +5,13 @@
  */
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
+import java.io.StringReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonReaderFactory;
 
 /**
  *
@@ -20,6 +25,25 @@ public class LineaCompra {
     private LocalDate fechaRecepcion;
     private int idCompra;
     private int codigoReferencia;
+
+    public LineaCompra(String json) {
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+        JsonReader reader = factory.createReader(new StringReader(json));
+        JsonObject lineaCompraJSON = reader.readObject();
+        
+        this.id = Integer.parseInt(lineaCompraJSON.getJsonString("id").getString());
+        this.unidades = Integer.parseInt(lineaCompraJSON.getJsonString("unidades").getString());
+        String recibida = lineaCompraJSON.getString("recibida");
+        if(recibida.equals("T")){
+           this.recibida = true;
+        } else {
+            this.recibida = false;
+        }
+        this.fechaRecepcion = LocalDate.parse(lineaCompraJSON.getJsonString("fechaRecepcion").getString());
+        this.idCompra = Integer.parseInt(lineaCompraJSON.getJsonString("idCompra").getString());
+        this.codigoReferencia = Integer.parseInt(lineaCompraJSON.getJsonString("codigoReferencia").getString());
+
+    }
 
     public int getCodigoReferencia() {
         return codigoReferencia;

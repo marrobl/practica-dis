@@ -10,6 +10,7 @@ import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundExc
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +35,8 @@ public class Compra {
     private boolean pagada;
     private LocalDate fechaPago;
     private int idProveedor;
-    
+    private ArrayList<LineaCompra> lineasCompra;
+    private Bodega bodega;
     
     
     private Compra(String datosJSON) {
@@ -53,6 +55,7 @@ public class Compra {
             String fechaPago = compraJson.getString("fechaPago");
             String idProveedor = compraJson.getString("idProveedor");
             
+            
             setIdCompra(Integer.parseInt(idCompra));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
             LocalDate fechaIC = LocalDate.parse(fechaInicioCompra, formatter);
@@ -66,16 +69,28 @@ public class Compra {
             setFechaCompraCompletada(fechaCC);
             setImporte(Double.parseDouble(importe));
             LocalDate fechaP = LocalDate.parse(fechaPago, formatter);
-             if(pagada.equals("T")) {
+            if(pagada.equals("T")) {
                 this.setPagada(true);
             } else {
                 this.setPagada(false);
             }
             setFechaPago(fechaP);
             setIdProveedor(Integer.parseInt(idProveedor));
-  
+            JsonArray lineasCompraJson = compraJson.getJsonArray("lineasCompra");
+            
+            LineaCompra lineaCompra;
+            
+            for (JsonValue lp: lineasCompraJson) {
+                lineaCompra = new LineaCompra(lp.asJsonObject().toString());
+                lineasCompra.add(lineaCompra);
+            }
+            
+            String bodegaJson = compraJson.getString("bodega");
+            bodega = new Bodega(bodegaJson);
+          
+            
         } catch(Exception ex) {
-            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
