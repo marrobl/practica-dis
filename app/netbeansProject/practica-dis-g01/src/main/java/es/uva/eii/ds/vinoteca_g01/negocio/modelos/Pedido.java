@@ -36,6 +36,7 @@ public class Pedido {
     private LocalDate fechaEntrega;
     private int numeroFactura;
     private int numeroAbonado;
+    private ArrayList<LineaPedido> lineasPedido;
 
     /**
      * Crea una instancia de pedido
@@ -60,7 +61,7 @@ public class Pedido {
         this.fechaEntrega = fechaEntrega;
         this.numeroFactura = numeroFactura;
         this.numeroAbonado = numeroAbonado;
-
+        lineasPedido = new ArrayList<>();
     }
 
     /**
@@ -85,7 +86,7 @@ public class Pedido {
     }
 
     public Pedido() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lineasPedido = new ArrayList<>();
     }
 
     /**
@@ -219,5 +220,9 @@ public class Pedido {
         }
         
         return !pedidosVencidos.isEmpty();
+    }
+
+    public void crearLineaPedido(Referencia referencia, int cantidad) {
+        
     }
 }

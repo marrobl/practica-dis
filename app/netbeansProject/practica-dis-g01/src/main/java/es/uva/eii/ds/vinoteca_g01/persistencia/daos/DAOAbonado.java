@@ -84,7 +84,7 @@ public class DAOAbonado {
                     .add("telefono", telefono)
                     .add("email", email)
                     .add("cuentaBancaria", cuentaBancaria)
-                    .add("numeroAbonado", String.valueOf(numAbonado))
+                    .add("numeroAbonado", numAbonado)
                     .add("openIDref", openIDref)
                     .build();
             

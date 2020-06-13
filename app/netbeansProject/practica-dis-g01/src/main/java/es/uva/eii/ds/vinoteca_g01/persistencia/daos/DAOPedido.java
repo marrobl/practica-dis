@@ -33,7 +33,7 @@ public class DAOPedido {
 
     private static final String SELECT_PEDIDOS_NUM_FACTURA = "SELECT * FROM Pedido P WHERE P.NumeroFactura = ? ";
     private static final String SELECT_PEDIDOS_VENCIDOS_NUM_ABONADO = "SELECT * FROM Pedido P, Factura F, EstadoFactura EF "
-            + "WHERE P.numeroPedido=? AND P.numeroFactura=F.numeroFactura AND F.estado=EF.id AND EF.nombre='vencida'";
+            + "WHERE P.numeroAbonado=? AND P.numeroFactura=F.numeroFactura AND F.estado=EF.id AND EF.nombre='vencida'";
 
     /**
      * Consulta pedidos asociados a un numero de factura

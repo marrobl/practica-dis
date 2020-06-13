@@ -24,6 +24,7 @@ public class Abonado extends Persona {
 
     public static Abonado getAbonado(int numAbonado) {
         String datosJSON = DAOAbonado.consultarAbonadoPorId(numAbonado);
+        System.out.println(datosJSON);
         
         return new Abonado(datosJSON);
     }    

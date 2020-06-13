@@ -5,6 +5,7 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
+import com.sun.corba.se.impl.util.PackagePrefixChecker;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Abonado;
 
 /**
@@ -12,7 +13,7 @@ import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Abonado;
  * @author richard
  */
 public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
-    
+
     private CtrlVistaCrearPedidoAbonado controlador;
 
     /**
@@ -21,8 +22,6 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     public VistaCrearPedidoAbonado() {
         initComponents();
         errorLabel.setVisible(false);
-        datosAbonadoPanel.setVisible(false);
-        pedidoPanel.setVisible(false);
         controlador = new CtrlVistaCrearPedidoAbonado(this);
     }
 
@@ -35,10 +34,6 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        numAbonadoTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        buscarButton = new javax.swing.JButton();
-        busquedaPorParametrosButton = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -51,6 +46,7 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         finalizarPedido = new javax.swing.JButton();
         noFinalizarButton = new javax.swing.JButton();
+        introducirRefYCantButton = new javax.swing.JButton();
         datosAbonadoPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -64,19 +60,13 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
         abonadoCorrectoButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         cancelarButton = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        numAbonadoTextField = new javax.swing.JTextField();
+        buscarButton = new javax.swing.JButton();
+        buscarPorParametrosButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Nº Abonado:");
-
-        buscarButton.setText("Buscar");
-        buscarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarButtonActionPerformed(evt);
-            }
-        });
-
-        busquedaPorParametrosButton.setText("Busqueda por parámetros");
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel8.setText("Pedido:");
@@ -92,26 +82,37 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
 
         jLabel10.setText("Cantidad:");
 
+        numReferenciaTextField.setEnabled(false);
+
+        cantidadTextField.setEnabled(false);
+
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel11.setText("Finalizar pedido:");
 
         finalizarPedido.setText("Si");
+        finalizarPedido.setEnabled(false);
 
         noFinalizarButton.setText("No");
+        noFinalizarButton.setEnabled(false);
+
+        introducirRefYCantButton.setText("Introducir");
+        introducirRefYCantButton.setEnabled(false);
+        introducirRefYCantButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                introducirRefYCantButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pedidoPanelLayout = new javax.swing.GroupLayout(pedidoPanel);
         pedidoPanel.setLayout(pedidoPanelLayout);
         pedidoPanelLayout.setHorizontalGroup(
             pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pedidoPanelLayout.createSequentialGroup()
-                .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pedidoPanelLayout.createSequentialGroup()
                 .addGroup(pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pedidoPanelLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(finalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
+                        .addGap(51, 51, 51)
                         .addComponent(noFinalizarButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pedidoPanelLayout.createSequentialGroup()
                         .addComponent(jLabel9)
@@ -123,6 +124,13 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cantidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(174, 174, 174))
+            .addGroup(pedidoPanelLayout.createSequentialGroup()
+                .addGroup(pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addGroup(pedidoPanelLayout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(introducirRefYCantButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pedidoPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cantidadTextField, numReferenciaTextField});
@@ -140,13 +148,18 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
                 .addGroup(pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(cantidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addComponent(jLabel11)
                 .addGap(18, 18, 18)
-                .addGroup(pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(finalizarPedido)
-                    .addComponent(noFinalizarButton))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addComponent(introducirRefYCantButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pedidoPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(73, 73, 73))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pedidoPanelLayout.createSequentialGroup()
+                        .addGroup(pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(finalizarPedido)
+                            .addComponent(noFinalizarButton))
+                        .addGap(22, 22, 22))))
         );
 
         pedidoPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cantidadTextField, numReferenciaTextField});
@@ -161,17 +174,11 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
 
         jLabel5.setText("Email:");
 
-        nombreLabel.setText("jLabel6");
-
-        apellidosLabel.setText("jLabel7");
-
-        telefonoLabel.setText("jLabel8");
-
-        emailLabel.setText("jLabel9");
-
         abonadoIncorrectoButton.setText("No");
+        abonadoIncorrectoButton.setEnabled(false);
 
         abonadoCorrectoButton.setText("Si");
+        abonadoCorrectoButton.setEnabled(false);
         abonadoCorrectoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 abonadoCorrectoButtonActionPerformed(evt);
@@ -205,7 +212,7 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
                             .addGroup(datosAbonadoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(nombreLabel))
+                                .addComponent(nombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(datosAbonadoPanelLayout.createSequentialGroup()
                                 .addGroup(datosAbonadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -214,8 +221,11 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
                                 .addGroup(datosAbonadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(emailLabel)
                                     .addComponent(telefonoLabel))))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
+
+        datosAbonadoPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {apellidosLabel, emailLabel, nombreLabel, telefonoLabel});
+
         datosAbonadoPanelLayout.setVerticalGroup(
             datosAbonadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(datosAbonadoPanelLayout.createSequentialGroup()
@@ -244,6 +254,8 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
+        datosAbonadoPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {apellidosLabel, emailLabel, nombreLabel, telefonoLabel});
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -251,76 +263,111 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
+                    .addComponent(datosAbonadoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(datosAbonadoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(140, 140, 140)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(pedidoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(errorLabel)))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(errorLabel))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(pedidoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pedidoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(errorLabel)
-                .addGap(58, 58, 58))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(datosAbonadoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(datosAbonadoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(pedidoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(errorLabel)))
+                .addGap(58, 58, 58))
         );
 
         cancelarButton.setText("Cancelar");
+        cancelarButton.setEnabled(false);
+
+        jLabel1.setText("Nº Abonado:");
+
+        buscarButton.setText("Buscar");
+        buscarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarButtonActionPerformed(evt);
+            }
+        });
+
+        buscarPorParametrosButton.setText("Buscar por parámetros");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(numAbonadoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buscarButton)
+                .addGap(98, 98, 98)
+                .addComponent(buscarPorParametrosButton)
+                .addContainerGap(96, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(80, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(numAbonadoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(buscarButton)
+                    .addComponent(buscarPorParametrosButton))
+                .addGap(42, 42, 42))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cancelarButton)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(92, 92, 92)
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(numAbonadoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(buscarButton)
-                            .addGap(95, 95, 95)
-                            .addComponent(busquedaPorParametrosButton))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(35, 35, 35)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addGap(111, 111, 111)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelarButton)
+                .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(154, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(numAbonadoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(buscarButton)
-                    .addComponent(busquedaPorParametrosButton))
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelarButton)
-                .addContainerGap())
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -333,6 +380,10 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     private void abonadoCorrectoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abonadoCorrectoButtonActionPerformed
         controlador.procesaEventoConfirmarAbonado();
     }//GEN-LAST:event_abonadoCorrectoButtonActionPerformed
+
+    private void introducirRefYCantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_introducirRefYCantButtonActionPerformed
+        controlador.procesaEventoIntroducirDatosPedido();
+    }//GEN-LAST:event_introducirRefYCantButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -374,13 +425,14 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     private javax.swing.JButton abonadoIncorrectoButton;
     private javax.swing.JLabel apellidosLabel;
     private javax.swing.JButton buscarButton;
-    private javax.swing.JToggleButton busquedaPorParametrosButton;
+    private javax.swing.JButton buscarPorParametrosButton;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JTextField cantidadTextField;
     private javax.swing.JPanel datosAbonadoPanel;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel errorLabel;
     private javax.swing.JButton finalizarPedido;
+    private javax.swing.JButton introducirRefYCantButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -393,6 +445,7 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JButton noFinalizarButton;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField numAbonadoTextField;
@@ -406,10 +459,25 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     }
 
     void mostrarAbonado(Abonado abonado) {
-        datosAbonadoPanel.setVisible(true);
+        abonadoCorrectoButton.setEnabled(true);
+        abonadoIncorrectoButton.setEnabled(true);
         nombreLabel.setText(abonado.getNombre());
         apellidosLabel.setText(abonado.getApellidos());
         telefonoLabel.setText(abonado.getTelefono());
         emailLabel.setText(abonado.getEmail());
+    }
+
+    public void habilitarCamposPedido() {
+        numReferenciaTextField.setEnabled(true);
+        cantidadTextField.setEnabled(true);
+        introducirRefYCantButton.setEnabled(true);
+    }
+
+    public String getNumReferencia() {
+        return numReferenciaTextField.getText();
+    }
+
+    String getCantidad() {
+        return cantidadTextField.getText();
     }
 }
