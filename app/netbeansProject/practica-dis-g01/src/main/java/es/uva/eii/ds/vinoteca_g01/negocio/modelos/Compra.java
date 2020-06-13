@@ -8,6 +8,8 @@ package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 import es.uva.eii.ds.vinoteca_g01.persistencia.daos.DAOCompra;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 import java.io.StringReader;
+import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,9 +19,11 @@ import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 import javax.json.JsonValue;
+import javax.json.JsonWriter;
 
 /**
  *
@@ -176,7 +180,46 @@ public class Compra {
     }
 
     public String toJSON() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String compraJson = "";
+        
+        JsonObjectBuilder builder = Json.createObjectBuilder()
+                .add("idCompra", idCompra)
+                .add("fechaInicioCompra", fechaInicioCompra.toString())
+                .add("recibidaCompleta", recibidaCompleta)
+                .add("importe", importe)
+                .add("pagada",pagada)
+                .add("idProveedor", idProveedor);
+        
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+        StringBuilder lineasCompraJson = new StringBuilder("[");
+        
+        for(LineaCompra lc: lineasCompra) {
+            lineasCompraJson.append(lc.toJSON());
+            lineasCompraJson.append(",");
+        }
+        
+        if (lineasCompraJson.charAt(lineasCompraJson.length() - 1) == ',') {
+            lineasCompraJson.deleteCharAt(lineasCompraJson.length() - 1);
+        }
+        
+        lineasCompraJson.append("]");
+        JsonReader readerLineasCompra = factory.createReader(new StringReader(lineasCompraJson.toString()));
+        JsonArray lcJsonArray = readerLineasCompra.readArray();
+        builder.add("lineasCompra", lcJsonArray);
+        
+        JsonObject json = builder.build();
+        
+        try {
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter);
+            writer.writeObject(json);
+            compraJson = stringWriter.toString();
+        } catch(Exception ex) {
+             Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        return compraJson;
     }
 
     public void actualizar(String json) {

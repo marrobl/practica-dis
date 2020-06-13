@@ -6,12 +6,18 @@
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
+import javax.json.JsonWriter;
 
 /**
  *
@@ -25,7 +31,7 @@ public class LineaCompra {
     private LocalDate fechaRecepcion;
     private int idCompra;
     private int codigoReferencia;
-    private ArrayList<LineaPedido> lineasPedido;
+    private ArrayList<LineaPedido> lineasPedido = new ArrayList<>();
     
     public LineaCompra(String json) {
         JsonReaderFactory factory = Json.createReaderFactory(null);
@@ -64,9 +70,8 @@ public class LineaCompra {
     }
 
     public ArrayList<LineaPedido> getLineasPedido() {
-        ArrayList<LineaPedido> lp = LineaPedido.getLineasPedidoPorIdLineaCompra(this.id);
-           // Falta guardar el array de lineaPedido en el atributo que he hecho para ello
-        return lp;
+        this.lineasPedido = LineaPedido.getLineasPedidoPorIdLineaCompra(this.id);
+        return lineasPedido;
     }
 
     boolean getRecibida() {
@@ -75,6 +80,47 @@ public class LineaCompra {
 
     public int getId() {
         return id;
+    }
+
+    public String toJSON() {
+     String lineaCompraJson = "";
+        
+        JsonObjectBuilder builder = Json.createObjectBuilder()
+                .add("id", id)
+                .add("unidades", unidades)
+                .add("recibida", recibida)
+                .add("idCompra", idCompra)
+                .add("codigoReferencia",codigoReferencia);
+                
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+        StringBuilder lineasPedidoJson = new StringBuilder("[");
+        
+        for(LineaPedido lp: lineasPedido) {
+            lineasPedidoJson.append(lp.toJSON());
+            lineasPedidoJson.append(",");
+        }
+        
+        if (lineasPedidoJson.charAt(lineasPedidoJson.length() - 1) == ',') {
+            lineasPedidoJson.deleteCharAt(lineasPedidoJson.length() - 1);
+        }
+        
+        lineasPedidoJson.append("]");
+        JsonReader readerLineasPedido = factory.createReader(new StringReader(lineasPedidoJson.toString()));
+        JsonArray lpJsonArray = readerLineasPedido.readArray();
+        builder.add("lineasPedido", lpJsonArray);
+        
+        JsonObject json = builder.build();
+        
+        try {
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter);
+            writer.writeObject(json);
+            lineaCompraJson = stringWriter.toString();
+        } catch(Exception ex) {
+             Logger.getLogger(LineaCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return lineaCompraJson;
     }
     
 }
