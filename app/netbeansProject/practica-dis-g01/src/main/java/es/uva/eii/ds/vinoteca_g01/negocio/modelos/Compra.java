@@ -183,6 +183,17 @@ public class Compra {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public LineaCompra getLineaCompraId(int idLinea) {
+        Iterator it = getLineasCompra();
+        LineaCompra c = null;
+        while(it.hasNext()){
+            LineaCompra l = (LineaCompra)it.next();
+            if(l.getId() == idLinea) c = l;
+        }
+        
+        return c;
+    }
+
  
     
 }

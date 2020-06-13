@@ -198,7 +198,7 @@ public class Pedido {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return pedidos;
+        return pedidosTramitados;
     }
         
     public void crearLineaPedido(Referencia referencia, int cantidad) {

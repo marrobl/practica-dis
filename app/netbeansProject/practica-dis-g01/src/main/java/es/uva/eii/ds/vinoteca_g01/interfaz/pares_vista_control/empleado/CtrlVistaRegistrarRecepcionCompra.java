@@ -47,9 +47,10 @@ public class CtrlVistaRegistrarRecepcionCompra {
         }
     }
 
-    void procesaEventoSeleccionaLinea(Object item) {
-        LineaCompra linea = (LineaCompra)item;
-        controladorCU.setLinea(linea);
+    void procesaEventoSeleccionaLinea(String item) throws CompraNotFoundException {
+        int idLineaCompra = Integer.parseInt(item);
+        String id = vista.getId();
+        controladorCU.setLinea(idLineaCompra, id);
     }
 
     void procesaEventoFinalizarRegistroLineas() {

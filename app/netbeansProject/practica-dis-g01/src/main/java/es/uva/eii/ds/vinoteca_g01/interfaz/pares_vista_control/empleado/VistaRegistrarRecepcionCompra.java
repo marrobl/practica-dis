@@ -6,9 +6,12 @@
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
+import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
@@ -47,10 +50,11 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         BotonRegistrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         errorLabel = new javax.swing.JLabel();
-        nombreBodega = new javax.swing.JLabel();
         botonOK = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jLabel4 = new javax.swing.JLabel();
+        nombreBodega = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +90,8 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jList1);
 
+        jLabel4.setText("id Linea ----- Referencia  ----- Unidades");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,16 +113,18 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                                         .addComponent(BotonRegistrar))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botonOK))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(138, 138, 138)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(nombreBodega)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,18 +137,19 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(BotonRegistrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(errorLabel)
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreBodega))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
+                        .addComponent(errorLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(nombreBodega)
+                        .addGap(120, 120, 120)
                         .addComponent(botonOK)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))))
         );
@@ -163,7 +172,13 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                if (index >= 0) {
                   Object item = target.getModel().getElementAt(index);
                   //JOptionPane.showMessageDialog(null, item.toString());
-                  controlador.procesaEventoSeleccionaLinea(item);
+                  String parse = (String)item;
+                  String[] datos = parse.split(" ----- ");
+                   try {
+                       controlador.procesaEventoSeleccionaLinea(datos[0]);
+                   } catch (CompraNotFoundException ex) {
+                       Logger.getLogger(VistaRegistrarRecepcionCompra.class.getName()).log(Level.SEVERE, null, ex);
+                   }
                }
             }
     }//GEN-LAST:event_jList1MouseClicked
@@ -235,9 +250,9 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
             LineaCompra c = (LineaCompra)it.next();
             String referencia = Integer.toString(c.getCodigoReferencia());
             String unidades = Integer.toString(c.getUnidades());
+            String id = Integer.toString(c.getId());
             //model.addRow(new Object[]{referencia, unidades, false});
-            String tabla = referencia + " --- " + unidades;
-            System.out.println(tabla);
+            String tabla = id + " ----- " + referencia + " ----- " + unidades;
             data.add(tabla);
             
         }
@@ -258,6 +273,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;

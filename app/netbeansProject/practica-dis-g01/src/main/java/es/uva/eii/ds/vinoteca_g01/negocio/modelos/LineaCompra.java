@@ -72,5 +72,9 @@ public class LineaCompra {
     boolean getRecibida() {
         return recibida;
     }
+
+    public int getId() {
+        return id;
+    }
     
 }

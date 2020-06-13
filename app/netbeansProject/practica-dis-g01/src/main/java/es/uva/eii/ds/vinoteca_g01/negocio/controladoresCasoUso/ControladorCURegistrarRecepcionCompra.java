@@ -27,7 +27,9 @@ public class ControladorCURegistrarRecepcionCompra {
         return c;
     }
 
-    public void setLinea(LineaCompra linea) {
+    public void setLinea(int idLinea, String idCompra) throws CompraNotFoundException {
+        Compra c = Compra.getCompraPorId(idCompra);
+        LineaCompra linea = c.getLineaCompraId(idLinea);
         linea.setRecibida();
         linea.setFecha();
         ArrayList<LineaPedido> lp = linea.getLineasPedido();
