@@ -288,195 +288,103 @@ CREATE TABLE LINEAPEDIDO(
 );
 
 
-INSERT INTO PERSONA VALUES (
-	'123123','Pepe','Gonzalez','Calle Pepe','6786785', 
-	'pepe@pepe.com','1234567890'
-);
+INSERT INTO PERSONA VALUES 
+    ('123123','Pepe','Gonzalez','Calle Pepe','6786785', 'pepe@pepe.com','1234567890'),
+    ('456456', 'Sara', 'Rodriguez', 'Calle Bla Bla', '1111111', 'holasoysara@gmail.com', '123456789078876'),
+    ('987987', 'Jose', 'Vinos', 'Calle Proveer', '1111111', 'ok@gmail.com', '123489078876'),
+    ('121212', 'Maite', 'Garcia', 'Calle Proveer', '1111111', 'maite@gmail.com', '123489078876'),
+    ('111111', 'Paco', 'Zacarias', 'Calle Paco', '12345678', 'paco@gmail.com', '123123123123');
+    
 
-INSERT INTO EMPLEADO VALUES (
-	'123123','password','2011-11-11'
-);
-
-INSERT INTO ROLESENEMPRESA VALUES (
-	'2011-11-12','123123',3
-);
-
-INSERT INTO VINCULACIONCONLAEMPRESA VALUES(
-	'2011-11-11','123123',1
-
-);
-
-INSERT INTO DISPONIBILIDADEMPLEADO VALUES (
-	'2011-11-11','2011-11-13','123123',3
-);
-
-INSERT INTO PERSONA VALUES (
-	'456456', 'Sara', 'Rodriguez', 'Calle Bla Bla', '1111111', 
-	'holasoysara@gmail.com', '123456789078876'
-);
-
-INSERT INTO EMPLEADO VALUES (
-	'456456', 'pass', '2003-11-11'
-);
-
-INSERT INTO ROLESENEMPRESA VALUES (
-	'2003-11-11', '456456', 2
-);
-
-INSERT INTO VINCULACIONCONLAEMPRESA VALUES(
-	'2003-11-11', '456456', 1
-
-);
-
-INSERT INTO DISPONIBILIDADEMPLEADO VALUES(
-	'2003-11-11', '2023-11-11', '456456', 3
-);
-
-INSERT INTO PERSONA VALUES (
-	'987987', 'Jose', 'Vinos', 'Calle Proveer', '1111111', 
-	'ok@gmail.com', '123489078876'
-);
-
-INSERT INTO PERSONA VALUES (
-	'121212', 'Maite', 'Garcia', 'Calle Proveer', '1111111', 
-	'maite@gmail.com', '123489078876'
-);
-
-INSERT INTO EMPLEADO VALUES (
-	'987987', 'perro', '2009-09-02'
-);
-
-INSERT INTO ROLESENEMPRESA VALUES (
-	'2009-09-02', '987987', 1
-);
-
-INSERT INTO VINCULACIONCONLAEMPRESA VALUES(
-	'2009-09-02', '987987', 1
-
-);
-
-INSERT INTO DISPONIBILIDADEMPLEADO VALUES(
-	'2009-09-02', '2029-09-02', '987987', 3
-);
+INSERT INTO EMPLEADO VALUES 
+    ('123123','password','2011-11-11'),
+    ('456456', 'pass', '2003-11-11'),
+    ('987987', 'perro', '2009-09-02');
 
 
-INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES (
-	'2020-05-05', 13.0, 2, NULL, '879878'
-);
-
-INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES (
-	'2020-04-29', 130.0, 2, NULL, '879878'
-);
-
-INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES (
-	'2020-06-06', 13.0, 1, NULL, '879878'
-);
-
-INSERT INTO ABONADO(OpenIDref, Nif) VALUES(
-        '2', '121212'
-); 
-
-INSERT INTO ABONADO(OpenIDref, Nif) VALUES(
-        '1', '123123'
-); 
-
-INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
-        5, '2020-04-05', 'Nota de entrega del pedido 1', 5.0, '2020-05-09', '2020-05-10', 1, 1
-);
-
-INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
-        5, '2020-04-05', 'Nota de entrega del pedido 2', 7.0, '2020-04-09', '2020-04-10', 1, 1
-);
-
-INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
-        5, '2020-04-05', 'Nota de entrega del pedido 3', 5.0, '2020-04-09', '2020-04-10', 1, 1
-);
-
-INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
-        5, '2020-03-29', 'Observacion del pedido 1', 105.0, '2020-04-02', '2020-04-10', 2, 2
-);
-
-INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES (
-        5, '2020-03-29', 'Observacion del pedido 2', 70.0, '2020-04-03', '2020-04-10', 2, 2
-);
-
-INSERT INTO BODEGA(Nombre, CIF, Direccion) VALUES (
-'SuperBodega', 'AB123', 'Direccion de la SuperBodega');
-
-INSERT INTO BODEGA(Nombre, CIF, Direccion) VALUES (
-'PequeBodega', 'CD456', 'Direccion de la PequeBodega');
-
-INSERT INTO BODEGA(Nombre, CIF, Direccion) VALUES (
-'GranBodega', 'EF789', 'Direccion de la GranBodega');
-
-INSERT INTO COMPRA(FechaInicioCompra, RecibidaCompleta, FechaCompraCompletada, Importe, Pagada, FechaPago, IdProveedor) VALUES (
-'2020-04-10', 'F', NULL, 100.00, 'F', NULL, 1
-);
-
-INSERT INTO COMPRA(FechaInicioCompra, RecibidaCompleta, FechaCompraCompletada, Importe, Pagada, FechaPago, IdProveedor) VALUES (
-'2020-06-10', 'F', NULL, 1000.00, 'F', NULL, 2
-);
-
-INSERT INTO DENOMINACIONORIGEN(Nombre) VALUES(
-'Denominacion01'
-);
-
-INSERT INTO DENOMINACIONORIGEN(Nombre) VALUES(
-'Denominacion02'
-);
-
-INSERT INTO DENOMINACIONORIGEN(Nombre) VALUES(
-'Denominacion03'
-);
-
-INSERT INTO VINO(NombreComercial, Ano, Comentario, IdDenominacion, Categoria, IdBodega) VALUES (
-'Vino01', 1999, 'Comentario del Vino 1', 1, 2, 3
-);
-
-INSERT INTO VINO(NombreComercial, Ano, Comentario, IdDenominacion, Categoria, IdBodega) VALUES (
-'Vino02', 1997, 'Comentario del Vino 2', 2, 1, 1
-);
-
-INSERT INTO VINO(NombreComercial, Ano, Comentario, IdDenominacion, Categoria, IdBodega) VALUES (
-'Vino03', 1994, 'Comentario del Vino 3', 3, 2, 2
-);
+INSERT INTO ROLESENEMPRESA VALUES
+    ('2011-11-12','123123',3),
+    ('2003-11-11', '456456', 2),
+    ('2009-09-02', '987987', 1);
 
 
-INSERT INTO REFERENCIA(EsPorCajas, ContenidoEnCL, Precio, Disponible, VinoId) VALUES (
-'T', 10, 5.0, 'T', 1
-);
+INSERT INTO VINCULACIONCONLAEMPRESA VALUES
+    ('2011-11-11','123123',1),
+    ('2003-11-11', '456456', 1),
+    ('2009-09-02', '987987', 1);
 
-INSERT INTO REFERENCIA(EsPorCajas, ContenidoEnCL, Precio, Disponible, VinoId) VALUES (
-'T', 10, 8.0, 'T', 2
-);
 
-INSERT INTO REFERENCIA(EsPorCajas, ContenidoEnCL, Precio, Disponible, VinoId) VALUES (
-'T', 10, 15.0, 'T', 3
-);
+INSERT INTO DISPONIBILIDADEMPLEADO VALUES 
+    ('2011-11-11','2011-11-13','123123',3),
+    ('2003-11-11', '2023-11-11', '456456', 3),
+    ('2009-09-02', '2029-09-02', '987987', 3);
 
-INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES (
-5, 'F', NULL, 1, 1);
 
-INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES (
-15, 'F', NULL, 1, 2);
+INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES 
+    ('2020-05-05', 13.0, 2, NULL, '879878'),
+    ('2020-04-29', 130.0, 2, NULL, '879878'),
+    ('2020-06-06', 13.0, 1, NULL, '879878'),
+    ('2020-05-07', 12.0, 1, NULL, '879878');
 
-INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES (
-6, 'F', NULL, 2, 2);
 
-INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES (
-40, 'F', NULL, 2, 3);
+INSERT INTO ABONADO(OpenIDref, Nif) VALUES
+    ('2', '121212'),
+    ('1', '123123'),
+    ('3', '111111');
 
-INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
-50,'F', 1, 1, 1);
 
-INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
-5,'F', 2, 2, 2);
+INSERT INTO PEDIDO(Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) VALUES 
+    (5, '2020-04-05', 'Nota de entrega del pedido 1', 5.0, '2020-05-09', '2020-05-10', 1, 1),
+    (5, '2020-04-05', 'Nota de entrega del pedido 2', 7.0, '2020-04-09', '2020-04-10', 1, 1),
+    (5, '2020-04-05', 'Nota de entrega del pedido 3', 5.0, '2020-04-09', '2020-04-10', 1, 1),
+    (5, '2020-03-29', 'Observacion del pedido 1', 105.0, '2020-04-02', '2020-04-10', 2, 2),
+    (5, '2020-03-29', 'Observacion del pedido 2', 70.0, '2020-04-03', '2020-04-10', 2, 2),
+    (6, '2020-02-20', 'Observacion del pedido 3', 12.0, '2020-02-25', '2020-05-07', 4, 3);
 
-INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
-45,'F', 3, 3, 2);
 
-INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
-5,'F', 1, 4, 3);
+INSERT INTO BODEGA(Nombre, CIF, Direccion) VALUES 
+    ('SuperBodega', 'AB123', 'Direccion de la SuperBodega'),
+    ('PequeBodega', 'CD456', 'Direccion de la PequeBodega'),
+    ('GranBodega', 'EF789', 'Direccion de la GranBodega');
 
-INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES (
-5,'F', 2, 5, 3);
+
+INSERT INTO COMPRA(FechaInicioCompra, RecibidaCompleta, FechaCompraCompletada, Importe, Pagada, FechaPago, IdProveedor) VALUES 
+    ('2020-04-10', 'F', NULL, 100.00, 'F', NULL, 1),
+    ('2020-06-10', 'F', NULL, 1000.00, 'F', NULL, 2);
+
+
+INSERT INTO DENOMINACIONORIGEN(Nombre) VALUES
+    ('Denominacion01'),
+    ('Denominacion02'),
+    ('Denominacion03');
+
+
+INSERT INTO VINO(NombreComercial, Ano, Comentario, IdDenominacion, Categoria, IdBodega) VALUES 
+    ('Vino01', 1999, 'Comentario del Vino 1', 1, 2, 3), 
+    ('Vino02', 1997, 'Comentario del Vino 2', 2, 1, 1),
+    ('Vino03', 1994, 'Comentario del Vino 3', 3, 2, 2),
+    ('Vino04', 2005, 'Comentario del Vino 4', 2, 3, 3);
+
+
+INSERT INTO REFERENCIA(EsPorCajas, ContenidoEnCL, Precio, Disponible, VinoId) VALUES 
+    ('T', 10, 5.0, 'T', 1),
+    ('T', 10, 8.0, 'T', 2),
+    ('T', 10, 15.0, 'T', 3),
+    ('T', 10, 12.0, 'T', 4);
+
+
+INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoReferencia) VALUES 
+    (5, 'F', NULL, 1, 1),
+    (15, 'F', NULL, 1, 2),
+    (6, 'F', NULL, 2, 2),
+    (40, 'F', NULL, 2, 3),
+    (1, 'T', '2020-05-01', 2, 4);
+
+
+INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES 
+    (50,'F', 1, 1, 1),
+    (5,'F', 2, 2, 2),
+    (45,'F', 3, 3, 2),
+    (5,'F', 1, 4, 3),
+    (5,'F', 2, 5, 3),
+    (1, 'T', 4, 6, 5);
