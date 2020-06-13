@@ -186,6 +186,7 @@ public class Compra {
                 .add("idCompra", idCompra)
                 .add("fechaInicioCompra", fechaInicioCompra.toString())
                 .add("recibidaCompleta", recibidaCompleta)
+                .add("fechaCompraCompletada", fechaCompraCompletada.toString())
                 .add("importe", importe)
                 .add("pagada",pagada)
                 .add("idProveedor", idProveedor);
@@ -223,7 +224,7 @@ public class Compra {
     }
 
     public void actualizar(String json) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DAOCompra.actualizarCompraLineasCompra(json);
     }
 
     public LineaCompra getLineaCompraId(int idLinea) {

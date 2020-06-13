@@ -108,8 +108,9 @@ public class DAOLineaCompra {
     }
 
     static void actualizaLineasCompraAPartirDeJson(String lineasCompraJson) {
-        int id = 0, unidades = 0, idCompra = 0, codigoReferencia =0;
-        String recibida = "", fechaRecepcion = "";
+        int id = 0;
+        String fechaRecepcion = "";
+        String recibida;
         String lineasPedidoJson = "[]";
 
         JsonReaderFactory factory = Json.createReaderFactory(null);
@@ -118,11 +119,8 @@ public class DAOLineaCompra {
             JsonReader reader = factory.createReader(new StringReader(lineasCompraJson));
             JsonObject lineaCompraJSON = reader.readObject();
             id = lineaCompraJSON.getInt("id");
-            unidades = lineaCompraJSON.getInt("unidades");
             fechaRecepcion = lineaCompraJSON.getString("fechaRecepcion");
-            recibida = lineaCompraJSON.getString("recibida");
-            idCompra = lineaCompraJSON.getInt("idCompra");
-            codigoReferencia = lineaCompraJSON.getInt("codigoReferencia");
+            recibida = lineaCompraJSON.asJsonObject().getBoolean("recibida") ? "T" : "F";
            
             StringWriter stringWriter = new StringWriter();
             JsonWriter writer = Json.createWriter(stringWriter);
@@ -149,7 +147,7 @@ public class DAOLineaCompra {
             Logger.getLogger(DAOLineaCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        DAOLineaPedido.actualizaLineasPedidoAPartirDeJson(lineasPedidoJson);
+        DAOLineaPedido.actualizarLineasPedidoAPartirDeJson(lineasPedidoJson);
     }
     
 }

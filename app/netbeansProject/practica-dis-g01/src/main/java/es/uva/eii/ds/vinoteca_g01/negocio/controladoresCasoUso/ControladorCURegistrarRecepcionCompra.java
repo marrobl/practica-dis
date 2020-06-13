@@ -12,9 +12,6 @@ import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraYaCompletadaException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author silmont
@@ -49,10 +46,9 @@ public class ControladorCURegistrarRecepcionCompra {
         if (listaNoFinalizadas.isEmpty()){
             c.setRecibidaCompleta();
             c.setFechaCompraCompletada();
-            
+            String json = c.toJSON();
+            c.actualizar(json);
         }
-        String json = c.toJSON();
-        c.actualizar(json);
         return listaNoFinalizadas;
     }
 

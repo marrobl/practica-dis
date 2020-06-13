@@ -130,10 +130,8 @@ public class DAOCompra {
 
     public static void actualizarCompraLineasCompra(String json) {
         int idCompra = 0;
-        String fechaInicioCompra = "", recibidaCompleta = "", fechaCompraCompletada = "";
-        double importe = 0;
-        String pagada = "", fechaPago = "";
-        int idProveedor = 0;
+        String recibidaCompleta = "", fechaCompraCompletada = "";
+        
         String lineasCompraJson = "[]";
 
         JsonReaderFactory factory = Json.createReaderFactory(null);
@@ -142,13 +140,9 @@ public class DAOCompra {
             JsonReader reader = factory.createReader(new StringReader(json));
             JsonObject compraJSON = reader.readObject();
             idCompra = compraJSON.getInt("idCompra");
-            fechaInicioCompra = compraJSON.getString("fechaInicioCompra");
-            recibidaCompleta = compraJSON.getString("recibidaCompleta");
+            recibidaCompleta =  compraJSON.asJsonObject().getBoolean("recibidaCompleta") ? "T" : "F";
             fechaCompraCompletada = compraJSON.getString("fechaCompraCompletada");
-            importe = compraJSON.getJsonNumber("importe").bigDecimalValue().doubleValue();
-            pagada = compraJSON.getString("pagada");
-            fechaPago = compraJSON.getString("fechaPago");
-            idProveedor = compraJSON.getJsonNumber("idProveedor").intValue();
+         
 
             StringWriter stringWriter = new StringWriter();
             JsonWriter writer = Json.createWriter(stringWriter);
