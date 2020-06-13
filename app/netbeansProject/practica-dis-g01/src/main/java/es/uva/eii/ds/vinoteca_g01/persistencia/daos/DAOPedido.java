@@ -39,6 +39,7 @@ public class DAOPedido {
     private static final String INSERT_NUEVO_PEDIDO
             = "INSERT INTO Pedido (Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) "
             + "VALUES (?, ?, NULL, ?, NULL, NULL, NULL, ?)";
+    private static final String UPDATE_PEDIDO = "UPDATE PEDIDO P SET C.Estado=? WHERE C.Numero=?";
 
     /**
      * Consulta pedidos asociados a un numero de factura
@@ -387,4 +388,49 @@ public class DAOPedido {
         return pedidosLineasPedidoJsonString;
     }
 
+    
+        public static void actualizarPedidoAPartirDeJSON(String json) {
+        int estado = 0;
+        int numero = 0;
+        String fechaRealizacion = "";
+        double importe = 0;
+        int numeroAbonado = 0;
+        String lineasPedidoJson = "[]";
+
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+
+        try {
+            JsonReader reader = factory.createReader(new StringReader(json));
+            JsonObject pedidoJSON = reader.readObject();
+            numero = pedidoJSON.getInt("numero");
+            estado = pedidoJSON.getInt("estado");
+            fechaRealizacion = pedidoJSON.getString("fechaRealizacion");
+            importe = pedidoJSON.getJsonNumber("importe").bigDecimalValue().doubleValue();
+            numeroAbonado = pedidoJSON.getJsonNumber("numeroAbonado").intValue();
+
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter);
+            JsonArray lineasPedidoJsonArray = pedidoJSON.getJsonArray("lineasPedido");
+            writer.writeArray(lineasPedidoJsonArray);
+            lineasPedidoJson = stringWriter.toString();
+
+            DBConnection connection = DBConnection.getInstance();
+            connection.openConnection();
+
+            try {
+                PreparedStatement ps = connection.getStatement(UPDATE_PEDIDO);
+                ps.setInt(1, estado);
+                ps.setInt(2, numero);
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            connection.closeConnection();
+        } catch (Exception ex) {
+            Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        DAOLineaPedido.actualizarLineasPedidoAPartirDeJson(lineasPedidoJson);
+    }
 }
