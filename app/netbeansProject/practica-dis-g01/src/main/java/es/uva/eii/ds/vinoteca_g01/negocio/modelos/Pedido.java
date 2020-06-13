@@ -82,6 +82,20 @@ public class Pedido {
         this.fechaEntrega = LocalDate.parse(pedidoJSON.getJsonString("fechaEntrega").getString());
         this.numeroFactura = Integer.parseInt(pedidoJSON.getJsonString("numeroFactura").getString());
         this.numeroAbonado = Integer.parseInt(pedidoJSON.getJsonString("numeroAbonado").getString());
+        
+        if(pedidoJSON.getJsonArray("lineasPedido") == null){
+            lineasPedido = new ArrayList<>();
+        } else {
+            JsonArray lineasPedidoJson = pedidoJSON.getJsonArray("lineasPedido");
+            
+            LineaPedido lineaPedido;
+            
+            for (JsonValue j: lineasPedidoJson) {
+                lineaPedido = new LineaPedido(j.asJsonObject().toString());
+                this.lineasPedido.add(lineaPedido);
+            }
+            
+        }
     }
 
     public Pedido() {

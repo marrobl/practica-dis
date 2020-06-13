@@ -40,7 +40,7 @@ public class LineaPedido {
         completada = false;
     }
 
-    private LineaPedido(String datosJSON) {
+    public LineaPedido(String datosJSON) {
         JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(datosJSON));
         JsonObject lineaPedidoJSON = reader.readObject();
