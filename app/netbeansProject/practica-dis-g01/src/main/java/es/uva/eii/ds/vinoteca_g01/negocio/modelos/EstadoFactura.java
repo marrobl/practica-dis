@@ -14,7 +14,7 @@ package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
  * 
  */
 public enum EstadoFactura {
-    Emitida,
-    Vencida,
-    Pagada
+    emitida,
+    vencida,
+    pagada
 }

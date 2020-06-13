@@ -8,6 +8,7 @@ package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,6 @@ import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 import javax.json.JsonWriter;
@@ -34,6 +34,9 @@ public class DAOPedido {
     private static final String SELECT_PEDIDOS_NUM_FACTURA = "SELECT * FROM Pedido P WHERE P.NumeroFactura = ? ";
     private static final String SELECT_PEDIDOS_VENCIDOS_NUM_ABONADO = "SELECT * FROM Pedido P, Factura F, EstadoFactura EF "
             + "WHERE P.numeroAbonado=? AND P.numeroFactura=F.numeroFactura AND F.estado=EF.id AND EF.nombre='vencida'";
+    private static final String INSERT_NUEVO_PEDIDO
+            = "INSERT INTO Pedido (Estado, FechaRealizacion, NotaEntrega, Importe, FechaRecepcion, FechaEntrega, NumeroFactura, NumeroAbonado) "
+            + "VALUES (?, ?, NULL, ?, NULL, NULL, NULL, ?)";
 
     /**
      * Consulta pedidos asociados a un numero de factura
@@ -216,9 +219,54 @@ public class DAOPedido {
             writer.writeObject(pedidosJson);
             pedidosJsonString = stringWriter.toString();
         } catch (Exception ex) {
-            Logger.getLogger(DAOFactura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return pedidosJsonString;
+    }
+
+    public static void insertarPedidoAPartirDeJSON(String json) {
+        String estado = "";
+        String fechaRealizacion = "";
+        double importe = 0;
+        int numeroAbonado = 0;
+        String lineasPedidoJson = "[]";
+
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+
+        try {
+            JsonReader reader = factory.createReader(new StringReader(json));
+            JsonObject pedidoJSON = reader.readObject();
+            estado = pedidoJSON.getString("estado");
+            fechaRealizacion = pedidoJSON.getString("fechaRealizacion");
+            importe = pedidoJSON.getJsonNumber("importe").bigDecimalValue().doubleValue();
+            numeroAbonado = pedidoJSON.getInt("numeroAbonado");
+            
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter); 
+            JsonArray lineasPedidoJsonArray = pedidoJSON.getJsonArray("lineasPedido");
+            writer.writeArray(lineasPedidoJsonArray);
+            lineasPedidoJson = stringWriter.toString();
+
+            DBConnection connection = DBConnection.getInstance();
+            connection.openConnection();
+            
+            try {
+                PreparedStatement ps = connection.getStatement(INSERT_NUEVO_PEDIDO);
+                ps.setString(1, estado);
+                ps.setDate(2, Date.valueOf(LocalDate.parse(fechaRealizacion)));
+                ps.setDouble(3, importe);
+                ps.setInt(4, numeroAbonado);
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            connection.closeConnection();
+        } catch (Exception ex) {
+            Logger.getLogger(DAOPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        DAOLineaPedido.insertarLineasPedidoAPartirDeJson(lineasPedidoJson);
     }
 }

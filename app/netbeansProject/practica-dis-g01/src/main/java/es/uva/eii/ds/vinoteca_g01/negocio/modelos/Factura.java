@@ -70,7 +70,7 @@ public class Factura {
         this.fechaEmision = LocalDate.parse(facturaJSON.getJsonString("fechaEmision").getString());
         this.importe = Double.parseDouble(facturaJSON.getJsonString("importe").getString());
         this.estado = EstadoFactura.values()[Integer.parseInt(facturaJSON.getJsonString("estado").getString())-1];  
-        if(estado.equals(EstadoFactura.Pagada)) {
+        if(estado.equals(EstadoFactura.pagada)) {
             this.fechaPago =  LocalDate.parse(facturaJSON.getJsonString("fechaPago").getString());
         } else {
             this.fechaPago = null;

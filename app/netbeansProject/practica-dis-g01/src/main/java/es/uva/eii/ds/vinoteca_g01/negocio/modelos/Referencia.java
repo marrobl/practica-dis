@@ -59,6 +59,10 @@ public class Referencia {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
+    
+    public int getCodigo() {
+        return codigo;
+    }
 
     public void setEsPorCajas(boolean esPorCajas) {
         this.esPorCajas = esPorCajas;
@@ -70,6 +74,10 @@ public class Referencia {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+    
+    public double getPrecio() {
+        return precio;
     }
 
     public void setDisponible(boolean disponible) {
@@ -83,5 +91,4 @@ public class Referencia {
     public boolean isDisponible() {
         return disponible;
     }
-
 }

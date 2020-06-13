@@ -1,22 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.daos.DAOPedido;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
 import javax.json.JsonValue;
+import javax.json.JsonWriter;
 
 /**
  * Clase que representa un pedido identificado por un numero
@@ -86,6 +85,7 @@ public class Pedido {
     }
 
     public Pedido() {
+        estado = EstadoPedido.pendiente;
         lineasPedido = new ArrayList<>();
     }
 
@@ -108,6 +108,10 @@ public class Pedido {
         return this.estado;
     }
 
+    public void setFechaRealizacion(LocalDate fechaRealizacion) {
+        this.fechaRealizacion = fechaRealizacion;
+    }
+    
     /**
      * Consulta la fecha de realizacion del pedido
      *
@@ -170,6 +174,61 @@ public class Pedido {
     public int getNumeroAbonado() {
         return this.numeroAbonado;
     }
+    
+    public void setNumeroAbonado(int numeroAbonado) {
+        this.numeroAbonado = numeroAbonado;
+    }
+    
+    public void crearLineaPedido(Referencia referencia, int cantidad) {
+        LineaPedido lp = new LineaPedido(referencia, cantidad);
+        lineasPedido.add(lp);
+    }
+    
+    public void calcularImporte() {
+        double importe = 0;
+        
+        for (LineaPedido lp: getLineasPedido()) {
+            importe += (lp.getUnidades() * lp.getReferencia().getPrecio());
+        }
+        
+        this.importe = importe;
+    }
+
+    public ArrayList<LineaPedido> getLineasPedido() {
+        return lineasPedido;
+    }
+    
+    public String toJson() {
+        String pedidoJson = "";
+        
+        JsonObjectBuilder builder = Json.createObjectBuilder()
+                .add("estado", estado.toString())
+                .add("fechaRealizacion", fechaRealizacion.toString())
+                .add("importe", importe)
+                .add("numeroAbonado", numeroAbonado);
+        
+        JsonReaderFactory factory = Json.createReaderFactory(null);
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        
+        for(LineaPedido lp: lineasPedido) {
+            arrayBuilder.add(lp.toJSON());
+        }
+        
+        JsonArray lineasPedidoJsonArray = arrayBuilder.build();
+        builder.add("lineasPedido", lineasPedidoJsonArray);
+        
+        JsonObject json = builder.build();
+        
+        try {
+            StringWriter stringWriter = new StringWriter();
+            JsonWriter writer = Json.createWriter(stringWriter);writer.writeObject(json);
+            pedidoJson = stringWriter.toString();
+        } catch(Exception ex) {
+             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return pedidoJson;
+    }
 
     /**
      * Devuelve una lista de pedidos asociados a un identificador de factura
@@ -221,8 +280,8 @@ public class Pedido {
         
         return !pedidosVencidos.isEmpty();
     }
-
-    public void crearLineaPedido(Referencia referencia, int cantidad) {
-        
+    
+    public static void registrarPedido(String json) {
+        DAOPedido.insertarPedidoAPartirDeJSON(json);
     }
 }

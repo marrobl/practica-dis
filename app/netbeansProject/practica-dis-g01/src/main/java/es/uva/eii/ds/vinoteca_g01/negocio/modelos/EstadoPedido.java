@@ -14,10 +14,10 @@ package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
  * 
  */
 public enum EstadoPedido {
-    Pendiente,
-    Tramitado,
-    Completado,
-    Servido,
-    Facturado,
-    Pagado
+    pendiente,
+    tramitado,
+    completado,
+    servido,
+    facturado,
+    pagado
 }

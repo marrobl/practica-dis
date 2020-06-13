@@ -11,6 +11,7 @@ import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Referencia;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ImpagosAbonadoException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ReferenciaNoDisponibleException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ReferenciaNoExisteException;
+import java.time.LocalDate;
 
 /**
  *
@@ -46,5 +47,13 @@ public class ControladorCUCrearPedidoAbonado {
         }
         
         pedido.crearLineaPedido(referencia, cantidad);
+    }
+
+    public void registrarPedido() {
+        pedido.setFechaRealizacion(LocalDate.now());
+        pedido.calcularImporte();
+        pedido.setNumeroAbonado(abonado.getNumeroAbonado());
+        String json = pedido.toJson();
+        Pedido.registrarPedido(json);
     }
 }

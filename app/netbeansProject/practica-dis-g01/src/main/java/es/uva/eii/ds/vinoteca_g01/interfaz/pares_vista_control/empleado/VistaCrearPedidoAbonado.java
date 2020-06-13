@@ -44,7 +44,7 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
         numReferenciaTextField = new javax.swing.JTextField();
         cantidadTextField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        finalizarPedido = new javax.swing.JButton();
+        finalizarPedidoButton = new javax.swing.JButton();
         noFinalizarButton = new javax.swing.JButton();
         introducirRefYCantButton = new javax.swing.JButton();
         datosAbonadoPanel = new javax.swing.JPanel();
@@ -89,8 +89,13 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel11.setText("Finalizar pedido:");
 
-        finalizarPedido.setText("Si");
-        finalizarPedido.setEnabled(false);
+        finalizarPedidoButton.setText("Si");
+        finalizarPedidoButton.setEnabled(false);
+        finalizarPedidoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalizarPedidoButtonActionPerformed(evt);
+            }
+        });
 
         noFinalizarButton.setText("No");
         noFinalizarButton.setEnabled(false);
@@ -111,7 +116,7 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
                 .addGroup(pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pedidoPanelLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(finalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(finalizarPedidoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addComponent(noFinalizarButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pedidoPanelLayout.createSequentialGroup()
@@ -135,7 +140,7 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
 
         pedidoPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cantidadTextField, numReferenciaTextField});
 
-        pedidoPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {finalizarPedido, noFinalizarButton});
+        pedidoPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {finalizarPedidoButton, noFinalizarButton});
 
         pedidoPanelLayout.setVerticalGroup(
             pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,14 +162,14 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
                         .addGap(73, 73, 73))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pedidoPanelLayout.createSequentialGroup()
                         .addGroup(pedidoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(finalizarPedido)
+                            .addComponent(finalizarPedidoButton)
                             .addComponent(noFinalizarButton))
                         .addGap(22, 22, 22))))
         );
 
         pedidoPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cantidadTextField, numReferenciaTextField});
 
-        pedidoPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {finalizarPedido, noFinalizarButton});
+        pedidoPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {finalizarPedidoButton, noFinalizarButton});
 
         jLabel2.setText("Nombre:");
 
@@ -385,6 +390,10 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
         controlador.procesaEventoIntroducirDatosPedido();
     }//GEN-LAST:event_introducirRefYCantButtonActionPerformed
 
+    private void finalizarPedidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarPedidoButtonActionPerformed
+        controlador.procesaEventoFinalizarPedido();
+    }//GEN-LAST:event_finalizarPedidoButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -431,7 +440,7 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     private javax.swing.JPanel datosAbonadoPanel;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel errorLabel;
-    private javax.swing.JButton finalizarPedido;
+    private javax.swing.JButton finalizarPedidoButton;
     private javax.swing.JButton introducirRefYCantButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -479,5 +488,14 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
 
     String getCantidad() {
         return cantidadTextField.getText();
+    }
+
+    void mostrarError(String mensaje) {
+        errorLabel.setText(mensaje);
+    }
+
+    void habilitarFinalizarPedido() {
+        finalizarPedidoButton.setEnabled(true);
+        noFinalizarButton.setEnabled(true);
     }
 }

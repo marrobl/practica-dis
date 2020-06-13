@@ -153,7 +153,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="finalizarPedido" linkSize="4" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="finalizarPedidoButton" linkSize="4" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                               <Component id="noFinalizarButton" linkSize="4" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -206,7 +206,7 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="finalizarPedido" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="finalizarPedidoButton" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="noFinalizarButton" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -245,11 +245,14 @@
                 <Property name="text" type="java.lang.String" value="Finalizar pedido:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="finalizarPedido">
+            <Component class="javax.swing.JButton" name="finalizarPedidoButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Si"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finalizarPedidoButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="noFinalizarButton">
               <Properties>
