@@ -66,5 +66,9 @@ public class LineaCompra {
            // Falta guardar el array de lineaPedido en el atributo que he hecho para ello
         return lp;
     }
+
+    boolean getRecibida() {
+        return recibida;
+    }
     
 }
