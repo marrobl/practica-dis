@@ -28,6 +28,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     public VistaRegistrarRecepcionCompra() {
         initComponents();
         errorLabel.setVisible(false);
+        labelSeleccion.setVisible(false);
         controlador = new CtrlVistaRegistrarRecepcionCompra(this);
     }
 
@@ -52,6 +53,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         nombreBodega = new javax.swing.JLabel();
         volverButton = new javax.swing.JButton();
+        labelSeleccion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,7 +131,9 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(botonOK))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(botonOK)
+                                    .addComponent(labelSeleccion)))
                             .addComponent(volverButton))))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
@@ -154,7 +158,10 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonOK))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botonOK)
+                        .addGap(68, 68, 68)
+                        .addComponent(labelSeleccion)))
                 .addGap(15, 15, 15)
                 .addComponent(volverButton)
                 .addContainerGap())
@@ -182,6 +189,8 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                 String[] datos = parse.split(" ----- ");
                 try {
                     controlador.procesaEventoSeleccionaLinea(datos[0]);
+                    labelSeleccion.setVisible(true);
+                    labelSeleccion.setText("Ha seleccionado la linea: "+ datos[0]);
                 } catch (CompraNotFoundException ex) {
                     Logger.getLogger(VistaRegistrarRecepcionCompra.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -191,6 +200,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
     private void botonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOKActionPerformed
         // TODO add your handling code here:
+        labelSeleccion.setVisible(false);
         controlador.procesaEventoFinalizarRegistroLineas();
     }//GEN-LAST:event_botonOKActionPerformed
 
@@ -245,12 +255,13 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelSeleccion;
     private javax.swing.JLabel nombreBodega;
     private javax.swing.JButton volverButton;
     // End of variables declaration//GEN-END:variables
 
     void mostrarLineasNoCompletadas(ArrayList<LineaCompra> l) {
-        String stringMostrar = "";
+        String stringMostrar = "Las siguientes lineas no han sido recibidas: \n";
         for (LineaCompra linea : l) {
             if (!linea.getRecibida()) {
                 stringMostrar = stringMostrar + Integer.toString(linea.getCodigoReferencia()) + " --- " + Integer.toString(linea.getUnidades()) + "\n";
