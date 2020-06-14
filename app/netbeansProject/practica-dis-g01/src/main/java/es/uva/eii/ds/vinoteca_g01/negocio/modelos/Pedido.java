@@ -270,8 +270,6 @@ public class Pedido {
         } catch(Exception ex) {
              Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-                System.out.println(pedidoJson);
-
         
         return pedidoJson;
     }
