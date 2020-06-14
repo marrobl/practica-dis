@@ -50,12 +50,11 @@ public class CtrlVistaRegistrarRecepcionCompra {
     void procesaEventoSeleccionaLinea(String item) throws CompraNotFoundException {
         int idLineaCompra = Integer.parseInt(item);
         String id = vista.getId();
-        controladorCU.setLinea(idLineaCompra, id);
+        controladorCU.setLinea(idLineaCompra);
     }
 
     void procesaEventoFinalizarRegistroLineas() {
-        String id = vista.getId();
-        ArrayList<LineaCompra> l = controladorCU.finRegistroLineas(id);
+        ArrayList<LineaCompra> l = controladorCU.finRegistroLineas();
         if(!l.isEmpty()) vista.mostrarLineasNoCompletadas(l);
         controladorCU.revisarPedidos();
 

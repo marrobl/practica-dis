@@ -20,6 +20,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonReaderFactory;
+import javax.json.JsonValue;
 import javax.json.JsonWriter;
 
 /**
@@ -32,7 +33,7 @@ public class DAOLineaCompra {
 
     
     private static final String UPDATE_LINEACOMPRA_LINEASPEDIDO
-            = "UPDATE * FROM LineaCompra Lc WHERE Lc.id = ? AND Lc.Recibida = ? AND Lc.FechaRecibida = ? ";
+            = "UPDATE LineaCompra Lc SET Lc.Recibida = ?, Lc.FechaRecepcion = ? WHERE Lc.id = ?";
     
     
     static String consultarLineasCompraPorIdCompra(String id_compra) {
@@ -107,7 +108,7 @@ public class DAOLineaCompra {
         return lineaCompraJsonString;
     }
 
-    static void actualizaLineasCompraAPartirDeJson(String lineasCompraJson) {
+    public static void actualizaLineasCompraAPartirDeJson(String lineasCompraJson) {
         int id = 0;
         String fechaRecepcion = "";
         String recibida;
@@ -117,37 +118,47 @@ public class DAOLineaCompra {
 
         try {
             JsonReader reader = factory.createReader(new StringReader(lineasCompraJson));
-            JsonObject lineaCompraJSON = reader.readObject();
-            id = lineaCompraJSON.getInt("id");
-            fechaRecepcion = lineaCompraJSON.getString("fechaRecepcion");
-            recibida = lineaCompraJSON.asJsonObject().getBoolean("recibida") ? "T" : "F";
-           
-            StringWriter stringWriter = new StringWriter();
-            JsonWriter writer = Json.createWriter(stringWriter);
-            JsonArray lineasCompraJsonArray = lineaCompraJSON.getJsonArray("lineasPedido");
-            writer.writeArray(lineasCompraJsonArray);
-            lineasPedidoJson = stringWriter.toString();
 
-            DBConnection connection = DBConnection.getInstance();
-            connection.openConnection();
+            JsonArray lineasCompra = reader.readArray();
+            for (JsonValue j : lineasCompra) {
+                id = j.asJsonObject().getInt("id");
+                fechaRecepcion = null == j.asJsonObject().getString("fechaRecepcion") ? null : j.asJsonObject().getString("fechaRecepcion");
+                recibida = j.asJsonObject().getBoolean("recibida") ? "T" : "F";
 
-            try {
-                PreparedStatement ps = connection.getStatement(UPDATE_LINEACOMPRA_LINEASPEDIDO);
-                ps.setInt(1, id);
-                ps.setString(2, recibida);
-                ps.setDate(2, Date.valueOf(LocalDate.parse(fechaRecepcion)));
-              
-                ps.executeUpdate();
-            } catch (SQLException ex) {
-                Logger.getLogger(DAOLineaCompra.class.getName()).log(Level.SEVERE, null, ex);
+                StringWriter stringWriter = new StringWriter();
+                JsonWriter writer = Json.createWriter(stringWriter);
+                JsonArray lineasCompraJsonArray = j.asJsonObject().getJsonArray("lineasPedido");
+                writer.writeArray(lineasCompraJsonArray);
+                lineasPedidoJson = stringWriter.toString();
+
+                DBConnection connection = DBConnection.getInstance();
+                connection.openConnection();
+
+                try {
+                    PreparedStatement ps = connection.getStatement(UPDATE_LINEACOMPRA_LINEASPEDIDO);
+
+                    ps.setString(1, recibida);
+                    ps.setDate(2, Date.valueOf(LocalDate.parse(fechaRecepcion)));
+                    ps.setInt(3, id);
+
+                    ps.executeUpdate();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOLineaCompra.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                connection.closeConnection();
+                DAOLineaPedido.actualizarLineasPedidoAPartirDeJson(lineasPedidoJson);
+
             }
-
-            connection.closeConnection();
         } catch (Exception ex) {
             Logger.getLogger(DAOLineaCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        DAOLineaPedido.actualizarLineasPedidoAPartirDeJson(lineasPedidoJson);
     }
+           
+            
+
+
+
+
     
 }

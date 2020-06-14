@@ -9,24 +9,27 @@ import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaPedido;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Pedido;
+import es.uva.eii.ds.vinoteca_g01.persistencia.daos.DAOLineaCompra;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraYaCompletadaException;
 import java.util.ArrayList;
+import java.util.Iterator;
 /**
  *
  * @author silmont
  */
 public class ControladorCURegistrarRecepcionCompra {
+    
+    Compra compraRegistrar;
 
     public Compra getCompraNoCompletada(String id) throws CompraNotFoundException, CompraYaCompletadaException {
-        Compra c = Compra.getCompraPorId(id);
-        if(c.getRecibidaCompleta()) throw new CompraYaCompletadaException();
-        return c;
+        compraRegistrar = Compra.getCompraPorId(id);
+        if(compraRegistrar.getRecibidaCompleta()) throw new CompraYaCompletadaException();
+        return compraRegistrar;
     }
 
-    public void setLinea(int idLinea, String idCompra) throws CompraNotFoundException {
-        Compra c = Compra.getCompraPorId(idCompra);
-        LineaCompra linea = c.getLineaCompraId(idLinea);
+    public void setLinea(int idLinea) throws CompraNotFoundException {
+        LineaCompra linea = compraRegistrar.getLineaCompraId(idLinea);
         linea.setRecibida();
         linea.setFecha();
         ArrayList<LineaPedido> lp = linea.getLineasPedido();
@@ -36,19 +39,23 @@ public class ControladorCURegistrarRecepcionCompra {
         }
     }
 
-    public ArrayList<LineaCompra> finRegistroLineas(String id) {
-        Compra c = null;
-        try {
-            c = Compra.getCompraPorId(id);
-        } catch (CompraNotFoundException ex) {
-        }
-        ArrayList<LineaCompra> listaNoFinalizadas = c.getLineasNoRecibidas();
+    public ArrayList<LineaCompra> finRegistroLineas() {
+        ArrayList<LineaCompra> listaNoFinalizadas = compraRegistrar.getLineasNoRecibidas();
         if (listaNoFinalizadas.isEmpty()){
-            c.setRecibidaCompleta();
-            c.setFechaCompraCompletada();
-            String json = c.toJSON();
-            c.actualizar(json);
+            compraRegistrar.setRecibidaCompleta();
+            compraRegistrar.setFechaCompraCompletada();
+            String json = compraRegistrar.toJSON();
+            compraRegistrar.actualizar(json);
+
+        }else{
+            Iterator it = compraRegistrar.getLineasCompra();
+            while(it.hasNext()){
+                LineaCompra l = (LineaCompra)it.next();
+                String json = l.toJSON();
+                LineaCompra.actualizar(json);
+            }
         }
+ 
         return listaNoFinalizadas;
     }
 
@@ -61,7 +68,8 @@ public class ControladorCURegistrarRecepcionCompra {
                if(!l.getCompletada()) pedidoCompleto=false;
            }
            if(pedidoCompleto) p.setEstadoPedidoCompletado();
-           //Aqui actualizamos a la BBDD
+           String json = p.toJson();
+           p.actualizar(json);
        }
     }
     

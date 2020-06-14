@@ -56,6 +56,10 @@ public class Referencia {
         }
     }
 
+    public Referencia() {
+        
+    }
+
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }

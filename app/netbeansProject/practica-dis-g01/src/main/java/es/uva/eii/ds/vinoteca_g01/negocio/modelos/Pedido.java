@@ -248,7 +248,6 @@ public class Pedido {
         
         for(LineaPedido lp: lineasPedido) {
             lineasPedidoJson.append(lp.toJSON());
-            System.out.println(lp.toJSON());
             lineasPedidoJson.append(",");
         }
         
@@ -334,5 +333,9 @@ public class Pedido {
 
     public void setEstadoPedidoCompletado() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void actualizar(String json) {
+        DAOPedido.actualizarPedidoAPartirDeJSON(json);
     }
 }

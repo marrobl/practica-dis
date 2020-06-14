@@ -285,8 +285,11 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     void mostrarLineasNoCompletadas(ArrayList<LineaCompra> l) {
         String stringMostrar = "";
         for (LineaCompra linea : l){
-            stringMostrar = stringMostrar + Integer.toString(linea.getCodigoReferencia())+" --- " + Integer.toString(linea.getUnidades()) + "\n";
-        }
+            System.out.println(linea.getRecibida() + " " + linea.getId());
+            if(!linea.getRecibida()) stringMostrar = stringMostrar + Integer.toString(linea.getCodigoReferencia())+" --- " + Integer.toString(linea.getUnidades()) + "\n";
+     
+            
+            }
         JOptionPane.showMessageDialog(null, stringMostrar);
     }
 }

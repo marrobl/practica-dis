@@ -5,6 +5,7 @@
  */
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
+import es.uva.eii.ds.vinoteca_g01.persistencia.daos.DAOCompra;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.time.LocalDate;
@@ -24,6 +25,8 @@ import javax.json.JsonWriter;
  * @author silmont
  */
 public class LineaCompra {
+
+
     
     private int id;
     private int unidades;
@@ -74,7 +77,7 @@ public class LineaCompra {
         return lineasPedido;
     }
 
-    boolean getRecibida() {
+    public boolean getRecibida() {
         return recibida;
     }
 
@@ -90,7 +93,8 @@ public class LineaCompra {
                 .add("unidades", unidades)
                 .add("recibida", recibida)
                 .add("idCompra", idCompra)
-                .add("codigoReferencia",codigoReferencia);
+                .add("codigoReferencia",codigoReferencia)
+                .add("fechaRecepcion", fechaRecepcion.toString());
                 
         JsonReaderFactory factory = Json.createReaderFactory(null);
         StringBuilder lineasPedidoJson = new StringBuilder("[");
@@ -121,6 +125,14 @@ public class LineaCompra {
         }
         
         return lineaCompraJson;
+    }
+    
+    public static void actualizar(String json) {
+       DAOCompra.actualizarLineas(json);
+    }
+
+    public LocalDate getFecha() {
+        return fechaRecepcion;
     }
     
 }

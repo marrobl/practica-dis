@@ -37,7 +37,7 @@ public class DAOLineaPedido {
     private static final String INSERT_LINEA_PEDIDO
             = "INSERT INTO LineaPedido (Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) "
             + "VALUES (?, ?, ?, ?, NULL)";
-    private static final String UPDATE_LINEA_PEDIDO = "UPDATE LINEAPEDIDO P SET C.Completada=? WHERE C.Id=?";
+    private static final String UPDATE_LINEA_PEDIDO = "UPDATE LINEAPEDIDO P SET P.Completada=? WHERE P.Id=?";
     
     public static String consultaLineasPedidoPorIdLineaCompra(int idLC) {
         String lineasPedidoJsonString;
@@ -224,6 +224,7 @@ public class DAOLineaPedido {
         JsonReaderFactory factory = Json.createReaderFactory(null);
         DBConnection connection = DBConnection.getInstance();
         connection.openConnection();
+
         
         try (
             JsonReader reader = factory.createReader(new StringReader(lineasPedidoJson));) {
@@ -236,7 +237,7 @@ public class DAOLineaPedido {
                 int codigoReferencia = j.asJsonObject().getInt("codigoReferencia");
                 
                 try (
-                        PreparedStatement s = connection.getStatement(INSERT_LINEA_PEDIDO);) {
+                        PreparedStatement s = connection.getStatement(UPDATE_LINEA_PEDIDO);) {
                     
                     
                     s.setString(1, completada);

@@ -44,6 +44,7 @@ public class LineaPedido {
         JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(datosJSON));
         JsonObject lineaPedidoJSON = reader.readObject();
+        referencia = new Referencia();
 
         this.id = Integer.parseInt(lineaPedidoJSON.getJsonString("id").getString());
         this.unidades = Integer.parseInt(lineaPedidoJSON.getJsonString("unidades").getString());
@@ -51,6 +52,7 @@ public class LineaPedido {
         this.completada = completadaJson.equals("T");
         this.numeroPedido = Integer.parseInt(lineaPedidoJSON.getJsonString("numeroPedido").getString());
         this.idLineaCompra = Integer.parseInt(lineaPedidoJSON.getJsonString("idLineaCompra").getString());
+        this.referencia.setCodigo(Integer.parseInt(lineaPedidoJSON.getJsonString("codigoReferencia").getString()));
     }
 
     public void setCompletada() {
@@ -90,6 +92,7 @@ public class LineaPedido {
     public String toJSON() {
         String lineaPedidoJSON = "";
         JsonObject json = Json.createObjectBuilder()
+                .add("id", id)
                 .add("unidades", unidades)
                 .add("completada", completada)
                 .add("codigoReferencia", referencia.getCodigo())

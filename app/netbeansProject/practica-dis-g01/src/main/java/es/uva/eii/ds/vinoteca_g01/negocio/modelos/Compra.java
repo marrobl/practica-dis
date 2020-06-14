@@ -206,6 +206,7 @@ public class Compra {
         lineasCompraJson.append("]");
         JsonReader readerLineasCompra = factory.createReader(new StringReader(lineasCompraJson.toString()));
         JsonArray lcJsonArray = readerLineasCompra.readArray();
+
         builder.add("lineasCompra", lcJsonArray);
         
         JsonObject json = builder.build();
@@ -219,7 +220,6 @@ public class Compra {
              Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
         return compraJson;
     }
 

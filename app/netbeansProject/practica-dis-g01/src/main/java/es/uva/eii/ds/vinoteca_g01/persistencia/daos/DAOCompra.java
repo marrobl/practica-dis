@@ -32,7 +32,7 @@ public class DAOCompra {
             = "SELECT * FROM Compra C WHERE C.IdCompra = ? ";
 
     private static final String UPDATE_COMPRA_LINEASCOMPRA
-            = "UPDATE * FROM Compra C WHERE C.idCompra = ? AND C.RecibidaCompleta = ? AND C.FechaCompraCompletada = ? ";
+            = "UPDATE Compra C SET C.RecibidaCompleta = ?, C.FechaCompraCompletada = ? WHERE C.idCompra = ? ";
     
     public static String consultaCompraPorId(String id) {
         String compraJSON = null;
@@ -149,15 +149,17 @@ public class DAOCompra {
             JsonArray lineasCompraJsonArray = compraJSON.getJsonArray("lineasCompra");
             writer.writeArray(lineasCompraJsonArray);
             lineasCompraJson = stringWriter.toString();
+            
 
             DBConnection connection = DBConnection.getInstance();
             connection.openConnection();
 
             try {
                 PreparedStatement ps = connection.getStatement(UPDATE_COMPRA_LINEASCOMPRA);
-                ps.setInt(1, idCompra);
-                ps.setString(2, recibidaCompleta);
+                
+                ps.setString(1, recibidaCompleta);
                 ps.setDate(2, Date.valueOf(LocalDate.parse(fechaCompraCompletada)));
+                ps.setInt(3, idCompra);
               
                 ps.executeUpdate();
             } catch (SQLException ex) {
@@ -170,6 +172,10 @@ public class DAOCompra {
         }
 
         DAOLineaCompra.actualizaLineasCompraAPartirDeJson(lineasCompraJson);
+    }
+    
+    public static void actualizarLineas(String json){
+        DAOLineaCompra.actualizaLineasCompraAPartirDeJson(json);
     }
     
 }
