@@ -113,4 +113,8 @@ public class LineaPedido {
     public boolean getCompletada() {
         return completada;
     }
+    
+    public double getSubtotal() {
+        return unidades * referencia.getPrecio();
+    }
 }

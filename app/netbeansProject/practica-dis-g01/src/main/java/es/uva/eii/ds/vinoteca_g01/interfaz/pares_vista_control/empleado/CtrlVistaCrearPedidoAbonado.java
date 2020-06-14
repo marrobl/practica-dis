@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCUCrearPedidoAbonado;
@@ -11,8 +6,6 @@ import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.AbonadoNoExisteEx
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ImpagosAbonadoException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ReferenciaNoDisponibleException;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ReferenciaNoExisteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

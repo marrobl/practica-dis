@@ -224,7 +224,7 @@ public class Pedido {
         double importe = 0;
         
         for (LineaPedido lp: getLineasPedido()) {
-            importe += (lp.getUnidades() * lp.getReferencia().getPrecio());
+            importe += lp.getSubtotal();
         }
         
         this.importe = importe;

@@ -35,9 +35,8 @@ public class ControladorCUCrearPedidoAbonado {
         if (impagos) {
             throw new ImpagosAbonadoException();
         }
-        else {
-            pedido = new Pedido();
-        }
+        
+        pedido = new Pedido();
     }
 
     public void comprobarReferencia(int numRef, int cantidad) throws ReferenciaNoExisteException, ReferenciaNoDisponibleException {
