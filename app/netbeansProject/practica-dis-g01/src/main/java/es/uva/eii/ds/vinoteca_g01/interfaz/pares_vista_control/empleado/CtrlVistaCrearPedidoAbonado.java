@@ -10,7 +10,9 @@ import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.ReferenciaNoExist
 
 /**
  *
- * @author richard
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class CtrlVistaCrearPedidoAbonado {
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess;
 
 import java.io.FileInputStream;
@@ -19,7 +14,9 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author richard
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class DBConnection {
 
@@ -31,14 +28,12 @@ public class DBConnection {
             InputStream read;
             String url, user, password;
             try {
-                //read = DBConnection.class.getResourceAsStream("config.db");
                 FileInputStream fis = new FileInputStream("../../db/config.db");
                 prop.load(fis);
                 url = prop.getProperty("url");
                 user = prop.getProperty("user");
                 password = prop.getProperty("password");
                 fis.close();
-                //read.close();
                 theDBConnection = new DBConnection(url, user, password);
             } catch (FileNotFoundException e) {
                 System.err.println("DB configuration file not found.");

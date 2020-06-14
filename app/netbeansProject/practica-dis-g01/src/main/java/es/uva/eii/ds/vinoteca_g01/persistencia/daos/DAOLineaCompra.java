@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
@@ -25,7 +20,9 @@ import javax.json.JsonWriter;
 
 /**
  *
- * @author maria
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class DAOLineaCompra {
     private static final String SELECT_LINEAS_COMPRA_POR_ID_COMPRA = 

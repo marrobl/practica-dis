@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.interfaz;
 
 import es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado.VistaConsultarImpagos;
@@ -17,7 +12,9 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author richard
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class GestorDeInterfazDeUsuario {
 

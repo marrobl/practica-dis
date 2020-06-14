@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Abonado;
@@ -10,7 +5,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author richard
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
 
@@ -326,6 +323,11 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
         });
 
         buscarPorParametrosButton.setText("Buscar por parámetros");
+        buscarPorParametrosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarPorParametrosButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -443,6 +445,10 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     private void volverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverButtonActionPerformed
         controlador.procesaEventoVolver();
     }//GEN-LAST:event_volverButtonActionPerformed
+
+    private void buscarPorParametrosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPorParametrosButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "Opción aún no implementada");
+    }//GEN-LAST:event_buscarPorParametrosButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abonadoCorrectoButton;
@@ -585,6 +591,6 @@ public class VistaCrearPedidoAbonado extends javax.swing.JFrame {
     }
 
     void mostrarMensajePedidoExitoso() {
-        JOptionPane.showMessageDialog(this, "El pedido se ha llevado a cabo con éxito");
+        JOptionPane.showMessageDialog(this, "El pedido se ha realizado con éxito");
     }
 }

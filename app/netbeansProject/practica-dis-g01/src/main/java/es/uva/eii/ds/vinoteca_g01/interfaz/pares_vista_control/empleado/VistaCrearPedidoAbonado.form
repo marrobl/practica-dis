@@ -484,6 +484,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar por par&#xe1;metros"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarPorParametrosButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

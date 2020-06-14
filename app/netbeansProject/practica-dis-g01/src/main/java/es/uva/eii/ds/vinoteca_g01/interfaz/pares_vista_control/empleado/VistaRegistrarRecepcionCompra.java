@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
@@ -16,13 +11,12 @@ import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
+ * @author ricalba
  * @author silmont
+ * @author marrobl
  */
 public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
@@ -258,7 +252,6 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     void mostrarLineasNoCompletadas(ArrayList<LineaCompra> l) {
         String stringMostrar = "";
         for (LineaCompra linea : l) {
-            System.out.println(linea.getRecibida() + " " + linea.getId());
             if (!linea.getRecibida()) {
                 stringMostrar = stringMostrar + Integer.toString(linea.getCodigoReferencia()) + " --- " + Integer.toString(linea.getUnidades()) + "\n";
             }

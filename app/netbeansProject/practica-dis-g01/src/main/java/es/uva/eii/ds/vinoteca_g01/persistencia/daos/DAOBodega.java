@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.persistencia.daos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.dbaccess.DBConnection;
@@ -10,7 +5,6 @@ import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
@@ -19,7 +13,9 @@ import javax.json.JsonWriter;
 
 /**
  *
- * @author maria
+ * @author ricalba
+ * @author silmont
+ * @author marrobl
  */
 public class DAOBodega {
     private static final String SELECT_BODEGA_ID_COMPRA

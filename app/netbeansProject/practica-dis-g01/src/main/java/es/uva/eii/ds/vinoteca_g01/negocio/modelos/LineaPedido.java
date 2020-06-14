@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.uva.eii.ds.vinoteca_g01.negocio.modelos;
 
 import es.uva.eii.ds.vinoteca_g01.persistencia.daos.DAOLineaPedido;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +16,9 @@ import javax.json.JsonWriter;
 
 /**
  *
+ * @author ricalba
  * @author silmont
+ * @author marrobl
  */
 public class LineaPedido {
 
