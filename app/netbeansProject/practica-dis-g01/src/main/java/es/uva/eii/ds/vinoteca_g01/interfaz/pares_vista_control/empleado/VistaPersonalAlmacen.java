@@ -5,17 +5,22 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author richard
  */
 public class VistaPersonalAlmacen extends javax.swing.JFrame {
+    
+    private final CtrlVistaPersonalAlmacen controlador;
 
     /**
      * Creates new form VistaPersonalAlmacen
      */
     public VistaPersonalAlmacen() {
         initComponents();
+        controlador = new CtrlVistaPersonalAlmacen(this);
     }
 
     /**
@@ -27,21 +32,44 @@ public class VistaPersonalAlmacen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        realizarBoletinMensualButton = new javax.swing.JButton();
+        realizarCompraABodegasButton = new javax.swing.JButton();
+        registrarRecepcionDeCompraButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        cerrarSesionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Realizar boletín mensual");
+        realizarBoletinMensualButton.setText("Realizar boletín mensual");
+        realizarBoletinMensualButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizarBoletinMensualButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Realizar compra a bodegas");
+        realizarCompraABodegasButton.setText("Realizar compra a bodegas");
+        realizarCompraABodegasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizarCompraABodegasButtonActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Registrar recepción de compra");
+        registrarRecepcionDeCompraButton.setText("Registrar recepción de compra");
+        registrarRecepcionDeCompraButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarRecepcionDeCompraButtonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Personal de Almacén");
+
+        cerrarSesionButton.setText("Cerrar Sesión");
+        cerrarSesionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,41 +78,65 @@ public class VistaPersonalAlmacen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(277, 277, 277)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(realizarCompraABodegasButton)
+                    .addComponent(registrarRecepcionDeCompraButton, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(realizarBoletinMensualButton))
+                .addContainerGap(284, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(230, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(226, 226, 226))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(224, 224, 224))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cerrarSesionButton)
+                        .addGap(63, 63, 63))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {realizarBoletinMensualButton, realizarCompraABodegasButton, registrarRecepcionDeCompraButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(33, 33, 33)
+                .addComponent(cerrarSesionButton)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addGap(93, 93, 93)
-                .addComponent(jButton1)
+                .addGap(57, 57, 57)
+                .addComponent(realizarBoletinMensualButton)
                 .addGap(29, 29, 29)
-                .addComponent(jButton2)
+                .addComponent(realizarCompraABodegasButton)
                 .addGap(27, 27, 27)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(registrarRecepcionDeCompraButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(98, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {realizarBoletinMensualButton, realizarCompraABodegasButton, registrarRecepcionDeCompraButton});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cerrarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionButtonActionPerformed
+        controlador.procesaEventoCerrarSesion();
+    }//GEN-LAST:event_cerrarSesionButtonActionPerformed
+
+    private void registrarRecepcionDeCompraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarRecepcionDeCompraButtonActionPerformed
+        controlador.procesaEventoRegistrarRecepcionDeCompra();
+    }//GEN-LAST:event_registrarRecepcionDeCompraButtonActionPerformed
+
+    private void realizarBoletinMensualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarBoletinMensualButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "Opción aún no implementada");
+    }//GEN-LAST:event_realizarBoletinMensualButtonActionPerformed
+
+    private void realizarCompraABodegasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarCompraABodegasButtonActionPerformed
+        JOptionPane.showMessageDialog(this, "Opción aún no implementada");
+    }//GEN-LAST:event_realizarCompraABodegasButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton cerrarSesionButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton realizarBoletinMensualButton;
+    private javax.swing.JButton realizarCompraABodegasButton;
+    private javax.swing.JButton registrarRecepcionDeCompraButton;
     // End of variables declaration//GEN-END:variables
 }

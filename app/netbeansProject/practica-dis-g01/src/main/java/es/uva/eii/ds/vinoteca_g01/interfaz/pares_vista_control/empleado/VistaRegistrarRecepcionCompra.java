@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
+
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.CompraNotFoundException;
@@ -26,6 +27,7 @@ import javax.swing.table.TableColumn;
 public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
     private final CtrlVistaRegistrarRecepcionCompra controlador;
+
     /**
      * Creates new form VistaRegistrarRecepcionCompra
      */
@@ -55,6 +57,7 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jLabel4 = new javax.swing.JLabel();
         nombreBodega = new javax.swing.JLabel();
+        volverButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,39 +95,49 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
 
         jLabel4.setText("id Linea ----- Referencia  ----- Unidades");
 
+        volverButton.setText("Volver");
+        volverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(52, 52, 52)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(41, 41, 41)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(41, 41, 41)
+                                            .addComponent(BotonRegistrar))))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(nombreBodega))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(41, 41, 41)
-                                        .addComponent(BotonRegistrar))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(botonOK))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(nombreBodega)))))
-                .addContainerGap(66, Short.MAX_VALUE))
+                            .addComponent(volverButton))))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,21 +150,20 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(BotonRegistrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorLabel)
+                .addGap(18, 18, 18)
+                .addComponent(nombreBodega)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(errorLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(nombreBodega)
-                        .addGap(120, 120, 120)
-                        .addComponent(botonOK)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonOK))
+                .addGap(15, 15, 15)
+                .addComponent(volverButton)
+                .addContainerGap())
         );
 
         pack();
@@ -161,26 +173,26 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         controlador.procesaEventoIntroduceId();
-        
+
     }//GEN-LAST:event_BotonRegistrarActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 1) {
-               JList target = (JList)evt.getSource();
-               int index = target.locationToIndex(evt.getPoint());
-               if (index >= 0) {
-                  Object item = target.getModel().getElementAt(index);
-                  //JOptionPane.showMessageDialog(null, item.toString());
-                  String parse = (String)item;
-                  String[] datos = parse.split(" ----- ");
-                   try {
-                       controlador.procesaEventoSeleccionaLinea(datos[0]);
-                   } catch (CompraNotFoundException ex) {
-                       Logger.getLogger(VistaRegistrarRecepcionCompra.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               }
+            JList target = (JList) evt.getSource();
+            int index = target.locationToIndex(evt.getPoint());
+            if (index >= 0) {
+                Object item = target.getModel().getElementAt(index);
+                //JOptionPane.showMessageDialog(null, item.toString());
+                String parse = (String) item;
+                String[] datos = parse.split(" ----- ");
+                try {
+                    controlador.procesaEventoSeleccionaLinea(datos[0]);
+                } catch (CompraNotFoundException ex) {
+                    Logger.getLogger(VistaRegistrarRecepcionCompra.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        }
     }//GEN-LAST:event_jList1MouseClicked
 
     private void botonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOKActionPerformed
@@ -188,82 +200,44 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
         controlador.procesaEventoFinalizarRegistroLineas();
     }//GEN-LAST:event_botonOKActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaRegistrarRecepcionCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaRegistrarRecepcionCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaRegistrarRecepcionCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaRegistrarRecepcionCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void volverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverButtonActionPerformed
+        controlador.procesaEventoVolver();
+    }//GEN-LAST:event_volverButtonActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaRegistrarRecepcionCompra().setVisible(true);
-            }
-        });
-    }
-    
     public String getId() {
         return jTextField1.getText();
     }
-    
+
     public void mostrarMensajeError(String mensaje) {
         errorLabel.setText(mensaje);
         errorLabel.setVisible(true);
         errorLabel.setText(mensaje);
     }
-    
+
     public void esconderMensajeError() {
         errorLabel.setVisible(false);
     }
-    
 
-    
-    public void mostrarDatosCompra(Compra compra){
+    public void mostrarDatosCompra(Compra compra) {
         nombreBodega.setVisible(true);
         nombreBodega.setText(compra.getNombreBodega());
         Iterator it = compra.getLineasCompra();
-        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
         Vector data = new Vector();
-        // TODO meter un if con linea no recibida
-        while(it.hasNext()){
-            LineaCompra c = (LineaCompra)it.next();
+
+        while (it.hasNext()) {
+            LineaCompra c = (LineaCompra) it.next();
             String referencia = Integer.toString(c.getCodigoReferencia());
             String unidades = Integer.toString(c.getUnidades());
             String id = Integer.toString(c.getId());
-            //model.addRow(new Object[]{referencia, unidades, false});
+
             String tabla = id + " ----- " + referencia + " ----- " + unidades;
             data.add(tabla);
-            
         }
-        
+
         jList1.setListData(data);
-        
-        
-        
 
     }
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -278,18 +252,18 @@ public class VistaRegistrarRecepcionCompra extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel nombreBodega;
+    private javax.swing.JButton volverButton;
     // End of variables declaration//GEN-END:variables
-
-
 
     void mostrarLineasNoCompletadas(ArrayList<LineaCompra> l) {
         String stringMostrar = "";
-        for (LineaCompra linea : l){
+        for (LineaCompra linea : l) {
             System.out.println(linea.getRecibida() + " " + linea.getId());
-            if(!linea.getRecibida()) stringMostrar = stringMostrar + Integer.toString(linea.getCodigoReferencia())+" --- " + Integer.toString(linea.getUnidades()) + "\n";
-     
-            
+            if (!linea.getRecibida()) {
+                stringMostrar = stringMostrar + Integer.toString(linea.getCodigoReferencia()) + " --- " + Integer.toString(linea.getUnidades()) + "\n";
             }
+
+        }
         JOptionPane.showMessageDialog(null, stringMostrar);
     }
 }

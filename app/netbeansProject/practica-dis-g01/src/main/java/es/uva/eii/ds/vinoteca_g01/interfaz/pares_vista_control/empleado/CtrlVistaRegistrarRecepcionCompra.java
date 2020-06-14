@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
+import es.uva.eii.ds.vinoteca_g01.interfaz.GestorDeInterfazDeUsuario;
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCURegistrarRecepcionCompra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Compra;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.LineaCompra;
@@ -29,7 +30,7 @@ public class CtrlVistaRegistrarRecepcionCompra {
         controladorCU = new ControladorCURegistrarRecepcionCompra();
     }
 
-    void procesaEventoIntroduceId() {
+    public void procesaEventoIntroduceId() {
         String id = vista.getId();
         if(id.isEmpty()){
             vista.mostrarMensajeError(ERROR_ID_VACIO);
@@ -47,19 +48,20 @@ public class CtrlVistaRegistrarRecepcionCompra {
         }
     }
 
-    void procesaEventoSeleccionaLinea(String item) throws CompraNotFoundException {
+    public void procesaEventoSeleccionaLinea(String item) throws CompraNotFoundException {
         int idLineaCompra = Integer.parseInt(item);
         String id = vista.getId();
         controladorCU.setLinea(idLineaCompra);
     }
 
-    void procesaEventoFinalizarRegistroLineas() {
+    public void procesaEventoFinalizarRegistroLineas() {
         ArrayList<LineaCompra> l = controladorCU.finRegistroLineas();
         if(!l.isEmpty()) vista.mostrarLineasNoCompletadas(l);
         controladorCU.revisarPedidos();
 
     }
 
-
-    
+    public void procesaEventoVolver() {
+        GestorDeInterfazDeUsuario.getInstance().volverAVistaPersonalAlmacen();
+    }
 }

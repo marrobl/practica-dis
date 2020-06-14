@@ -11,7 +11,7 @@ package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
  */
 public class VistaIdentificarse extends javax.swing.JFrame {
     
-    private CtrlVistaIdentificarse controlador;
+    private final CtrlVistaIdentificarse controlador;
 
     /**
      * Creates new form VistaIdentificarse
@@ -76,12 +76,13 @@ public class VistaIdentificarse extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ConfirmarButton)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(errorLabel))
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dniTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(228, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(247, 247, 247)
+                .addComponent(errorLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dniTextField, passwordField});

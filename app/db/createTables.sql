@@ -293,31 +293,39 @@ INSERT INTO PERSONA VALUES
     ('456456', 'Sara', 'Rodriguez', 'Calle Bla Bla', '1111111', 'holasoysara@gmail.com', '123456789078876'),
     ('987987', 'Jose', 'Vinos', 'Calle Proveer', '1111111', 'ok@gmail.com', '123489078876'),
     ('121212', 'Maite', 'Garcia', 'Calle Proveer', '1111111', 'maite@gmail.com', '123489078876'),
-    ('111111', 'Paco', 'Zacarias', 'Calle Paco', '12345678', 'paco@gmail.com', '123123123123');
+    ('111111', 'Paco', 'Zacarias', 'Calle Paco', '12345678', 'paco@gmail.com', '123123123123'),
+    ('999999', 'Elena', 'Nito Del Bosque', 'Calle Champiñon', '98765432', 'endb@gmail.com', '123456783323');
     
 
 INSERT INTO EMPLEADO VALUES 
-    ('123123','password','2011-11-11'),
-    ('456456', 'pass', '2003-11-11'),
-    ('987987', 'perro', '2009-09-02');
+    ('123123','admin','2011-11-11'),
+    ('456456', 'admin', '2003-11-11'),
+    ('987987', 'admin', '2009-09-02'),
+    ('999999', 'admin', '2018-08-17');
 
 
 INSERT INTO ROLESENEMPRESA VALUES
     ('2011-11-12','123123',3),
     ('2003-11-11', '456456', 2),
-    ('2009-09-02', '987987', 1);
+    ('2009-09-02', '987987', 1),
+    ('2018-08-18', '999999', 3),
+    ('2019-08-19', '999999', 1);
 
 
 INSERT INTO VINCULACIONCONLAEMPRESA VALUES
     ('2011-11-11','123123',1),
     ('2003-11-11', '456456', 1),
-    ('2009-09-02', '987987', 1);
+    ('2009-09-02', '987987', 1),
+    ('2018-08-18', '999999', 2),
+    ('2019-08-19', '999999', 1);
 
 
 INSERT INTO DISPONIBILIDADEMPLEADO VALUES 
     ('2011-11-11','2011-11-13','123123',3),
     ('2003-11-11', '2023-11-11', '456456', 3),
-    ('2009-09-02', '2029-09-02', '987987', 3);
+    ('2009-09-02', '2029-09-02', '987987', 3),
+    ('2018-08-18', '2023-03-01', '999999', 3),
+    ('2019-09-19', '2020-09-08', '999999', 2);
 
 
 INSERT INTO FACTURA(FechaEmision, Importe, Estado, FechaPago, IdExtractoBancario) VALUES 

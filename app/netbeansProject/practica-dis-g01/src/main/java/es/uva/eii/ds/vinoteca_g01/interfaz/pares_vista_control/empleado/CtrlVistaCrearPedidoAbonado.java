@@ -1,5 +1,6 @@
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
+import es.uva.eii.ds.vinoteca_g01.interfaz.GestorDeInterfazDeUsuario;
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCUCrearPedidoAbonado;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Abonado;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.AbonadoNoExisteException;
@@ -97,6 +98,7 @@ public class CtrlVistaCrearPedidoAbonado {
         vista.limpiarNumeroAbonadoTextField();
         vista.limpiarCamposAbonado();
         vista.limpiarCamposPedido();
+        vista.mostrarMensajePedidoExitoso();
     }
     
     public void procesaEventoNoFinalizar() {
@@ -112,5 +114,9 @@ public class CtrlVistaCrearPedidoAbonado {
         vista.deshabilitarCamposAbonado();
         vista.deshabilitarFinalizarPedido();
         vista.habilitarCamposDeBusqueda();
+    }
+
+    void procesaEventoVolver() {
+        GestorDeInterfazDeUsuario.getInstance().volverAVistaPersonalAtencionCliente();
     }
 }

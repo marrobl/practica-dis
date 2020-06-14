@@ -5,6 +5,7 @@
  */
 package es.uva.eii.ds.vinoteca_g01.interfaz.pares_vista_control.empleado;
 
+import es.uva.eii.ds.vinoteca_g01.interfaz.GestorDeInterfazDeUsuario;
 import es.uva.eii.ds.vinoteca_g01.negocio.controladoresCasoUso.ControladorCUConsultarImpagos;
 import es.uva.eii.ds.vinoteca_g01.negocio.modelos.Factura;
 import es.uva.eii.ds.vinoteca_g01.servicioscomunes.excepciones.FechaNoVencidaException;
@@ -63,5 +64,9 @@ public class CtrlVistaConsultarImpagos {
                 vista.mostrarAvisoNoVencido(ERROR_FECHA_NO_VENCIDA);
             }
         }
+    }
+
+    public void procesaEventoVolver() {
+        GestorDeInterfazDeUsuario.getInstance().volverAVistaPersonalContabilidad();
     }
 }
