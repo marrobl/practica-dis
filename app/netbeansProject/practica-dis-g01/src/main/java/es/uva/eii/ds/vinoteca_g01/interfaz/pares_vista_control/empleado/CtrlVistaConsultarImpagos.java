@@ -20,9 +20,9 @@ public class CtrlVistaConsultarImpagos {
     
     private final VistaConsultarImpagos vista;
     private final ControladorCUConsultarImpagos controladorCasoUso;
-    private final String ERROR_FECHA_VACIA = "La fecha no puede estar vacía";
-    private final String ERROR_FECHA_FORMATO = "El formato de la fecha no es correcto";
-    private final String ERROR_FECHA_NO_VENCIDA = "No han pasado 30 días, las facturas no están vencidas";
+    private final static String ERROR_FECHA_VACIA = "La fecha no puede estar vacía";
+    private final static String ERROR_FECHA_FORMATO = "El formato de la fecha no es correcto";
+    private final static String ERROR_FECHA_NO_VENCIDA = "No han pasado 30 días, las facturas no están vencidas";
      
     /**
      * Crea un controlador de vista

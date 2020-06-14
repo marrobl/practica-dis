@@ -7,9 +7,7 @@ import es.uva.eii.ds.vinoteca_g01.interfaz.GestorDeInterfazDeUsuario;
  * @author silmont
  * @author marrobl
  */
-public class Main {
-    private static GestorDeInterfazDeUsuario gestorIU;
-    
+public class Main {    
     public static void main(String[] args) {
         GestorDeInterfazDeUsuario.getInstance();
     }

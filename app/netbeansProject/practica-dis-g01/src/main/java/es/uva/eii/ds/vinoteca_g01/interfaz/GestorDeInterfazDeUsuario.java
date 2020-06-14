@@ -31,12 +31,9 @@ public class GestorDeInterfazDeUsuario {
     private JFrame estadoActual;
 
     private GestorDeInterfazDeUsuario() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                estadoActual = new VistaIdentificarse();
-                estadoActual.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            estadoActual = new VistaIdentificarse();
+            estadoActual.setVisible(true);
         });
     }
 
@@ -44,19 +41,16 @@ public class GestorDeInterfazDeUsuario {
         estadoActual.setVisible(false);
         estadoActual.dispose();
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (rol == TipoDeRol.Almacen) {
-                    estadoActual = new VistaPersonalAlmacen();
-                } else if (rol == TipoDeRol.AtencionCliente) {
-                    estadoActual = new VistaPersonalAtencionCliente();
-                } else if (rol == TipoDeRol.Contabilidad) {
-                    estadoActual = new VistaPersonalContabilidad();
-                }
-                
-                estadoActual.setVisible(true);
+        java.awt.EventQueue.invokeLater(() -> {
+            if (rol == TipoDeRol.Almacen) {
+                estadoActual = new VistaPersonalAlmacen();
+            } else if (rol == TipoDeRol.AtencionCliente) {
+                estadoActual = new VistaPersonalAtencionCliente();
+            } else if (rol == TipoDeRol.Contabilidad) {
+                estadoActual = new VistaPersonalContabilidad();
             }
+            
+            estadoActual.setVisible(true);
         });
     }
     
@@ -64,12 +58,9 @@ public class GestorDeInterfazDeUsuario {
         estadoActual.setVisible(false);
         estadoActual.dispose();
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                estadoActual = new VistaConsultarImpagos();
-                estadoActual.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            estadoActual = new VistaConsultarImpagos();
+            estadoActual.setVisible(true);
         });
     }
     
@@ -77,12 +68,9 @@ public class GestorDeInterfazDeUsuario {
         estadoActual.setVisible(false);
         estadoActual.dispose();
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                estadoActual = new VistaCrearPedidoAbonado();
-                estadoActual.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            estadoActual = new VistaCrearPedidoAbonado();
+            estadoActual.setVisible(true);
         });
     }
     
@@ -90,12 +78,9 @@ public class GestorDeInterfazDeUsuario {
         estadoActual.setVisible(false);
         estadoActual.dispose();
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                estadoActual = new VistaRegistrarRecepcionCompra();
-                estadoActual.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            estadoActual = new VistaRegistrarRecepcionCompra();
+            estadoActual.setVisible(true);
         });
     }
 
@@ -103,12 +88,9 @@ public class GestorDeInterfazDeUsuario {
         estadoActual.setVisible(false);
         estadoActual.dispose();
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                estadoActual = new VistaPersonalAlmacen();
-                estadoActual.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            estadoActual = new VistaPersonalAlmacen();
+            estadoActual.setVisible(true);
         });
     }
     
@@ -116,12 +98,9 @@ public class GestorDeInterfazDeUsuario {
         estadoActual.setVisible(false);
         estadoActual.dispose();
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                estadoActual = new VistaPersonalAtencionCliente();
-                estadoActual.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            estadoActual = new VistaPersonalAtencionCliente();
+            estadoActual.setVisible(true);
         });
     }
     
@@ -129,12 +108,9 @@ public class GestorDeInterfazDeUsuario {
         estadoActual.setVisible(false);
         estadoActual.dispose();
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                estadoActual = new VistaPersonalContabilidad();
-                estadoActual.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            estadoActual = new VistaPersonalContabilidad();
+            estadoActual.setVisible(true);
         });
     }
 
@@ -142,12 +118,9 @@ public class GestorDeInterfazDeUsuario {
         estadoActual.setVisible(false);
         estadoActual.dispose();
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                estadoActual = new VistaIdentificarse();
-                estadoActual.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            estadoActual = new VistaIdentificarse();
+            estadoActual.setVisible(true);
         });
     }
 }

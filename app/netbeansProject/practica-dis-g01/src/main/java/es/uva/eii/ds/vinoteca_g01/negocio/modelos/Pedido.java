@@ -328,11 +328,11 @@ public class Pedido {
         DAOPedido.insertarPedidoAPartirDeJSON(json);
     }
 
-    public void setEstadoPedidoCompletado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public void actualizar(String json) {
         DAOPedido.actualizarPedidoAPartirDeJSON(json);
+    }
+
+    public void setEstadoPedidoCompletado() {
+        estado = EstadoPedido.completado;
     }
 }

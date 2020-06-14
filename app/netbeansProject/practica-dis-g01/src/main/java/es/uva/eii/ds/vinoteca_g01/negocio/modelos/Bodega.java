@@ -18,7 +18,7 @@ public class Bodega {
     private String cif;
     private String direccion;
     
-    Bodega(String json) {
+    public Bodega(String json) {
        JsonReaderFactory factory = Json.createReaderFactory(null);
         JsonReader reader = factory.createReader(new StringReader(json));
         JsonObject bodegaJSON = reader.readObject();

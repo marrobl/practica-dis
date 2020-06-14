@@ -18,11 +18,11 @@ public class CtrlVistaCrearPedidoAbonado {
 
     private final VistaCrearPedidoAbonado vista;
     private final ControladorCUCrearPedidoAbonado controladorCasoUso;
-    private final String ERROR_REFERENCIA_NO_EXISTE = "La referencia dada no existe";
-    private final String ERROR_REFERENCIA_NO_DISPONIBLE = "La referencia dada no está disponible";
-    private final String ERROR_CADENA_VACIA_O_NO_VALIDA = "Por favor, introduzca datos válidos en los campos de texto";
-    private final String ERROR_NO_EXISTE_ABONADO_CON_ESE_NUMERO = "No existe ningún abonado con ese número";
-    private final String ERROR_ABONADO_CON_PLAZOS_VENCIDOS = "El abonado tiene algún plazo de pago de pedidos anteriores vencido";
+    private final static String ERROR_REFERENCIA_NO_EXISTE = "La referencia dada no existe";
+    private final static String ERROR_REFERENCIA_NO_DISPONIBLE = "La referencia dada no está disponible";
+    private final static String ERROR_CADENA_VACIA_O_NO_VALIDA = "Por favor, introduzca datos válidos en los campos de texto";
+    private final static String ERROR_NO_EXISTE_ABONADO_CON_ESE_NUMERO = "No existe ningún abonado con ese número";
+    private final static String ERROR_ABONADO_CON_PLAZOS_VENCIDOS = "El abonado tiene algún plazo de pago de pedidos anteriores vencido";
 
     public CtrlVistaCrearPedidoAbonado(VistaCrearPedidoAbonado vista) {
         this.vista = vista;
