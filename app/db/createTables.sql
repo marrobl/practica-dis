@@ -386,7 +386,7 @@ INSERT INTO LINEACOMPRA(Unidades, Recibida, FechaRecepcion, IdCompra, CodigoRefe
     (15, 'F', NULL, 1, 2),
     (6, 'F', NULL, 2, 2),
     (40, 'F', NULL, 2, 3),
-    (1, 'T', '2020-05-01', 2, 4);
+    (1, 'F', NULL, 2, 4);
 
 
 INSERT INTO LINEAPEDIDO(Unidades, Completada, CodigoReferencia, NumeroPedido, IdLineaCompra) VALUES 
